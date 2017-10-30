@@ -1,3 +1,5 @@
+[ ![Codeship Status for LaunchPadLab/lp-hoc](https://app.codeship.com/projects/450efd80-9fb6-0135-f419-120a8ae84b1d/status?branch=master)](https://app.codeship.com/projects/253695)[![Test Coverage](https://api.codeclimate.com/v1/badges/6ceb340d06ccab4aa8e0/test_coverage)](https://codeclimate.com/repos/59f7457d93f0d002a5000253/test_coverage)
+[![npm version](https://badge.fury.io/js/%40launchpadlab%2Flp-hoc.svg)](https://badge.fury.io/js/%40launchpadlab%2Flp-hoc)
 
 # LP HOC
 A set of higher order components (HOC) for use in React apps.
