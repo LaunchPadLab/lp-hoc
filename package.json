@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-hoc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React HOCs",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-hoc",
@@ -16,7 +16,7 @@
     "build:development": "mkdir -p lib && babel src --watch --out-dir lib",
     "clean": "rimraf lib",
     "docs": "documentation build src/index.js -f md -o docs.md",
-    "lint": "eslint src",
+    "lint": "eslint src --max-warnings=0",
     "precommit": "yarn run docs && git add docs.md",
     "prepublish": "npm run clean && npm run build",
     "test": "jest",
