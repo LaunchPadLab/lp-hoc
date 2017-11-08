@@ -2,18 +2,18 @@
 # yarn lockfile v1
 
 
-"@launchpadlab/lp-redux-api@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-redux-api/-/lp-redux-api-5.0.0.tgz#70649b23dc28bb75dccc0d5ce90329dffa1d0a0f"
+"@launchpadlab/lp-redux-api@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-redux-api/-/lp-redux-api-5.0.2.tgz#f03b21b21cba9b06e31272b8a61d0a7f79d238cd"
   dependencies:
     es6-symbol "^3.1.1"
     humps "^2.0.0"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.4"
 
-"@launchpadlab/lp-requests@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-requests/-/lp-requests-2.5.0.tgz#3c78764aaa2555fb397a7adaad60209d0c78ff8c"
+"@launchpadlab/lp-requests@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@launchpadlab/lp-requests/-/lp-requests-3.0.0.tgz#01582fb4b9a32b0996cb97c090877a1606b90722"
   dependencies:
     babel-preset-react "^6.24.1"
     humps "^2.0.0"
