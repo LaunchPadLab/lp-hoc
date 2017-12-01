@@ -2,6 +2,8 @@
 [![npm version](https://badge.fury.io/js/%40launchpadlab%2Flp-hoc.svg)](https://badge.fury.io/js/%40launchpadlab%2Flp-hoc)
 
 # LP HOC
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/LaunchPadLab/lp-hoc.svg)](https://greenkeeper.io/)
 A set of higher order components (HOC) for use in React apps.
 
 ## Documentation 
