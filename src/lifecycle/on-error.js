@@ -26,7 +26,10 @@ import { wrapDisplayName } from '../utils'
 **/
 
 export default function onError (onComponentDidCatch) {
-
+  
+  const SUPPORTED_REACT_VERSION = 16
+  const CURRENT_REACT_VERSION = React.version
+  
   return WrappedComponent =>
 
     class Wrapper extends React.Component {
@@ -41,18 +44,21 @@ export default function onError (onComponentDidCatch) {
        */
       static WrappedComponent = WrappedComponent
       
-      constructor(props) {
+      constructor (props) {
         super(props)
-        
-        const reactVersion = React.version
-        
+        if (CURRENT_REACT_VERSION && parseInt(CURRENT_REACT_VERSION) < SUPPORTED_REACT_VERSION) 
+          /* eslint no-console: 0 */
+          console.warn(`
+            componentDidCatch is not supported by the current React version: 
+            ${ CURRENT_REACT_VERSION }.
+          `)
       }
 
       /*
        * Invoke the provided function after an error occurs in any child component,
        * passing in any props.
        */
-      componentDidCatch (error, errorInfo) {
+      componentDidCatch (error, errorInfo) {        
         callWithProps(onComponentDidCatch, this.props, error, errorInfo)
       }
 

@@ -6,6 +6,7 @@ export modifyProps from './modify-props'
 export omitProps from './omit-props'
 export waitFor from './wait-for'
 export {
+  onError,
   onMount,
   onUnmount,
   onUpdate,

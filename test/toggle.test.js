@@ -22,8 +22,10 @@ test('toggle provides a toggle value and setter function', () => {
 
   // Call setter
   setTest(true)
+  component.update()
   expect(component.props().test).toBe(true)
   setTest(false)
+  component.update()
   expect(component.props().test).toBe(false)
 
   // Don't allow non-bool values
@@ -43,8 +45,10 @@ test('toggle provides a toggle value and toggle function', () => {
 
   // Call toggle
   toggleTest()
+  component.update()
   expect(component.props().test).toBe(true)
   toggleTest()
+  component.update()
   expect(component.props().test).toBe(false)
 })
 

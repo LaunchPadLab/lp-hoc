@@ -3,6 +3,7 @@
 ### Table of Contents
 
 -   [getSet](#getset)
+-   [onError](#onerror)
 -   [onMount](#onmount)
 -   [onUnmount](#onunmount)
 -   [onUpdate](#onupdate)
@@ -75,11 +76,39 @@ export default compose(
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
+## onError
+
+A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
+
+See also: [onMount](#onmount), [onUnmount](#onunmount), [onUpdate](#onupdate)
+
+**Parameters**
+
+-   `onComponentDidCatch` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be executed with the component's props.
+
+**Examples**
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function onComponentDidCatch (props, error, info) {
+   logErrorToMyService(error, info)
+ }
+
+ export default onError(onComponentDidCatch)(MyComponent)
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
+
 ## onMount
 
 A function that returns a React HOC to handle logic to be run during the `componentDidMount` lifecycle event.
 
-See also: [onUnmount](#onunmount), [onUpdate](#onupdate)
+See also: [onError](#onerror), [onUnmount](#onunmount), [onUpdate](#onupdate)
 
 **Parameters**
 
@@ -107,7 +136,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 A function that returns a React HOC to handle logic to be run during the `componentWillUnmount` lifecycle event.
 
-See also: [onMount](#onmount), [onUpdate](#onupdate)
+See also: [onError](#onerror), [onMount](#onmount), [onUpdate](#onupdate)
 
 **Parameters**
 
@@ -135,7 +164,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 A function that returns a React HOC to handle logic to be run during the `componentDidUpdate` lifecycle event.
 
-See also: [onMount](#onmount), [onUnmount](#onunmount)
+See also: [onError](#onerror), [onMount](#onmount), [onUnmount](#onunmount)
 
 **Parameters**
 
