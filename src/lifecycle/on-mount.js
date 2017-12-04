@@ -5,7 +5,7 @@ import { wrapDisplayName } from '../utils'
 /**
  * A function that returns a React HOC to handle logic to be run during the `componentDidMount` lifecycle event.
  *
- * See also: {@link onUnmount}, {@link onUpdate}
+ * See also: {@link onError}, {@link onUnmount}, {@link onUpdate}
  *
  * @param {Function|String} onComponentDidMount - A function or a string reference to a function that will be executed with the component's props.
  * @returns {Function} - A HOC that can be used to wrap a component.
