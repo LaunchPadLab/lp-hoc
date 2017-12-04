@@ -2,14 +2,15 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { onError } from '../../src'
 
+const error = new Error('uh oh')
+
 test('`onError` has correct displayName', () => {
-  const Wrapped = () => { throw new Error('uh oh') }
+  const Wrapped = () => { throw error }
   const Wrapper = onError('test')(Wrapped)
   expect(Wrapper.displayName).toEqual('onError(Wrapped)')
 })
 
 test('`onError` works when param is a function and there is an error', () => {
-  const error = new Error('uh oh')
   const Wrapped = () => { throw error }
   const componentDidCatch = jest.fn()
   const Wrapper = onError(componentDidCatch)(Wrapped)
@@ -23,7 +24,7 @@ test('`onError` works when param is a function and there is an error', () => {
 })
 
 test('`onError` works when param is a string and there is an error', () => {
-  const Wrapped = () => { throw new Error('uh oh') }
+  const Wrapped = () => { throw error }
   const componentDidCatch = 'errorFunction'
   const Wrapper = onError(componentDidCatch)(Wrapped)
   const errorFunction = jest.fn()
