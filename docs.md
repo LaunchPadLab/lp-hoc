@@ -79,7 +79,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 ## onError
 
 A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
-NOTE: This HOC is only supported React 16 or higher.
+NOTE: This HOC is only supported by React 16 or higher.
 
 See also: [onMount](#onmount), [onUnmount](#onunmount), [onUpdate](#onupdate)
 

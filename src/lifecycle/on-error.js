@@ -4,7 +4,7 @@ import { wrapDisplayName } from '../utils'
 
 /**
  * A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
- * NOTE: This HOC is only supported React 16 or higher.
+ * NOTE: This HOC is only supported by React 16 or higher.
  *
  * See also: {@link onMount}, {@link onUnmount}, {@link onUpdate}
  *
@@ -47,6 +47,7 @@ export default function onError (onComponentDidCatch) {
       
       constructor (props) {
         super(props)
+        
         if (CURRENT_REACT_VERSION && parseInt(CURRENT_REACT_VERSION) < SUPPORTED_REACT_VERSION) 
           /* eslint no-console: 0 */
           console.warn(`
