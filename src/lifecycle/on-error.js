@@ -4,6 +4,7 @@ import { wrapDisplayName } from '../utils'
 
 /**
  * A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
+ * NOTE: This HOC is only supported React 16 or higher.
  *
  * See also: {@link onMount}, {@link onUnmount}, {@link onUpdate}
  *
