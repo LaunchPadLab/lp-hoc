@@ -32,3 +32,11 @@ test('`onError` works when param is a string', () => {
   expect(errorFunction).toHaveBeenCalled()
 })
 
+test('`onError` is not called when there is no error', () => {
+  const Wrapped = () => <h1> Hi </h1>
+  const componentDidCatch = jest.fn()
+  const Wrapper = onError(componentDidCatch)(Wrapped)
+  mount(<Wrapper greeting='hola' />)
+
+  expect(componentDidCatch).not.toHaveBeenCalled()
+})
