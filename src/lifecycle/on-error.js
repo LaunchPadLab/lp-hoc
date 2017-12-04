@@ -51,7 +51,7 @@ export default function onError (onComponentDidCatch) {
         if (CURRENT_REACT_VERSION && parseInt(CURRENT_REACT_VERSION) < SUPPORTED_REACT_VERSION) 
           /* eslint no-console: 0 */
           console.warn(`
-            componentDidCatch is not supported by the current React version: 
+            onError is not supported by the current React version: 
             ${ CURRENT_REACT_VERSION }.
           `)
       }
