@@ -8,7 +8,7 @@ test('`onError` has correct displayName', () => {
   expect(Wrapper.displayName).toEqual('onError(Wrapped)')
 })
 
-test('`onError` works when param is a function', () => {
+test('`onError` works when param is a function and there is an error', () => {
   const error = new Error('uh oh')
   const Wrapped = () => { throw error }
   const componentDidCatch = jest.fn()
@@ -22,7 +22,7 @@ test('`onError` works when param is a function', () => {
   )
 })
 
-test('`onError` works when param is a string', () => {
+test('`onError` works when param is a string and there is an error', () => {
   const Wrapped = () => { throw new Error('uh oh') }
   const componentDidCatch = 'errorFunction'
   const Wrapper = onError(componentDidCatch)(Wrapped)
@@ -32,7 +32,7 @@ test('`onError` works when param is a string', () => {
   expect(errorFunction).toHaveBeenCalled()
 })
 
-test('`onError` is not called when there is no error', () => {
+test('`onError` function param is not called when there is no error', () => {
   const Wrapped = () => <h1> Hi </h1>
   const componentDidCatch = jest.fn()
   const Wrapper = onError(componentDidCatch)(Wrapped)
