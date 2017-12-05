@@ -45,7 +45,6 @@
   "devDependencies": {
     "babel-cli": "^6.22.2",
     "babel-eslint": "^7.1.1",
-    "babel-jest": "^21.2.0",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-export-default": "^7.0.0-alpha.20",
     "babel-polyfill": "^6.23.0",

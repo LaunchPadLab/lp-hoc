@@ -26,10 +26,10 @@ import { wrapDisplayName } from '../utils'
  *
 **/
 
+const SUPPORTED_REACT_VERSION = 16
+const CURRENT_REACT_VERSION = Number(React.version)
+
 export default function onError (onComponentDidCatch) {
-  
-  const SUPPORTED_REACT_VERSION = 16
-  const CURRENT_REACT_VERSION = React.version
   
   return WrappedComponent =>
 
@@ -48,7 +48,7 @@ export default function onError (onComponentDidCatch) {
       constructor (props) {
         super(props)
         
-        if (CURRENT_REACT_VERSION && parseInt(CURRENT_REACT_VERSION) < SUPPORTED_REACT_VERSION) 
+        if (CURRENT_REACT_VERSION && CURRENT_REACT_VERSION < SUPPORTED_REACT_VERSION) 
           /* eslint no-console: 0 */
           console.warn(`
             onError is not supported by the current React version: 

@@ -3,7 +3,7 @@
 ### Table of Contents
 
 -   [getSet](#getset)
--   [onError](#onerror)
+-   [SUPPORTED_REACT_VERSION](#supported_react_version)
 -   [onMount](#onmount)
 -   [onUnmount](#onunmount)
 -   [onUpdate](#onupdate)
@@ -76,12 +76,14 @@ export default compose(
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
-## onError
+## SUPPORTED_REACT_VERSION
 
 A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
 NOTE: This HOC is only supported by React 16 or higher.
 
 See also: [onMount](#onmount), [onUnmount](#onunmount), [onUpdate](#onupdate)
+
+Type: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
 **Parameters**
 
@@ -109,7 +111,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 A function that returns a React HOC to handle logic to be run during the `componentDidMount` lifecycle event.
 
-See also: [onError](#onerror), [onUnmount](#onunmount), [onUpdate](#onupdate)
+See also: [onError](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror), [onUnmount](#onunmount), [onUpdate](#onupdate)
 
 **Parameters**
 
@@ -137,7 +139,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 A function that returns a React HOC to handle logic to be run during the `componentWillUnmount` lifecycle event.
 
-See also: [onError](#onerror), [onMount](#onmount), [onUpdate](#onupdate)
+See also: [onError](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror), [onMount](#onmount), [onUpdate](#onupdate)
 
 **Parameters**
 
@@ -165,7 +167,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 A function that returns a React HOC to handle logic to be run during the `componentDidUpdate` lifecycle event.
 
-See also: [onError](#onerror), [onMount](#onmount), [onUnmount](#onunmount)
+See also: [onError](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror), [onMount](#onmount), [onUnmount](#onunmount)
 
 **Parameters**
 
