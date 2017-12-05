@@ -29,12 +29,14 @@ test('sortable setter functions work', () => {
   const { setAscending, setSortFunc } = component.props()
   expect(component.props().ascending).toEqual(false)
   setAscending(true)
+  component.update()
   expect(component.props().ascending).toEqual(true)
   // Check sortFunc
   const reverseSortFunc = (a, b) => (a > b) ? -1 : 1
   const unsorted = [1, 3, 2]
   const sorted = [3, 2, 1]
   setSortFunc(reverseSortFunc)
+  component.update()
   expect(component.props().sort(unsorted)).toEqual(sorted)
 })
 
@@ -47,11 +49,14 @@ test('sortable setSortPath toggles sort order', () => {
   expect(component.props().ascending).toEqual(true)
   // Expect toggle if path is unchanged
   setSortPath('foo')
+  component.update()
   expect(component.props().ascending).toEqual(false)
   // Expect no toggle if flag is passed
   setSortPath('foo', false)
+  component.update()
   expect(component.props().ascending).toEqual(false)
   // Expect ascending set to true if path is different
   setSortPath('bar')
+  component.update()
   expect(component.props().ascending).toEqual(true)
 })
