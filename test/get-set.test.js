@@ -22,8 +22,10 @@ test('getSet provides a value and a setter function', () => {
 
   // Call setter
   setTest('foo')
+  component.update()
   expect(component.props().test).toBe('foo')
   setTest('bar')
+  component.update()
   expect(component.props().test).toBe('bar')
 })
 
@@ -42,8 +44,10 @@ test('getSet provides multiple values and setter functions', () => {
 
   // Call setters
   setTest('foo')
+  component.update()
   expect(component.props().test).toBe('foo')
   setOtherTest('bar')
+  component.update()
   expect(component.props().otherTest).toBe('bar')
 })
 

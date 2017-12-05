@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-hoc",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "React HOCs",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-hoc",
@@ -45,7 +45,6 @@
   "devDependencies": {
     "babel-cli": "^6.22.2",
     "babel-eslint": "^8.0.3",
-    "babel-jest": "^21.2.0",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-export-default": "^7.0.0-alpha.20",
     "babel-polyfill": "^6.23.0",
@@ -55,6 +54,7 @@
     "codeclimate-test-reporter": "^0.5.0",
     "documentation": "^5.3.3",
     "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.12.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^7.5.1",
