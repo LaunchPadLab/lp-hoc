@@ -37,9 +37,8 @@ These options can also be passed in as props to the wrapped component.
 
 **Parameters**
 
--   `names`   (optional, default `[]`)
--   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the HOC as specified above. (optional, default `{}`)
 -   `varNames` **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** A variable name or array of variable names
+-   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the HOC as specified above.
 
 **Examples**
 
@@ -82,8 +81,6 @@ A function that returns a React HOC to handle logic to be run during the `compon
 NOTE: This HOC is only supported by React 16 or higher.
 
 See also: [onMount](#onmount), [onUnmount](#onunmount), [onUpdate](#onupdate)
-
-Type: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
 **Parameters**
 
@@ -222,7 +219,7 @@ unless `false` is passed as the second parameter._
 
 **Parameters**
 
--   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the HOC as specified above. (optional, default `{}`)
+-   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the HOC as specified above.
 
 **Examples**
 
@@ -310,8 +307,6 @@ This HOC is particularly useful in conjunction with [react_on_rails](https://git
 
 **Parameters**
 
--   `obj`  
--   `keysToCamelize`   (optional, default `[]`)
 -   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
 
 **Examples**
@@ -454,7 +449,6 @@ Uses the lodash [omit](https://lodash.com/docs/4.17.4#omit) function under the h
 
 **Parameters**
 
--   `options`  
 -   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to be omitted. If none are provided, all of the props will be omitted.
 
 **Examples**
@@ -516,7 +510,7 @@ A combination of [waitFor](waitFor) and selectors from [lp-redux-api](https://gi
 
 **Parameters**
 
--   `requestKeys` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** A key or set of keys corresponding to `lp-redux-api` requests. (optional, default `[]`)
+-   `requestKeys` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** A key or set of keys corresponding to `lp-redux-api` requests.
 -   `LoadingComponent` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A component to render during the loading state. (optional, default `null`)
 
 **Examples**
