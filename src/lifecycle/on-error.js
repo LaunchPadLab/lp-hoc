@@ -8,6 +8,7 @@ import { wrapDisplayName } from '../utils'
  *
  * See also: {@link onMount}, {@link onUnmount}, {@link onUpdate}
  *
+ * @name onError
  * @param {Function|String} onComponentDidCatch - A function or a string reference to a function that will be executed with the component's props.
  * @returns {Function} - A HOC that can be used to wrap a component.
  * @example
