@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { orderBy, get, wrapDisplayName } from './utils'
+import { orderBy, get, wrapDisplayName, noop } from './utils'
 
 /**
  * A function that returns a React HOC that provides a sort function the wrapped component.
@@ -29,6 +29,7 @@ import { orderBy, get, wrapDisplayName } from './utils'
  * - `ascending`: Whether the sort is initially ascending (default=`true`)
  * - `sortPath`: The initial `sortPath`
  * - `sortFunc`: The initial `sortFunc`
+ * - `onChange`: A callback that will be fired whenever the sorting state is updated
  *
  * @name sortable
  * @type Function
@@ -73,7 +74,7 @@ import { orderBy, get, wrapDisplayName } from './utils'
 export default function sortable (options={}) {
 
   // Arguments are used to set initial state in constructor
-  const { ascending=true, sortPath, sortFunc } = options
+  const { ascending=true, sortPath, sortFunc, onChange=noop } = options
 
   return WrappedComponent => 
 
@@ -127,6 +128,10 @@ export default function sortable (options={}) {
           const sorted = orderBy(array, item => get(sortPath, item), order)
           return sorted
         }
+      }
+
+      componentDidUpdate () {
+        return onChange(this.state)
       }
 
       render () {

@@ -216,6 +216,7 @@ unless `false` is passed as the second parameter._
 -   `ascending`: Whether the sort is initially ascending (default=`true`)
 -   `sortPath`: The initial `sortPath`
 -   `sortFunc`: The initial `sortFunc`
+-   `onChange`: A callback that will be fired whenever the sorting state is updated
 
 **Parameters**
 
