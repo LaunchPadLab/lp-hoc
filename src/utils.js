@@ -5,6 +5,7 @@ export {
   every,
   isUndefined as isUndef,
   map,
+  noop,
   orderBy,
   once,
   stubTrue,
