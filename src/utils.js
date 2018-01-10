@@ -3,6 +3,7 @@
 // Lodash
 export {
   every,
+  first,
   isUndefined as isUndef,
   map,
   noop,
@@ -25,3 +26,8 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // Humps
 export { camelize, camelizeKeys } from 'humps'
+
+export function removeExtension (filename) {
+  const extensionIndex = name.lastIndexOf('.')
+  return filename.slice(0, extensionIndex)
+}
