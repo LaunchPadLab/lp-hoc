@@ -7,7 +7,6 @@ import {
   orderBy,
   get,
   wrapDisplayName,
-  noop,
  } from './utils'
 
 /**
