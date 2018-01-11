@@ -213,10 +213,13 @@ unless `false` is passed as the second parameter._
 
 `getSet` may be passed an options object containing the following keys:
 
--   `ascending`: Whether the sort is initially ascending (default=`true`)
--   `sortPath`: The initial `sortPath`
--   `sortFunc`: The initial `sortFunc`
+-   `initialAscending`: Whether the sort is initially ascending (default=`true`)
+-   `initialSortPath`: The initial `sortPath`
+-   `initialSortFunc`: The initial `sortFunc`
 -   `onChange`: A callback that will be fired whenever the sorting state is updated
+-   `disableReverse`: disables the automatic reversing of sorted items when the sort is descending
+
+The wrapped component may also receive these options as props.
 
 **Parameters**
 

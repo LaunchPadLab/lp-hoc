@@ -1,6 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { orderBy, get, wrapDisplayName, noop } from './utils'
+import {
+  isEqual,
+  isUndef,
+  omitBy,
+  orderBy,
+  get,
+  wrapDisplayName,
+  noop,
+ } from './utils'
 
 /**
  * A function that returns a React HOC that provides a sort function the wrapped component.
@@ -22,14 +30,16 @@ import { orderBy, get, wrapDisplayName, noop } from './utils'
  * Additionally, it will toggle `ascending` if the same path is selected twice in a row, 
  * unless `false` is passed as the second parameter._
  *
- *
  * **Options**
  * 
  * `getSet` may be passed an options object containing the following keys:
- * - `ascending`: Whether the sort is initially ascending (default=`true`)
- * - `sortPath`: The initial `sortPath`
- * - `sortFunc`: The initial `sortFunc`
+ * - `initialAscending`: Whether the sort is initially ascending (default=`true`)
+ * - `initialSortPath`: The initial `sortPath`
+ * - `initialSortFunc`: The initial `sortFunc`
  * - `onChange`: A callback that will be fired whenever the sorting state is updated
+ * - `disableReverse`: disables the automatic reversing of sorted items when the sort is descending
+ * 
+ * The wrapped component may also receive these options as props.
  *
  * @name sortable
  * @type Function
@@ -71,10 +81,9 @@ import { orderBy, get, wrapDisplayName, noop } from './utils'
  *
 **/
 
-export default function sortable (options={}) {
+const omitUndefined = obj => omitBy(obj, isUndef)
 
-  // Arguments are used to set initial state in constructor
-  const { ascending=true, sortPath, sortFunc, onChange=noop } = options
+export default function sortable (options={}) {
 
   return WrappedComponent => 
 
@@ -87,13 +96,37 @@ export default function sortable (options={}) {
 
       constructor (props) {
         super(props)
-        this.state = { ascending, sortPath, sortFunc }
+        // Set config object from options and props
+        this.config = { ...options, ...props }
+        // Set initial state from config
+        const {
+          initialAscending=true,
+          initialSortPath,
+          initialSortFunc,
+        } = this.config
+        this.state = { 
+          ascending: initialAscending, 
+          sortPath: initialSortPath, 
+          sortFunc: initialSortFunc,
+        }
         // Bind class methods
         this.sort = this.sort.bind(this)
         this.setAscending = this.setAscending.bind(this)
         this.setDescending = val => this.setAscending(!val)
         this.setSortFunc = this.setSortFunc.bind(this)
         this.setSortPath = this.setSortPath.bind(this)
+      }
+
+      // Pass relevant props through to child
+      componentWillReceiveProps ({ ascending, sortPath, sortFunc }) {
+        this.setState(omitUndefined({ ascending, sortPath, sortFunc }))
+      }
+
+      // Call onChange when sort state changes
+      componentDidUpdate (oldProps, oldState) {
+        if (isEqual(oldState, this.state)) return 
+        const { onChange } = this.config
+        if (onChange) return onChange(this.state)
       }
 
       setAscending (ascending) {
@@ -118,20 +151,17 @@ export default function sortable (options={}) {
 
       sort (array) {
         const { ascending, sortFunc, sortPath } = this.state
+        const { disableReverse } = this.config
         // Use custom sort if provided, otherwise default to orderBy()
         if (sortFunc) {
           const sorted = [...array].sort(sortFunc)
-          if (!ascending) sorted.reverse()
+          if (!ascending && !disableReverse) sorted.reverse()
           return sorted
         } else {
           const order = ascending ? 'asc' : 'desc'
           const sorted = orderBy(array, item => get(sortPath, item), order)
           return sorted
         }
-      }
-
-      componentDidUpdate () {
-        return onChange(this.state)
       }
 
       render () {
@@ -167,4 +197,3 @@ export const sortablePropTypes = {
   setSortPath: PropTypes.func.isRequired,
   setSortFunc: PropTypes.func.isRequired,
 }
-

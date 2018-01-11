@@ -4,9 +4,11 @@
 export {
   every,
   first,
+  isEqual,
   isUndefined as isUndef,
   map,
   noop,
+  omitBy,
   orderBy,
   once,
   stubTrue,
@@ -26,8 +28,3 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // Humps
 export { camelize, camelizeKeys } from 'humps'
-
-export function removeExtension (filename) {
-  const extensionIndex = name.lastIndexOf('.')
-  return filename.slice(0, extensionIndex)
-}
