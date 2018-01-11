@@ -3,9 +3,12 @@
 // Lodash
 export {
   every,
+  first,
+  isEqual,
   isUndefined as isUndef,
   map,
   noop,
+  omitBy,
   orderBy,
   once,
   stubTrue,
