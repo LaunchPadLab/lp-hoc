@@ -11,17 +11,20 @@ import { getDisplayName, noop } from './utils'
  * The following functions are available on the wrapped component:
  * - `show`: Shows the modal.
  * - `hide`: Hides the modal.
- * - `destroy`: Destroys the modal.
- *
+ * - `destroy`: Destroys the modal state and unmounts the modal component.
+ * 
  * @name modal
  * @type Function
  * @param {String} name - The name of the modal.
- * @param {Boolean} warning - A boolean representing whether to add the `modal-warning` class to the surrounding `div` (default=`false`).
- * @param {Boolean} disableOutsideClick - A boolean representing whether clicking outside the modal div should hide the modal (default=`false`).
+ * @param {Boolean=false} warning - A boolean representing whether to add the `modal-warning` class to the surrounding `div`.
+ * @param {Boolean=true} destroyOnHide - A boolean representing whether to destroy the modal state and unmount the modal after hide.
+ * @param {Boolean=false} disableOutsideClick - A boolean representing whether clicking outside the modal div should hide the modal.
  * @returns {Function} - A HOC that can be used to wrap a component.
  *
  * @example
  *
+ * // Create Modal Component
+ * 
  * function AlertModal ({ handleHide }) {
  *   return (
  *     <div>
@@ -32,7 +35,25 @@ import { getDisplayName, noop } from './utils'
  * }
  * 
  * export default modal({ name: 'AlertModal' })(AlertModal)
- *
+ * 
+ * // Use Modal
+ * 
+ * function Layout ({ shoshowAlertModal }) {
+ *   return (
+ *     <div>
+ *       <AlertModal />
+ *       <button onClick={ showAlertModal }>Click Me!</button>
+ *     </div>
+ *   )
+ * }
+ * 
+ * const mapDispatchToProps = { 
+ *    showAlertModal: AlertModal.show,
+ * }
+ * 
+ * export default compose(
+ *    connect(null, mapDispatchToProps),
+ * )(Layout)
 **/
 
 function modal ({ 

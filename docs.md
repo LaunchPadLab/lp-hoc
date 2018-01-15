@@ -401,17 +401,17 @@ The following functions are available on the wrapped component:
 
 -   `show`: Shows the modal.
 -   `hide`: Hides the modal.
--   `destroy`: Destroys the modal.
+-   `destroy`: Destroys the modal state and unmounts the modal component.
 
 **Parameters**
 
 -   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the modal.
--   `warning` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to add the `modal-warning` class to the surrounding `div` (default=`false`).
--   `disableOutsideClick` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether clicking outside the modal div should hide the modal (default=`false`).
 
 **Examples**
 
 ```javascript
+// Create Modal Component
+
 function AlertModal ({ handleHide }) {
   return (
     <div>
@@ -422,6 +422,25 @@ function AlertModal ({ handleHide }) {
 }
 
 export default modal({ name: 'AlertModal' })(AlertModal)
+
+// Use Modal
+
+function Layout ({ shoshowAlertModal }) {
+  return (
+    <div>
+      <AlertModal />
+      <button onClick={ showAlertModal }>Click Me!</button>
+    </div>
+  )
+}
+
+const mapDispatchToProps = { 
+   showAlertModal: AlertModal.show,
+}
+
+export default compose(
+   connect(null, mapDispatchToProps),
+)(Layout)
 ```
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
