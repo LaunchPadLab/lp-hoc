@@ -8,7 +8,7 @@ import { getDisplayName, noop } from './utils'
  * A function that returns a React HOC for creating modals.
  * This HOC is dependent on the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
  * 
- * The following functions are available on the wrapped component:
+ * The following functions are available as static properties on the wrapped component:
  * - `show`: Shows the modal.
  * - `hide`: Hides the modal.
  * - `destroy`: Destroys the modal state and unmounts the modal component.
