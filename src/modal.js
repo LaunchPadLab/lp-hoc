@@ -16,9 +16,9 @@ import { getDisplayName, noop } from './utils'
  * @name modal
  * @type Function
  * @param {String} name - The name of the modal.
- * @param {Boolean=false} warning - A boolean representing whether to add the `modal-warning` class to the surrounding `div`.
- * @param {Boolean=true} destroyOnHide - A boolean representing whether to destroy the modal state and unmount the modal after hide.
- * @param {Boolean=false} disableOutsideClick - A boolean representing whether clicking outside the modal div should hide the modal.
+ * @param {Boolean} [warning=false] - A boolean representing whether to add the `modal-warning` class to the surrounding `div`.
+ * @param {Boolean} [destroyOnHide=true] - A boolean representing whether to destroy the modal state and unmount the modal after hide.
+ * @param {Boolean} [disableOutsideClick=false] - A boolean representing whether clicking outside the modal div should hide the modal.
  * @returns {Function} - A HOC that can be used to wrap a component.
  *
  * @example
