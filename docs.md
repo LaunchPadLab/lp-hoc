@@ -12,6 +12,7 @@
 -   [camelizeProps](#camelizeprops)
 -   [addDefaultClass](#adddefaultclass)
 -   [deprecate](#deprecate)
+-   [modal](#modal)
 -   [modifyProps](#modifyprops)
 -   [omitProps](#omitprops)
 -   [DefaultLoadingComponent](#defaultloadingcomponent)
@@ -393,6 +394,62 @@ export default deprecate('Do not use this component')(MyComponent)
 
 // When component is mounted, console will show warning: 'DEPRECATED: Do not use this component'
 ```
+
+## modal
+
+A function that returns a React HOC for creating modals.
+This HOC is dependent on the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
+
+The following functions are available as static properties on the wrapped component:
+
+-   `show`: Shows the modal.
+-   `hide`: Hides the modal.
+-   `destroy`: Destroys the modal state and unmounts the modal component.
+
+**Parameters**
+
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the modal.
+-   `warning` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
+-   `destroyOnHide` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
+-   `disableOutsideClick` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
+
+**Examples**
+
+```javascript
+// Create Modal Component
+
+function AlertModal ({ handleHide }) {
+  return (
+    <div>
+      <h1>I am an alert!</h1>
+      <div onClick={ handleHide } className="modal-close">×</div>
+    </div>
+  )
+}
+
+export default modal({ name: 'AlertModal' })(AlertModal)
+
+// Use Modal
+
+function Layout ({ showAlertModal }) {
+  return (
+    <div>
+      <AlertModal />
+      <button onClick={ showAlertModal }>Click Me!</button>
+    </div>
+  )
+}
+
+const mapDispatchToProps = { 
+   showAlertModal: AlertModal.show,
+}
+
+export default compose(
+   connect(null, mapDispatchToProps),
+)(Layout)
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## modifyProps
 
