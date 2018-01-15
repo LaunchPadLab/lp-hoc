@@ -11,7 +11,7 @@ test('sortable has correct displayName', () => {
 test('sortable provides a working sort function', () => {
   const Wrapped = () => <h1>Hi</h1>
   const Wrapper = sortable({
-    sortPath: 'age'
+    initialSortPath: 'age'
   })(Wrapped)
   const component = mount(<Wrapper/>)
   // Check sort function
@@ -23,7 +23,7 @@ test('sortable provides a working sort function', () => {
 
 test('sortable setter functions work', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = sortable({ ascending: false })(Wrapped)
+  const Wrapper = sortable({ initialAscending: false })(Wrapped)
   const component = mount(<Wrapper/>)
   // Check ascending
   const { setAscending, setSortFunc } = component.find(Wrapped).props()
@@ -41,7 +41,7 @@ test('sortable setter functions work', () => {
 
 test('sortable setSortPath toggles sort order', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = sortable({ sortPath: 'foo' })(Wrapped)
+  const Wrapper = sortable({ initialSortPath: 'foo' })(Wrapped)
   const component = mount(<Wrapper/>)
   // Check setSortPath
   const { setSortPath } = component.find(Wrapped).props()
@@ -64,7 +64,7 @@ test('sortable onChange is called when sort state is updated', () => {
   const Wrapped = () => <h1>Hi</h1>
   const onChange = jest.fn()
   const Wrapper = sortable({
-    sortPath: 'age',
+    initialSortPath: 'age',
     onChange,
   })(Wrapped)
   const component = mount(<Wrapper/>)
