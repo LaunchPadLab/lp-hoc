@@ -394,9 +394,14 @@ export default deprecate('Do not use this component')(MyComponent)
 
 ## modal
 
-A function that returns a React HOC for creating modals using the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
+A function that returns a React HOC for creating modals.
+This HOC is dependent on the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
 
-The wrapped component will receive the following props
+The following functions are available on the wrapped component:
+
+-   `show`: Shows the modal.
+-   `hide`: Hides the modal.
+-   `destroy`: Destroys the modal.
 
 **Parameters**
 
