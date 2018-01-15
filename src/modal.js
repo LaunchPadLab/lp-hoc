@@ -38,7 +38,7 @@ import { getDisplayName, noop } from './utils'
  * 
  * // Use Modal
  * 
- * function Layout ({ shoshowAlertModal }) {
+ * function Layout ({ showAlertModal }) {
  *   return (
  *     <div>
  *       <AlertModal />

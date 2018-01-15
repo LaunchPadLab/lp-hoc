@@ -431,7 +431,7 @@ export default modal({ name: 'AlertModal' })(AlertModal)
 
 // Use Modal
 
-function Layout ({ shoshowAlertModal }) {
+function Layout ({ showAlertModal }) {
   return (
     <div>
       <AlertModal />
