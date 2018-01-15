@@ -4,10 +4,37 @@ import { connectModal, show, hide, destroy } from 'redux-modal'
 import classnames from 'classnames'
 import { getDisplayName, noop } from './utils'
 
+/**
+ * A function that returns a React HOC for creating modals using the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
+ * 
+ * The wrapped component will receive the following props
+ *
+ * @name modal
+ * @type Function
+ * @param {String} name - The name of the modal.
+ * @param {Boolean} warning - A boolean representing whether to add the `modal-warning` class to the surrounding `div` (default=`false`).
+ * @param {Boolean} disableOutsideClick - A boolean representing whether clicking outside the modal div should hide the modal (default=`false`).
+ * @returns {Function} - A HOC that can be used to wrap a component.
+ *
+ * @example
+ *
+ * function AlertModal ({ handleHide }) {
+ *   return (
+ *     <div>
+ *       <h1>I am an alert!</h1>
+ *       <div onClick={ handleHide } className="modal-close">×</div>
+ *     </div>
+ *   )
+ * }
+ * 
+ * export default modal({ name: 'AlertModal' })(AlertModal)
+ *
+**/
+
 function modal ({ 
   name,
-  warning,
-  disableOutsideClick,
+  warning=false,
+  disableOutsideClick=false,
   ...options 
 } = {}) {
   return WrappedComponent => {

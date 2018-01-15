@@ -12,6 +12,7 @@
 -   [camelizeProps](#camelizeprops)
 -   [addDefaultClass](#adddefaultclass)
 -   [deprecate](#deprecate)
+-   [modal](#modal)
 -   [modifyProps](#modifyprops)
 -   [omitProps](#omitprops)
 -   [DefaultLoadingComponent](#defaultloadingcomponent)
@@ -390,6 +391,35 @@ export default deprecate('Do not use this component')(MyComponent)
 
 // When component is mounted, console will show warning: 'DEPRECATED: Do not use this component'
 ```
+
+## modal
+
+A function that returns a React HOC for creating modals using the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
+
+The wrapped component will receive the following props
+
+**Parameters**
+
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the modal.
+-   `warning` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to add the `modal-warning` class to the surrounding `div` (default=`false`).
+-   `disableOutsideClick` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether clicking outside the modal div should hide the modal (default=`false`).
+
+**Examples**
+
+```javascript
+function AlertModal ({ handleHide }) {
+  return (
+    <div>
+      <h1>I am an alert!</h1>
+      <div onClick={ handleHide } className="modal-close">×</div>
+    </div>
+  )
+}
+
+export default modal({ name: 'AlertModal' })(AlertModal)
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## modifyProps
 
