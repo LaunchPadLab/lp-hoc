@@ -9,9 +9,11 @@
 -   [onUpdate](#onupdate)
 -   [sortable](#sortable)
 -   [toggle](#toggle)
--   [camelizeProps](#camelizeprops)
+-   [adaptToReduxForm](#adapttoreduxform)
 -   [addDefaultClass](#adddefaultclass)
+-   [camelizeProps](#camelizeprops)
 -   [deprecate](#deprecate)
+-   [modal](#modal)
 -   [modifyProps](#modifyprops)
 -   [omitProps](#omitprops)
 -   [DefaultLoadingComponent](#defaultloadingcomponent)
@@ -213,10 +215,13 @@ unless `false` is passed as the second parameter._
 
 `getSet` may be passed an options object containing the following keys:
 
--   `ascending`: Whether the sort is initially ascending (default=`true`)
--   `sortPath`: The initial `sortPath`
--   `sortFunc`: The initial `sortFunc`
+-   `initialAscending`: Whether the sort is initially ascending (default=`true`)
+-   `initialSortPath`: The initial `sortPath`
+-   `initialSortFunc`: The initial `sortFunc`
 -   `onChange`: A callback that will be fired whenever the sorting state is updated
+-   `disableReverse`: disables the automatic reversing of sorted items when the sort is descending
+
+The wrapped component may also receive these options as props.
 
 **Parameters**
 
@@ -301,35 +306,32 @@ ComponentWithTooltip.propTypes = {
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
-## camelizeProps
+## adaptToReduxForm
 
-A function that returns a React HOC that converts a component's props into camel-case.
-This HOC is particularly useful in conjunction with [react_on_rails](https://github.com/shakacode/react_on_rails).
+A function that returns a React HOC that adapts an ordinary control component to be used with redux-form.
 
-**Parameters**
-
--   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
+This HOC pulls the `value` and `onChange` props from the redux-form `input` object and passes them as first-class props.
+This means that any component that implements the `value`/`onChange` pattern may be wrapped by this HOC.
 
 **Examples**
 
 ```javascript
-function ProfileComponent ({ fullName, profilePic }) {
-  return (
-    <div>
-      <h1>{ fullName }</h1>
-      <img src={ profilePic }/>
-    </div>
-  )
+function MyInput ({ value, onChange }) {
+   return <input value={ value } onChange={ onChange } />
 }
 
-export default compose(
-   camelizeProps(),
-)(ProfileComponent)
+const MyAdaptedInput = adaptToReduxForm()(MyInput)
 
-// Now we can pass props { full_name, profile_pic } to the above component.
+// Now, you can use it as a field in a redux-form controlled form
+
+function MyForm ({ handleSubmit }) {
+   return (
+     <form onSubmit={ handleSubmit }>
+       <Field name="firstName" component={ MyAdaptedInput } />
+     </form>
+   )
+}
 ```
-
-Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## addDefaultClass
 
@@ -369,6 +371,36 @@ function Content () {
 // }
 ```
 
+## camelizeProps
+
+A function that returns a React HOC that converts a component's props into camel-case.
+This HOC is particularly useful in conjunction with [react_on_rails](https://github.com/shakacode/react_on_rails).
+
+**Parameters**
+
+-   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
+
+**Examples**
+
+```javascript
+function ProfileComponent ({ fullName, profilePic }) {
+  return (
+    <div>
+      <h1>{ fullName }</h1>
+      <img src={ profilePic }/>
+    </div>
+  )
+}
+
+export default compose(
+   camelizeProps(),
+)(ProfileComponent)
+
+// Now we can pass props { full_name, profile_pic } to the above component.
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
+
 ## deprecate
 
 A function that returns a React HOC that displays a deprecation warning when a component is mounted.
@@ -390,6 +422,62 @@ export default deprecate('Do not use this component')(MyComponent)
 
 // When component is mounted, console will show warning: 'DEPRECATED: Do not use this component'
 ```
+
+## modal
+
+A function that returns a React HOC for creating modals.
+This HOC is dependent on the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
+
+The following functions are available as static properties on the wrapped component:
+
+-   `show`: Shows the modal.
+-   `hide`: Hides the modal.
+-   `destroy`: Destroys the modal state and unmounts the modal component.
+
+**Parameters**
+
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the modal.
+-   `warning` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
+-   `destroyOnHide` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
+-   `disableOutsideClick` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
+
+**Examples**
+
+```javascript
+// Create Modal Component
+
+function AlertModal ({ handleHide }) {
+  return (
+    <div>
+      <h1>I am an alert!</h1>
+      <div onClick={ handleHide } className="modal-close">×</div>
+    </div>
+  )
+}
+
+export default modal({ name: 'AlertModal' })(AlertModal)
+
+// Use Modal
+
+function Layout ({ showAlertModal }) {
+  return (
+    <div>
+      <AlertModal />
+      <button onClick={ showAlertModal }>Click Me!</button>
+    </div>
+  )
+}
+
+const mapDispatchToProps = { 
+   showAlertModal: AlertModal.show,
+}
+
+export default compose(
+   connect(null, mapDispatchToProps),
+)(Layout)
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## modifyProps
 
