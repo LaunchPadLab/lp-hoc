@@ -9,8 +9,9 @@
 -   [onUpdate](#onupdate)
 -   [sortable](#sortable)
 -   [toggle](#toggle)
--   [camelizeProps](#camelizeprops)
+-   [adaptToReduxForm](#adapttoreduxform)
 -   [addDefaultClass](#adddefaultclass)
+-   [camelizeProps](#camelizeprops)
 -   [deprecate](#deprecate)
 -   [modal](#modal)
 -   [modifyProps](#modifyprops)
@@ -305,35 +306,32 @@ ComponentWithTooltip.propTypes = {
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
-## camelizeProps
+## adaptToReduxForm
 
-A function that returns a React HOC that converts a component's props into camel-case.
-This HOC is particularly useful in conjunction with [react_on_rails](https://github.com/shakacode/react_on_rails).
+A function that returns a React HOC that adapts an ordinary control component to be used with redux-form.
 
-**Parameters**
-
--   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
+This HOC pulls the `value` and `onChange` props from the redux-form `input` object and passes them as first-class props.
+This means that any component that implements the `value`/`onChange` pattern may be wrapped by this HOC.
 
 **Examples**
 
 ```javascript
-function ProfileComponent ({ fullName, profilePic }) {
-  return (
-    <div>
-      <h1>{ fullName }</h1>
-      <img src={ profilePic }/>
-    </div>
-  )
+function MyInput ({ value, onChange }) {
+   return <input value={ value } onChange={ onChange } />
 }
 
-export default compose(
-   camelizeProps(),
-)(ProfileComponent)
+const MyAdaptedInput = adaptToReduxForm()(MyInput)
 
-// Now we can pass props { full_name, profile_pic } to the above component.
+// Now, you can use it as a field in a redux-form controlled form
+
+function MyForm ({ handleSubmit }) {
+   return (
+     <form onSubmit={ handleSubmit }>
+       <Field name="firstName" component={ MyAdaptedInput } />
+     </form>
+   )
+}
 ```
-
-Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## addDefaultClass
 
@@ -372,6 +370,36 @@ function Content () {
 //   )
 // }
 ```
+
+## camelizeProps
+
+A function that returns a React HOC that converts a component's props into camel-case.
+This HOC is particularly useful in conjunction with [react_on_rails](https://github.com/shakacode/react_on_rails).
+
+**Parameters**
+
+-   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
+
+**Examples**
+
+```javascript
+function ProfileComponent ({ fullName, profilePic }) {
+  return (
+    <div>
+      <h1>{ fullName }</h1>
+      <img src={ profilePic }/>
+    </div>
+  )
+}
+
+export default compose(
+   camelizeProps(),
+)(ProfileComponent)
+
+// Now we can pass props { full_name, profile_pic } to the above component.
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## deprecate
 
