@@ -52,3 +52,23 @@ test('cloudinaryUploader sends the api request with the correct options', () => 
     expect(responseJson['upload_preset']).toEqual('default')
   })
 })
+
+test('cloudinaryUploader throws an error if request fails', () => {
+  const Wrapped = () => <h1>Hi</h1>
+  const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  expect(() => upload(fileData, file).toThrow())
+})
+
+test('cloudinaryUploader updates the `uploadStatus` prop if request fails', () => {
+  const Wrapped = () => <h1>Hi</h1>
+  const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  return upload(fileData, file).catch(() => {
+    component.update()
+    const { uploadStatus } = component.props()
+    expect(uploadStatus).toEqual('upload-failure')
+  })
+})
