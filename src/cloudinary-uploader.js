@@ -81,8 +81,6 @@ function createPublicId (file) {
   return (isPdfType || isImageType) ? removeExtension(name) : name
 }
 
-// HOC to handle uploads to cloudinary. Provides child with an 'upload' function and an 'uploadStatus' string
-
 function cloudinaryUploader ({
   cloudName,
   bucket,

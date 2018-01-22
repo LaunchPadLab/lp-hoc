@@ -72,7 +72,6 @@ test('cloudinaryUploader updates the `uploadStatus` prop if request fails', () =
   const { upload } = component.props()
   
   expect.assertions(1)
-
   return upload(fileData, file).catch(() => {
     component.update()
     const { uploadStatus } = component.props()
