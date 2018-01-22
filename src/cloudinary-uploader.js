@@ -32,6 +32,7 @@ import { first, removeExtension } from './utils'
  *      input={ input }
  *      meta={ meta }
  *      onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
+ *      className={ uploadStatus }
  *    />
  *   )
  * }

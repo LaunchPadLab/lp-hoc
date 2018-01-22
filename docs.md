@@ -431,6 +431,7 @@ function CloudinaryFileInput ({ upload, uploadStatus, input, meta ... }) {
      input={ input }
      meta={ meta }
      onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
+     className={ uploadStatus }
    />
   )
 }
