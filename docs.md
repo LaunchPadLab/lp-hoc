@@ -427,12 +427,12 @@ function CloudinaryFileInput ({ upload, uploadStatus, input, meta ... }) {
   const { onChange } = input
   const { submit } = meta
   return (
-   <FileInput 
-     input={ input }
-     meta={ meta }
-     onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
-     className={ uploadStatus }
-   />
+     <FileInput 
+       input={ input }
+       meta={ meta }
+       onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
+       className={ uploadStatus }
+     />
   )
 }
 

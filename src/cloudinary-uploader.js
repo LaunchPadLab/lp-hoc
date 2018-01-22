@@ -28,12 +28,12 @@ import { first, removeExtension } from './utils'
  *   const { onChange } = input
  *   const { submit } = meta
  *   return (
- *    <FileInput 
- *      input={ input }
- *      meta={ meta }
- *      onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
- *      className={ uploadStatus }
- *    />
+ *      <FileInput 
+ *        input={ input }
+ *        meta={ meta }
+ *        onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
+ *        className={ uploadStatus }
+ *      />
  *   )
  * }
  * 
@@ -60,7 +60,7 @@ export const CloudinaryUploadStatus = {
 }
 
 // Option defaults
-const DEFAULT_ENDPOINT = 'https://api.cloudinary.com/v1_1/'
+const DEFAULT_ENDPOINT = 'https://api.cloudinary.com/v1_1'
 const DEFAULT_FILE_TYPE = 'auto'
 const DEFAULT_UPLOAD_PRESET = 'default'
 const DEFAULT_REQUEST_OPTIONS = {
