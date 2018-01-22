@@ -1,5 +1,4 @@
-// Removes file extension from file name if asset is an image
-// Otherwise, Cloudinary will add an extra extension to the file name
+// Returns file name without the extension
 
 export default function removeExtension (fileName) {
   const extensionIdx = fileName.lastIndexOf('.')
