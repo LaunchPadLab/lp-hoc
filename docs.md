@@ -12,6 +12,7 @@
 -   [adaptToReduxForm](#adapttoreduxform)
 -   [addDefaultClass](#adddefaultclass)
 -   [camelizeProps](#camelizeprops)
+-   [cloudinaryUploader](#cloudinaryuploader)
 -   [deprecate](#deprecate)
 -   [modal](#modal)
 -   [modifyProps](#modifyprops)
@@ -397,6 +398,55 @@ export default compose(
 )(ProfileComponent)
 
 // Now we can pass props { full_name, profile_pic } to the above component.
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
+
+## cloudinaryUploader
+
+A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
+
+`cloudinaryUploader` exposes the following props to the wrapped component: 
+
+-   `upload`: A function that submits a `POST` request to the Cloudinary endpoint with the `file` object and `fileData`.
+-   `uploadStatus`: A string representing the status of the `upload` request, either `uploading`, `upload-success`, or `upload-failure`.
+
+**Parameters**
+
+-   `cloudName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary cloud to upload to.
+-   `bucket` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary bucket to upload to.
+-   `uploadPreset` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary upload preset. (optional, default `default`)
+-   `fileType` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of file. (optional, default `auto`)
+-   `endpoint` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The endpoint for the upload request. (optional, default `https://api.cloudinary.com/v1_1/`)
+-   `requestOptions` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
+
+**Examples**
+
+```javascript
+function CloudinaryFileInput ({ upload, uploadStatus, input, meta ... }) {
+  const { onChange } = input
+  const { submit } = meta
+  return (
+   <FileInput 
+     input={ input }
+     meta={ meta }
+     onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
+   />
+  )
+}
+
+CloudinaryFileInput.propTypes = {
+  ...formPropTypes,
+  upload: PropTypes.func.isRequired,
+  uploadStatus: PropTypes.string.isRequired,
+}
+
+export default compose(
+   cloudinaryUploader({
+     cloudName: 'my-cloudinary-cloud-name',
+     bucket: 'my-cloudinary-bucket',
+   }),
+)(CloudinaryFileInput)
 ```
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.

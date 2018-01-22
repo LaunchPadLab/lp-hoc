@@ -4,6 +4,53 @@ import wrapDisplayName from 'recompose/wrapDisplayName'
 import { api } from '@launchpadlab/lp-requests'
 import { first, removeExtension } from './utils'
 
+/**
+ * A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
+ *
+ * `cloudinaryUploader` exposes the following props to the wrapped component: 
+ * - `upload`: A function that submits a `POST` request to the Cloudinary endpoint with the `file` object and `fileData`.
+ * - `uploadStatus`: A string representing the status of the `upload` request, either `uploading`, `upload-success`, or `upload-failure`.
+ * 
+ * @name cloudinaryUploader
+ * @type Function
+ * @param {string} cloudName - The name of the Cloudinary cloud to upload to.
+ * @param {string} bucket - The name of the Cloudinary bucket to upload to.
+ * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset.
+ * @param {string} [fileType=auto] - The type of file.
+ * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request.
+ * @param {object} [requestOptions=DEFAULT_REQUEST_OPTIONS] - Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js].
+ * @returns {Function} - A HOC that can be used to wrap a component.
+ *
+ *
+ * @example
+ *
+ * function CloudinaryFileInput ({ upload, uploadStatus, input, meta ... }) {
+ *   const { onChange } = input
+ *   const { submit } = meta
+ *   return (
+ *    <FileInput 
+ *      input={ input }
+ *      meta={ meta }
+ *      onLoad={ (fileData, file) => upload(fileData, file).then(() => submit(form)) }
+ *    />
+ *   )
+ * }
+ * 
+ * CloudinaryFileInput.propTypes = {
+ *   ...formPropTypes,
+ *   upload: PropTypes.func.isRequired,
+ *   uploadStatus: PropTypes.string.isRequired,
+ * }
+ *
+ * export default compose(
+ *    cloudinaryUploader({
+ *      cloudName: 'my-cloudinary-cloud-name',
+ *      bucket: 'my-cloudinary-bucket',
+ *    }),
+ * )(CloudinaryFileInput)
+ *
+**/
+
 // Status enum
 export const CloudinaryUploadStatus = {
   LOADING: 'uploading',
@@ -14,6 +61,7 @@ export const CloudinaryUploadStatus = {
 // Option defaults
 const DEFAULT_ENDPOINT = 'https://api.cloudinary.com/v1_1/'
 const DEFAULT_FILE_TYPE = 'auto'
+const DEFAULT_UPLOAD_PRESET = 'default'
 const DEFAULT_REQUEST_OPTIONS = {
   headers: {
     'Accept': 'application/json',
@@ -37,7 +85,7 @@ function createPublicId (file) {
 function cloudinaryUploader ({
   cloudName,
   bucket,
-  uploadPreset,
+  uploadPreset=DEFAULT_UPLOAD_PRESET,
   fileType=DEFAULT_FILE_TYPE,
   endpoint=DEFAULT_ENDPOINT,
   requestOptions=DEFAULT_REQUEST_OPTIONS,
