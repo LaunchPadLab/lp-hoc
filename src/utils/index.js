@@ -28,3 +28,5 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 
 // Humps
 export { camelize, camelizeKeys } from 'humps'
+
+export removeExtension from './remove-extension'

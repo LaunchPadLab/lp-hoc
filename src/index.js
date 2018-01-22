@@ -1,6 +1,7 @@
 export adaptToReduxForm from './adapt-to-redux-form'
 export addDefaultClass from './add-default-class'
 export camelizeProps from './camelize-props'
+export cloudinaryUploader from './cloudinary-uploader'
 export deprecate from './deprecate'
 export getSet, { getSetPropTypes } from './get-set'
 export modal from './modal'
