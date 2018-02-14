@@ -70,7 +70,7 @@ function modal ({
       return (
         <div className={ classnames('modal', { 'modal-warning': warning, 'is-active': props.show })}>
           <div className="modal-fade-screen" onClick={ disableOutsideClick ? noop : props.handleHide }>
-            <div className="modal-content">
+            <div className="modal-inner">
               <WrappedComponent { ...props } /> 
             </div>
           </div>
