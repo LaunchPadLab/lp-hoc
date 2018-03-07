@@ -29,4 +29,6 @@ export wrapDisplayName from 'recompose/wrapDisplayName'
 // Humps
 export { camelize, camelizeKeys } from 'humps'
 
+// Local
+export callWithProps from './call-with-props'
 export removeExtension from './remove-extension'

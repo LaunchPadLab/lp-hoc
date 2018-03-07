@@ -11,6 +11,7 @@ export waitFor from './wait-for'
 export {
   onError,
   onMount,
+  onOutsideClick,
   onUnmount,
   onUpdate,
 } from './lifecycle'
