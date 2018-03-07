@@ -4,7 +4,7 @@ import { callWithProps, wrapDisplayName } from '../utils'
 /**
  * A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
  *
- * @name onError
+ * @name onOutsideClick
  * @param {Function|String} handler - A function or a string reference to a function that will be executed with the component's props and the click event.
  * @returns {Function} - A HOC that can be used to wrap a component.
  * @example
