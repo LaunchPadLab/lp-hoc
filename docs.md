@@ -17,7 +17,7 @@
 -   [modal](#modal)
 -   [modifyProps](#modifyprops)
 -   [omitProps](#omitprops)
--   [DefaultLoadingComponent](#defaultloadingcomponent)
+-   [waitFor](#waitfor)
 -   [waitForResponse](#waitforresponse)
 
 ## getSet
@@ -609,7 +609,7 @@ function Parent () {
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
-## DefaultLoadingComponent
+## waitFor
 
 A function that returns a React HOC to handle renderWhen logic for loading state.
 
@@ -646,7 +646,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 ## waitForResponse
 
 A function that returns an HOC to handle rendering that depends on an API response. 
-A combination of [waitFor](waitFor) and selectors from [lp-redux-api](https://github.com/LaunchPadLab/lp-redux-api).
+A combination of [waitFor](#waitfor) and selectors from [lp-redux-api](https://github.com/LaunchPadLab/lp-redux-api).
 
 **Parameters**
 
