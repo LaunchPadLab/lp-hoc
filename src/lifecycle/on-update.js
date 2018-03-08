@@ -1,6 +1,5 @@
 import React from 'react'
-import { callWithProps } from './helpers'
-import { wrapDisplayName } from '../utils'
+import { callWithProps, wrapDisplayName } from '../utils'
 
 /**
  * A function that returns a React HOC to handle logic to be run during the `componentDidUpdate` lifecycle event.

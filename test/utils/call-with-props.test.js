@@ -1,4 +1,4 @@
-import { callWithProps } from '../../src/lifecycle/helpers'
+import { callWithProps } from '../../src/utils'
 
 test('`callWithProps` passes props to provided function', () => {
   const func = jest.fn()

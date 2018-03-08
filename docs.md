@@ -5,6 +5,7 @@
 -   [getSet](#getset)
 -   [onError](#onerror)
 -   [onMount](#onmount)
+-   [onOutsideClick](#onoutsideclick)
 -   [onUnmount](#onunmount)
 -   [onUpdate](#onupdate)
 -   [sortable](#sortable)
@@ -131,6 +132,32 @@ function MyComponent () {
  }
 
  export default onMount(componentDidMount)(MyComponent)
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
+
+## onOutsideClick
+
+A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
+
+**Parameters**
+
+-   `handler` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be executed with the component's props and the click event.
+
+**Examples**
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function handleOutsideClick (props, e) {
+   console.log('A click event occured!', e)
+ }
+
+ export default onOutsideClick(handleOutsideClick)(MyComponent)
 ```
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.

@@ -1,10 +1,10 @@
-// Used by onMount and onUnmount.
+// Used by lifecycle components.
 // Runs a lifecycle action, which can be defined as either:
 // - (String) The name of a function prop to call
 // - (Function) A function to call
 // When called, function will be passed the props (and additional arguments if passed).
 
-export function callWithProps (funcOrString, props, ...args) {
+export default function callWithProps (funcOrString, props, ...args) {
 
   switch(typeof funcOrString) {
 
