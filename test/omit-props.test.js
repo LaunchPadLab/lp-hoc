@@ -2,6 +2,12 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { omitProps } from '../src/'
 
+test('omitProps has correct displayName', () => {
+  const Wrapped = () => <h1>Hi</h1>
+  const Wrapper = omitProps()(Wrapped)
+  expect(Wrapper.displayName).toEqual('omitProps(Wrapped)')
+})
+
 test('omitProps omits all props if no argument is given', () => {
   const props = {
     test: 'foo',
