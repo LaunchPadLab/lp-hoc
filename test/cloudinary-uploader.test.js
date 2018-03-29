@@ -22,14 +22,24 @@ test('cloudinaryUploader has correct displayName', () => {
 
 test('cloudinaryUploader throws an error if `bucket` or `cloudName` are not provided', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const wrapperFunc = () => cloudinaryUploader()(Wrapped)
-  expect(wrapperFunc).toThrowError('cloudinaryUploader(): Must provide cloudName and bucket')
+  const Wrapper = cloudinaryUploader()(Wrapped)
+  expect(() => shallow(<Wrapper />)).toThrow()
 })
 
 test('cloudinaryUploader adds upload props to component', () => {
   const Wrapped = () => <h1>Hi</h1>
   const Wrapper = cloudinaryUploader(props)(Wrapped)
   const component = shallow(<Wrapper />)
+  expect(component.props()).toMatchObject({ 
+    upload: expect.any(Function), 
+    uploadStatus: expect.any(String),
+  })
+})
+
+test('cloudinaryUploader can receive options as props', () => {
+  const Wrapped = () => <h1>Hi</h1>
+  const Wrapper = cloudinaryUploader()(Wrapped)
+  const component = shallow(<Wrapper cloudName="foo" bucket="bar" />)
   expect(component.props()).toMatchObject({ 
     upload: expect.any(Function), 
     uploadStatus: expect.any(String),
