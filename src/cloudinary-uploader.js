@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import { api } from '@launchpadlab/lp-requests'
-import { first, removeExtension } from './utils'
+import { first, removeExtension, requireParam } from './utils'
 
 /**
  * A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
@@ -81,33 +81,34 @@ function createPublicId (file) {
   return (isPdfType || isImageType) ? removeExtension(name) : name
 }
 
-function cloudinaryUploader ({
-  cloudName,
-  bucket,
-  uploadPreset=DEFAULT_UPLOAD_PRESET,
-  fileType=DEFAULT_FILE_TYPE,
-  endpoint=DEFAULT_ENDPOINT,
-  requestOptions=DEFAULT_REQUEST_OPTIONS,
-}={}) {
-  if (!cloudName || !bucket) throw new Error('cloudinaryUploader(): Must provide cloudName and bucket')
-  // Create upload function with given options
-  function uploadRequest (fileData, file) {
-    const publicId = createPublicId(file)
-    const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
-    const body = { file: fileData, folder: bucket, publicId, uploadPreset }
-    return api.post(url, body, requestOptions)
-  }
+function cloudinaryUploader (options={}) {
   return Wrapped =>
     class Wrapper extends Component {
       static displayName = wrapDisplayName(Wrapped, 'cloudinaryUploader')
       constructor (props) {
         super(props)
+        const config = { ...options, ...props }
+        const {
+          cloudName=requireParam('cloudName', 'cloudinaryUploader'),
+          bucket=requireParam('bucket', 'cloudinaryUploader'),
+          uploadPreset=DEFAULT_UPLOAD_PRESET,
+          fileType=DEFAULT_FILE_TYPE,
+          endpoint=DEFAULT_ENDPOINT,
+          requestOptions=DEFAULT_REQUEST_OPTIONS,
+        } = config
+        // Build request function using config
+        this.cloudinaryRequest = function (fileData, file) {
+          const publicId = createPublicId(file)
+          const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
+          const body = { file: fileData, folder: bucket, publicId, uploadPreset }
+          return api.post(url, body, requestOptions)
+        }
         this.upload = this.upload.bind(this)
         this.state = { uploadStatus: '' }
       }
       upload (fileData, file) {
         this.setState({ uploadStatus: CloudinaryUploadStatus.LOADING })
-        return uploadRequest(fileData, file)
+        return this.cloudinaryRequest(fileData, file)
           .then(res => {
             this.setState({ uploadStatus: CloudinaryUploadStatus.SUCCESS })
             return res
