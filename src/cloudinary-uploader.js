@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import { api } from '@launchpadlab/lp-requests'
-import { first, removeExtension, requireParam } from './utils'
+import { getEnvVar, first, removeExtension, requireParam } from './utils'
 
 /**
  * A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
@@ -13,8 +13,8 @@ import { first, removeExtension, requireParam } from './utils'
  * 
  * @name cloudinaryUploader
  * @type Function
- * @param {string} cloudName - The name of the Cloudinary cloud to upload to.
- * @param {string} bucket - The name of the Cloudinary bucket to upload to.
+ * @param {string} [cloudName] - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
+ * @param {string} [bucket] - The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
  * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset.
  * @param {string} [fileType=auto] - The type of file.
  * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request.
@@ -89,8 +89,8 @@ function cloudinaryUploader (options={}) {
         super(props)
         const config = { ...options, ...props }
         const {
-          cloudName=requireParam('cloudName', 'cloudinaryUploader'),
-          bucket=requireParam('bucket', 'cloudinaryUploader'),
+          cloudName=getEnvVar('CLOUDINARY_CLOUD_NAME') || requireParam('cloudName', 'cloudinaryUploader'),
+          bucket=getEnvVar('CLOUDINARY_BUCKET') || requireParam('bucket', 'cloudinaryUploader'),
           uploadPreset=DEFAULT_UPLOAD_PRESET,
           fileType=DEFAULT_FILE_TYPE,
           endpoint=DEFAULT_ENDPOINT,

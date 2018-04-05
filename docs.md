@@ -466,8 +466,8 @@ A function that returns a React HOC for uploading files to (Cloudinary)[https://
 
 **Parameters**
 
--   `cloudName` **[string][20]** The name of the Cloudinary cloud to upload to.
--   `bucket` **[string][20]** The name of the Cloudinary bucket to upload to.
+-   `cloudName` **[string][20]?** The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
+-   `bucket` **[string][20]?** The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
 -   `uploadPreset` **[string][20]** The name of the Cloudinary upload preset. (optional, default `default`)
 -   `fileType` **[string][20]** The type of file. (optional, default `auto`)
 -   `endpoint` **[string][20]** The endpoint for the upload request. (optional, default `https://api.cloudinary.com/v1_1/`)
