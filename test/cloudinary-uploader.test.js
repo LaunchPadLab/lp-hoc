@@ -26,6 +26,14 @@ test('cloudinaryUploader throws an error if `bucket` or `cloudName` are not prov
   expect(() => shallow(<Wrapper />)).toThrow()
 })
 
+test('cloudinaryUploader can receive `bucket` and `cloudName` via env vars', () => {
+  process.env.CLOUDINARY_CLOUD_NAME = 'foo'
+  process.env.CLOUDINARY_BUCKET = 'bar'
+  const Wrapped = () => <h1>Hi</h1>
+  const Wrapper = cloudinaryUploader()(Wrapped)
+  expect(() => shallow(<Wrapper />)).not.toThrow()
+})
+
 test('cloudinaryUploader adds upload props to component', () => {
   const Wrapped = () => <h1>Hi</h1>
   const Wrapper = cloudinaryUploader(props)(Wrapped)
