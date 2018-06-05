@@ -82,6 +82,7 @@ function getSet (names=[], options={}) {
         const config = { ...props, ...options }
         this.state = getInitialState(varNames, config.initialValues)
         this.set = this.set.bind(this)
+        this.setters = buildSetters(varNames, this.set)
       }
       set (varName, value) {
         this.setState({ [varName]: value })
@@ -90,7 +91,7 @@ function getSet (names=[], options={}) {
         return (
           <WrappedComponent {...{ 
             ...this.props,
-            ...buildSetters(varNames, this.set),
+            ...this.setters,
             ...this.state,
           }}/>
         )
