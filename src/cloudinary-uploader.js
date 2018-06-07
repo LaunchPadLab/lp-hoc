@@ -13,8 +13,8 @@ import { getEnvVar, first, removeExtension, requireParam } from './utils'
  * 
  * @name cloudinaryUploader
  * @type Function
- * @param {string} [cloudName] - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
- * @param {string} [bucket] - The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
+ * @param {string} cloudName - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
+ * @param {string} bucket - The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
  * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset.
  * @param {string} [fileType=auto] - The type of file.
  * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request.
