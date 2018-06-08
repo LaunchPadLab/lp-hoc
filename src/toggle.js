@@ -38,6 +38,11 @@ import { camelize, wrapDisplayName } from './utils'
  *   ...togglePropTypes('tooltipShown'),
  *   message: PropTypes.string.isRequired,
  * }
+ * 
+ * export default compose(
+ *   toggle('tooltopShown')
+ * )(ComponentWithTooltip)
+ * 
 **/
 
 export default function toggle (toggleNames=[]) {

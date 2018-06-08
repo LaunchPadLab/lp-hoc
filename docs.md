@@ -381,6 +381,11 @@ ComponentWithTooltip.propTypes = {
   ...togglePropTypes('tooltipShown'),
   message: PropTypes.string.isRequired,
 }
+
+export default compose(
+  toggle('tooltopShown')
+)(ComponentWithTooltip)
+
 *
 ```
 
