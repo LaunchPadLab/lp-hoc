@@ -15,9 +15,9 @@ import { getEnvVar, first, removeExtension, requireParam } from './utils'
  * @type Function
  * @param {string} cloudName - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
  * @param {string} bucket - The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
- * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset.
+ * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`.
+ * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`.
  * @param {string} [fileType=auto] - The type of file.
- * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request.
  * @param {object} [requestOptions=DEFAULT_REQUEST_OPTIONS] - Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js].
  * @returns {Function} - A HOC that can be used to wrap a component.
  *
@@ -91,9 +91,9 @@ function cloudinaryUploader (options={}) {
         const {
           cloudName=getEnvVar('CLOUDINARY_CLOUD_NAME') || requireParam('cloudName', 'cloudinaryUploader'),
           bucket=getEnvVar('CLOUDINARY_BUCKET') || requireParam('bucket', 'cloudinaryUploader'),
-          uploadPreset=DEFAULT_UPLOAD_PRESET,
+          uploadPreset=getEnvVar('CLOUDINARY_UPLOAD_PRESET') || DEFAULT_UPLOAD_PRESET,
+          endpoint=getEnvVar('CLOUDINARY_ENDPOINT') || DEFAULT_ENDPOINT,
           fileType=DEFAULT_FILE_TYPE,
-          endpoint=DEFAULT_ENDPOINT,
           requestOptions=DEFAULT_REQUEST_OPTIONS,
         } = config
         // Build request function using config

@@ -526,9 +526,9 @@ A function that returns a React HOC for uploading files to (Cloudinary)[https://
 
 -   `cloudName` **[string][56]** The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
 -   `bucket` **[string][56]** The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
--   `uploadPreset` **[string][56]** The name of the Cloudinary upload preset. (optional, default `default`)
+-   `uploadPreset` **[string][56]** The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`. (optional, default `default`)
+-   `endpoint` **[string][56]** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
 -   `fileType` **[string][56]** The type of file. (optional, default `auto`)
--   `endpoint` **[string][56]** The endpoint for the upload request. (optional, default `https://api.cloudinary.com/v1_1/`)
 -   `requestOptions` **[object][58]** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
 
 ### Examples
