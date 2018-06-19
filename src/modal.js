@@ -69,7 +69,7 @@ function modal ({
     /* eslint react/prop-types: 0 */
     function ModalWrapper (props) {
       return (
-        <BodyClassName className="modal-open">
+        <BodyClassName className={ classnames({ 'modal-open': props.show }) }>
           <div className={ classnames('modal', { 'modal-warning': warning, 'is-active': props.show })}>
             <div className="modal-fade-screen" onClick={ disableOutsideClick ? noop : props.handleHide }>
               <div className="modal-inner" onClick={ e => e.stopPropagation() }>
