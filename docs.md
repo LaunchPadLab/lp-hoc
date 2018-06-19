@@ -2,61 +2,25 @@
 
 ### Table of Contents
 
--   [getSet][1]
-    -   [Parameters][2]
-    -   [Examples][3]
--   [onError][4]
-    -   [Parameters][5]
-    -   [Examples][6]
--   [onMount][7]
-    -   [Parameters][8]
-    -   [Examples][9]
--   [onOutsideClick][10]
-    -   [Parameters][11]
-    -   [Examples][12]
--   [onUnmount][13]
-    -   [Parameters][14]
-    -   [Examples][15]
--   [onUpdate][16]
-    -   [Parameters][17]
-    -   [Examples][18]
--   [sortable][19]
-    -   [Parameters][20]
-    -   [Examples][21]
--   [toggle][22]
-    -   [Parameters][23]
-    -   [Examples][24]
--   [adaptToReactRouter][25]
-    -   [Examples][26]
--   [adaptToReduxForm][27]
-    -   [Examples][28]
--   [addDefaultClass][29]
-    -   [Parameters][30]
-    -   [Examples][31]
--   [camelizeProps][32]
-    -   [Parameters][33]
-    -   [Examples][34]
--   [cloudinaryUploader][35]
-    -   [Parameters][36]
-    -   [Examples][37]
--   [deprecate][38]
-    -   [Parameters][39]
-    -   [Examples][40]
--   [modal][41]
-    -   [Parameters][42]
-    -   [Examples][43]
--   [modifyProps][44]
-    -   [Parameters][45]
-    -   [Examples][46]
--   [omitProps][47]
-    -   [Parameters][48]
-    -   [Examples][49]
--   [waitFor][50]
-    -   [Parameters][51]
-    -   [Examples][52]
--   [waitForResponse][53]
-    -   [Parameters][54]
-    -   [Examples][55]
+-   [getSet](#getset)
+-   [onError](#onerror)
+-   [onMount](#onmount)
+-   [onOutsideClick](#onoutsideclick)
+-   [onUnmount](#onunmount)
+-   [onUpdate](#onupdate)
+-   [sortable](#sortable)
+-   [toggle](#toggle)
+-   [adaptToReactRouter](#adapttoreactrouter)
+-   [adaptToReduxForm](#adapttoreduxform)
+-   [addDefaultClass](#adddefaultclass)
+-   [camelizeProps](#camelizeprops)
+-   [cloudinaryUploader](#cloudinaryuploader)
+-   [deprecate](#deprecate)
+-   [modal](#modal)
+-   [modifyProps](#modifyprops)
+-   [omitProps](#omitprops)
+-   [waitFor](#waitfor)
+-   [waitForResponse](#waitforresponse)
 
 ## getSet
 
@@ -76,12 +40,12 @@ For each variable name given, the wrapped component will receive the following p
 
 These options can also be passed in as props to the wrapped component.
 
-### Parameters
+**Parameters**
 
--   `varNames` **([string][56] \| [Array][57])** A variable name or array of variable names
--   `options` **[object][58]** Options for the HOC as specified above.
+-   `varNames` **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** A variable name or array of variable names
+-   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the HOC as specified above.
 
-### Examples
+**Examples**
 
 ```javascript
 function TabBar ({ currentTab, setCurrentTab, tabs ... }) {
@@ -112,24 +76,22 @@ export default compose(
      },
    }),
 )(TabBar)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## onError
 
 A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
 NOTE: This HOC is only supported by React 16 or higher.
 
-See also: [onMount][7], [onUnmount][13], [onUpdate][16]
+See also: [onMount](#onmount), [onUnmount](#onunmount), [onUpdate](#onupdate)
 
-### Parameters
+**Parameters**
 
--   `onComponentDidCatch` **([Function][59] \| [String][56])** A function or a string reference to a function that will be executed with the component's props.
+-   `onComponentDidCatch` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be executed with the component's props.
 
-### Examples
+**Examples**
 
 ```javascript
 function MyComponent () {
@@ -143,23 +105,21 @@ function MyComponent () {
  }
 
  export default onError(onComponentDidCatch)(MyComponent)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## onMount
 
 A function that returns a React HOC to handle logic to be run during the `componentDidMount` lifecycle event.
 
-See also: [onError][4], [onUnmount][13], [onUpdate][16]
+See also: [onError](#onerror), [onUnmount](#onunmount), [onUpdate](#onupdate)
 
-### Parameters
+**Parameters**
 
--   `onComponentDidMount` **([Function][59] \| [String][56])** A function or a string reference to a function that will be executed with the component's props.
+-   `onComponentDidMount` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be executed with the component's props.
 
-### Examples
+**Examples**
 
 ```javascript
 function MyComponent () {
@@ -173,21 +133,19 @@ function MyComponent () {
  }
 
  export default onMount(componentDidMount)(MyComponent)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## onOutsideClick
 
 A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
 
-### Parameters
+**Parameters**
 
--   `handler` **([Function][59] \| [String][56])** A function or a string reference to a function that will be executed with the component's props and the click event.
+-   `handler` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be executed with the component's props and the click event.
 
-### Examples
+**Examples**
 
 ```javascript
 function MyComponent () {
@@ -201,23 +159,21 @@ function MyComponent () {
  }
 
  export default onOutsideClick(handleOutsideClick)(MyComponent)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## onUnmount
 
 A function that returns a React HOC to handle logic to be run during the `componentWillUnmount` lifecycle event.
 
-See also: [onError][4], [onMount][7], [onUpdate][16]
+See also: [onError](#onerror), [onMount](#onmount), [onUpdate](#onupdate)
 
-### Parameters
+**Parameters**
 
--   `onComponentWillUnmount` **([Function][59] \| [String][56])** A function or a string reference to a function that will be executed with the component's props.
+-   `onComponentWillUnmount` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be executed with the component's props.
 
-### Examples
+**Examples**
 
 ```javascript
 function MyComponent () {
@@ -231,23 +187,21 @@ function MyComponent () {
  }
 
  export default onUnmount(componentWillUnmount)(MyComponent)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## onUpdate
 
 A function that returns a React HOC to handle logic to be run during the `componentDidUpdate` lifecycle event.
 
-See also: [onError][4], [onMount][7], [onUnmount][13]
+See also: [onError](#onerror), [onMount](#onmount), [onUnmount](#onunmount)
 
-### Parameters
+**Parameters**
 
--   `onComponentDidUpdate` **([Function][59] \| [String][56])** A function or a string reference to a function that will be passed the current props and the previous props.
+-   `onComponentDidUpdate` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be passed the current props and the previous props.
 
-### Examples
+**Examples**
 
 ```javascript
 function MyComponent () {
@@ -261,11 +215,9 @@ function MyComponent () {
  }
 
  export default onUpdate(componentDidUpdate)(MyComponent)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## sortable
 
@@ -280,7 +232,7 @@ The wrapped component will receive the following props:
 -   `setAscending`: a function for setting `ascending`
 -   `setDescending`: a function for setting `descending`
 -   `setSortPath`: a function for setting `sortPath`
--   `setSortFunc`: a function for setting a custom [comparison function][60] that will be used in `sort`
+-   `setSortFunc`: a function for setting a custom [comparison function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) that will be used in `sort`
 
 `sortable` also exposes a `sortablePropTypes` object for these props.
 
@@ -300,11 +252,11 @@ unless `false` is passed as the second parameter._
 
 The wrapped component may also receive these options as props.
 
-### Parameters
+**Parameters**
 
--   `options` **[object][58]** Options for the HOC as specified above.
+-   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the HOC as specified above.
 
-### Examples
+**Examples**
 
 ```javascript
 function SortedPeopleList ({ people, sort, ascending, setAscending }) {
@@ -337,11 +289,9 @@ export default compose(
      sortPath: 'age',
    }),
 )(SortedPeopleList)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## toggle
 
@@ -356,11 +306,11 @@ For each toggle name given, the wrapped component will receive the following pro
 
 Toggle also exposes a `togglePropTypes` function to automatically generate PropTypes for these props.
 
-### Parameters
+**Parameters**
 
--   `toggleNames` **([String][56] \| [Array][57])** One or more toggle names. (optional, default `[]`)
+-   `toggleNames` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** One or more toggle names. (optional, default `[]`)
 
-### Examples
+**Examples**
 
 ```javascript
 function ComponentWithTooltip ({ message, tooltipShown, toggleTooltipShown }) {
@@ -385,11 +335,9 @@ ComponentWithTooltip.propTypes = {
 export default compose(
   toggle('tooltopShown')
 )(ComponentWithTooltip)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## adaptToReactRouter
 
@@ -397,9 +345,9 @@ This HOC allows the creation of custom `react-router` route components.
 It can be used to wrap any component that returns a `<Route />` tag, and will allow that component to be used interchangeably with `<Route />`.
 Note: only compatible with `react-router` v3.
 
-This rationale for this HOC can be found [here][61].
+This rationale for this HOC can be found [here](https://marmelab.com/blog/2016/09/20/custom-react-router-component.html).
 
-### Examples
+**Examples**
 
 ```javascript
 function CatchallRoute ({ path, ...rest }) {
@@ -423,7 +371,7 @@ A function that returns a React HOC that adapts an ordinary control component to
 This HOC pulls the `value` and `onChange` props from the redux-form `input` object and passes them as first-class props.
 This means that any component that implements the `value`/`onChange` pattern may be wrapped by this HOC.
 
-### Examples
+**Examples**
 
 ```javascript
 function MyInput ({ value, onChange }) {
@@ -449,11 +397,11 @@ A function that returns a React HOC that adds a default className to the wrapped
 
 This className will be extended by any additional classNames given to the component.
 
-### Parameters
+**Parameters**
 
--   `defaultClass` **[String][56]** The default class to add to the component
+-   `defaultClass` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The default class to add to the component
 
-### Examples
+**Examples**
 
 ```javascript
 const Block = addDefaultClass('section-block')('section')
@@ -484,13 +432,13 @@ function Content () {
 ## camelizeProps
 
 A function that returns a React HOC that converts a component's props into camel-case.
-This HOC is particularly useful in conjunction with [react_on_rails][62].
+This HOC is particularly useful in conjunction with [react_on_rails](https://github.com/shakacode/react_on_rails).
 
-### Parameters
+**Parameters**
 
--   `propName` **([String][56] \| [Array][57])** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
+-   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
 
-### Examples
+**Examples**
 
 ```javascript
 function ProfileComponent ({ fullName, profilePic }) {
@@ -507,11 +455,9 @@ export default compose(
 )(ProfileComponent)
 
 // Now we can pass props { full_name, profile_pic } to the above component.
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## cloudinaryUploader
 
@@ -522,16 +468,16 @@ A function that returns a React HOC for uploading files to (Cloudinary)[https://
 -   `upload`: A function that submits a `POST` request to the Cloudinary endpoint with the `file` object and `fileData`.
 -   `uploadStatus`: A string representing the status of the `upload` request, either `uploading`, `upload-success`, or `upload-failure`.
 
-### Parameters
+**Parameters**
 
--   `cloudName` **[string][56]** The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
--   `bucket` **[string][56]** The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
--   `uploadPreset` **[string][56]** The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`. (optional, default `default`)
--   `endpoint` **[string][56]** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
--   `fileType` **[string][56]** The type of file. (optional, default `auto`)
--   `requestOptions` **[object][58]** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
+-   `cloudName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
+-   `bucket` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
+-   `uploadPreset` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`. (optional, default `default`)
+-   `endpoint` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
+-   `fileType` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of file. (optional, default `auto`)
+-   `requestOptions` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
 
-### Examples
+**Examples**
 
 ```javascript
 function CloudinaryFileInput ({ upload, uploadStatus, input, meta ... }) {
@@ -559,11 +505,9 @@ export default compose(
      bucket: 'my-cloudinary-bucket',
    }),
 )(CloudinaryFileInput)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## deprecate
 
@@ -573,12 +517,12 @@ If no message is provided, the default deprecation message is:
 
 -   `<Component.displayName> is deprecated and will be removed in the next version of this library.`
 
-### Parameters
+**Parameters**
 
--   `message` **[String][56]?** A custom message to display
--   `log` **[Function][59]** A function for logging the message (optional, default `console.warn`)
+-   `message` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** A custom message to display
+-   `log` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A function for logging the message (optional, default `console.warn`)
 
-### Examples
+**Examples**
 
 ```javascript
 const MyComponent = () => <p>Hi</p>
@@ -590,7 +534,7 @@ export default deprecate('Do not use this component')(MyComponent)
 ## modal
 
 A function that returns a React HOC for creating modals.
-This HOC is dependent on the [`redux-modal`][63] library.
+This HOC is dependent on the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
 
 The following functions are available as static properties on the wrapped component:
 
@@ -598,14 +542,14 @@ The following functions are available as static properties on the wrapped compon
 -   `hide`: Hides the modal.
 -   `destroy`: Destroys the modal state and unmounts the modal component.
 
-### Parameters
+**Parameters**
 
--   `name` **[String][56]** The name of the modal.
--   `warning` **[Boolean][64]** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
--   `destroyOnHide` **[Boolean][64]** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
--   `disableOutsideClick` **[Boolean][64]** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
+-   `name` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the modal.
+-   `warning` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
+-   `destroyOnHide` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
+-   `disableOutsideClick` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
 
-### Examples
+**Examples**
 
 ```javascript
 // Create Modal Component
@@ -639,10 +583,9 @@ const mapDispatchToProps = {
 export default compose(
    connect(null, mapDispatchToProps),
 )(Layout)
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## modifyProps
 
@@ -651,11 +594,11 @@ A function that returns a React HOC that modifies a component's props using a gi
 The provided function will be called with the component's props,
 and should return an object that will be merged with those props.
 
-### Parameters
+**Parameters**
 
--   `modFunction` **[Function][59]** A function that modifies the component's props.
+-   `modFunction` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A function that modifies the component's props.
 
-### Examples
+**Examples**
 
 ```javascript
 // modifyProps is used to create a custom save function by combining
@@ -692,22 +635,20 @@ export default compose(
    connect(mapStateToProps, mapDispatchToProps),
    modifyProps(modify),
 )(SaveableProfile)
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## omitProps
 
 A function that returns a React HOC that omits some or all of a component's props.
-Uses the lodash [omit][65] function under the hood.
+Uses the lodash [omit](https://lodash.com/docs/4.17.4#omit) function under the hood.
 
-### Parameters
+**Parameters**
 
--   `propName` **([String][56] \| [Array][57])** The name(s) of the prop(s) to be omitted. If none are provided, all of the props will be omitted.
+-   `propName` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The name(s) of the prop(s) to be omitted. If none are provided, all of the props will be omitted.
 
-### Examples
+**Examples**
 
 ```javascript
 function Child ({ name }) {
@@ -721,11 +662,9 @@ function Parent () {
 }
 
 // When parent is rendered, the <h1> will be empty.
-
-*
 ```
 
-Returns **[Function][59]** A HOC that can be used to wrap a component.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
 ## waitFor
 
@@ -738,12 +677,12 @@ For the renderWhen param, the type can be one of the following:
 -   Array - An array of prop names to wait for. Each prop name will be evaluated using the `String` rules.
 -   Object - An object where the keys are prop names and the values are expected values. When the prop values are equal to the expected values, the component will render.
 
-### Parameters
+**Parameters**
 
--   `renderWhen` **([String][56] \| [Function][59] \| [Object][58])** A rule indicating when the wrapped component may render.
--   `LoadingComponent` **[Function][59]** A component to render during the loading state, will be passed the current props. If not provided, `<p>Loading...</p>` will be rendered. (optional, default `null`)
+-   `renderWhen` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object))** A rule indicating when the wrapped component may render.
+-   `LoadingComponent` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A component to render during the loading state, will be passed the current props. If not provided, `<p>Loading...</p>` will be rendered. (optional, default `null`)
 
-### Examples
+**Examples**
 
 ```javascript
 function MyComponent (name) {
@@ -757,22 +696,21 @@ function MyComponent (name) {
  waitFor(renderWhen, MyComponent)
  // When prop 'name' value evaluates to true, MyComponent will be rendered.
  // Otherwise, <p>Loading...</p> will be rendered.
-*
 ```
 
-Returns **[Function][59]** Returns a higher order component (HOC) to handle conditional logic for loading states.
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** Returns a higher order component (HOC) to handle conditional logic for loading states.
 
 ## waitForResponse
 
 A function that returns an HOC to handle rendering that depends on an API response. 
-A combination of [waitFor][50] and selectors from [lp-redux-api][66].
+A combination of [waitFor](#waitfor) and selectors from [lp-redux-api](https://github.com/LaunchPadLab/lp-redux-api).
 
-### Parameters
+**Parameters**
 
--   `requestKeys` **([String][56] \| [Array][57])** A key or set of keys corresponding to `lp-redux-api` requests.
--   `LoadingComponent` **[Function][59]** A component to render during the loading state. (optional, default `null`)
+-   `requestKeys` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** A key or set of keys corresponding to `lp-redux-api` requests.
+-   `LoadingComponent` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A component to render during the loading state. (optional, default `null`)
 
-### Examples
+**Examples**
 
 ```javascript
 import { REQ_USERS, requestUsers } from 'actions'
@@ -791,139 +729,6 @@ import { REQ_USERS, requestUsers } from 'actions'
  // requestUsers() dispatches an LP_API action with key 'REQ_USERS' on component mount.
  // When the status of 'REQ_USERS' request becomes 'success' or 'failure', the component will render.
  // Otherwise, the default `waitFor` loading component will be rendered.
-*
 ```
 
-Returns **[Function][59]** A higher order component (HOC).
-
-[1]: #getset
-
-[2]: #parameters
-
-[3]: #examples
-
-[4]: #onerror
-
-[5]: #parameters-1
-
-[6]: #examples-1
-
-[7]: #onmount
-
-[8]: #parameters-2
-
-[9]: #examples-2
-
-[10]: #onoutsideclick
-
-[11]: #parameters-3
-
-[12]: #examples-3
-
-[13]: #onunmount
-
-[14]: #parameters-4
-
-[15]: #examples-4
-
-[16]: #onupdate
-
-[17]: #parameters-5
-
-[18]: #examples-5
-
-[19]: #sortable
-
-[20]: #parameters-6
-
-[21]: #examples-6
-
-[22]: #toggle
-
-[23]: #parameters-7
-
-[24]: #examples-7
-
-[25]: #adapttoreactrouter
-
-[26]: #examples-8
-
-[27]: #adapttoreduxform
-
-[28]: #examples-9
-
-[29]: #adddefaultclass
-
-[30]: #parameters-8
-
-[31]: #examples-10
-
-[32]: #camelizeprops
-
-[33]: #parameters-9
-
-[34]: #examples-11
-
-[35]: #cloudinaryuploader
-
-[36]: #parameters-10
-
-[37]: #examples-12
-
-[38]: #deprecate
-
-[39]: #parameters-11
-
-[40]: #examples-13
-
-[41]: #modal
-
-[42]: #parameters-12
-
-[43]: #examples-14
-
-[44]: #modifyprops
-
-[45]: #parameters-13
-
-[46]: #examples-15
-
-[47]: #omitprops
-
-[48]: #parameters-14
-
-[49]: #examples-16
-
-[50]: #waitfor
-
-[51]: #parameters-15
-
-[52]: #examples-17
-
-[53]: #waitforresponse
-
-[54]: #parameters-16
-
-[55]: #examples-18
-
-[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
-
-[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-
-[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-
-[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
-
-[60]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description
-
-[61]: https://marmelab.com/blog/2016/09/20/custom-react-router-component.html
-
-[62]: https://github.com/shakacode/react_on_rails
-
-[63]: https://github.com/yesmeck/redux-modal
-
-[64]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
-
-[65]: https://lodash.com/docs/4.17.4#omit
-
-[66]: https://github.com/LaunchPadLab/lp-redux-api
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A higher order component (HOC).
