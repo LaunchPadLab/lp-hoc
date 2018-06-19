@@ -5,10 +5,12 @@
 -   [getSet](#getset)
 -   [onError](#onerror)
 -   [onMount](#onmount)
+-   [onOutsideClick](#onoutsideclick)
 -   [onUnmount](#onunmount)
 -   [onUpdate](#onupdate)
 -   [sortable](#sortable)
 -   [toggle](#toggle)
+-   [adaptToReactRouter](#adapttoreactrouter)
 -   [adaptToReduxForm](#adapttoreduxform)
 -   [addDefaultClass](#adddefaultclass)
 -   [camelizeProps](#camelizeprops)
@@ -17,7 +19,7 @@
 -   [modal](#modal)
 -   [modifyProps](#modifyprops)
 -   [omitProps](#omitprops)
--   [DefaultLoadingComponent](#defaultloadingcomponent)
+-   [waitFor](#waitfor)
 -   [waitForResponse](#waitforresponse)
 
 ## getSet
@@ -131,6 +133,32 @@ function MyComponent () {
  }
 
  export default onMount(componentDidMount)(MyComponent)
+```
+
+Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
+
+## onOutsideClick
+
+A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
+
+**Parameters**
+
+-   `handler` **([Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** A function or a string reference to a function that will be executed with the component's props and the click event.
+
+**Examples**
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function handleOutsideClick (props, e) {
+   console.log('A click event occured!', e)
+ }
+
+ export default onOutsideClick(handleOutsideClick)(MyComponent)
 ```
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
@@ -303,9 +331,38 @@ ComponentWithTooltip.propTypes = {
   ...togglePropTypes('tooltipShown'),
   message: PropTypes.string.isRequired,
 }
+
+export default compose(
+  toggle('tooltopShown')
+)(ComponentWithTooltip)
 ```
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
+
+## adaptToReactRouter
+
+This HOC allows the creation of custom `react-router` route components.
+It can be used to wrap any component that returns a `<Route />` tag, and will allow that component to be used interchangeably with `<Route />`.
+Note: only compatible with `react-router` v3.
+
+This rationale for this HOC can be found [here](https://marmelab.com/blog/2016/09/20/custom-react-router-component.html).
+
+**Examples**
+
+```javascript
+function CatchallRoute ({ path, ...rest }) {
+   return (
+     <Route>
+       <Route path={ path } { ...rest } />
+       <Redirect path={ path + '/*' } to={ path } />
+     </Route>
+   )
+}
+
+export default compose(
+   adaptToReactRouter()
+)(CatchallRoute)
+```
 
 ## adaptToReduxForm
 
@@ -413,11 +470,11 @@ A function that returns a React HOC for uploading files to (Cloudinary)[https://
 
 **Parameters**
 
--   `cloudName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary cloud to upload to.
--   `bucket` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary bucket to upload to.
--   `uploadPreset` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary upload preset. (optional, default `default`)
+-   `cloudName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
+-   `bucket` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
+-   `uploadPreset` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`. (optional, default `default`)
+-   `endpoint` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
 -   `fileType` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of file. (optional, default `auto`)
--   `endpoint` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The endpoint for the upload request. (optional, default `https://api.cloudinary.com/v1_1/`)
 -   `requestOptions` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
 
 **Examples**
@@ -609,7 +666,7 @@ function Parent () {
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** A HOC that can be used to wrap a component.
 
-## DefaultLoadingComponent
+## waitFor
 
 A function that returns a React HOC to handle renderWhen logic for loading state.
 
@@ -646,7 +703,7 @@ Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 ## waitForResponse
 
 A function that returns an HOC to handle rendering that depends on an API response. 
-A combination of [waitFor](waitFor) and selectors from [lp-redux-api](https://github.com/LaunchPadLab/lp-redux-api).
+A combination of [waitFor](#waitfor) and selectors from [lp-redux-api](https://github.com/LaunchPadLab/lp-redux-api).
 
 **Parameters**
 

@@ -1,3 +1,4 @@
+export adaptToReactRouter from './adapt-to-react-router'
 export adaptToReduxForm from './adapt-to-redux-form'
 export addDefaultClass from './add-default-class'
 export camelizeProps from './camelize-props'
@@ -11,6 +12,7 @@ export waitFor from './wait-for'
 export {
   onError,
   onMount,
+  onOutsideClick,
   onUnmount,
   onUpdate,
 } from './lifecycle'

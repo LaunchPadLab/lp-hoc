@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import { api } from '@launchpadlab/lp-requests'
-import { first, removeExtension } from './utils'
+import { getEnvVar, first, removeExtension, requireParam } from './utils'
 
 /**
  * A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
@@ -13,11 +13,11 @@ import { first, removeExtension } from './utils'
  * 
  * @name cloudinaryUploader
  * @type Function
- * @param {string} cloudName - The name of the Cloudinary cloud to upload to.
- * @param {string} bucket - The name of the Cloudinary bucket to upload to.
- * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset.
+ * @param {string} cloudName - The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
+ * @param {string} bucket - The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
+ * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`.
+ * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`.
  * @param {string} [fileType=auto] - The type of file.
- * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request.
  * @param {object} [requestOptions=DEFAULT_REQUEST_OPTIONS] - Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js].
  * @returns {Function} - A HOC that can be used to wrap a component.
  *
@@ -81,33 +81,34 @@ function createPublicId (file) {
   return (isPdfType || isImageType) ? removeExtension(name) : name
 }
 
-function cloudinaryUploader ({
-  cloudName,
-  bucket,
-  uploadPreset=DEFAULT_UPLOAD_PRESET,
-  fileType=DEFAULT_FILE_TYPE,
-  endpoint=DEFAULT_ENDPOINT,
-  requestOptions=DEFAULT_REQUEST_OPTIONS,
-}={}) {
-  if (!cloudName || !bucket) throw new Error('cloudinaryUploader(): Must provide cloudName and bucket')
-  // Create upload function with given options
-  function uploadRequest (fileData, file) {
-    const publicId = createPublicId(file)
-    const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
-    const body = { file: fileData, folder: bucket, publicId, uploadPreset }
-    return api.post(url, body, requestOptions)
-  }
+function cloudinaryUploader (options={}) {
   return Wrapped =>
     class Wrapper extends Component {
       static displayName = wrapDisplayName(Wrapped, 'cloudinaryUploader')
       constructor (props) {
         super(props)
+        const config = { ...options, ...props }
+        const {
+          cloudName=getEnvVar('CLOUDINARY_CLOUD_NAME') || requireParam('cloudName', 'cloudinaryUploader'),
+          bucket=getEnvVar('CLOUDINARY_BUCKET') || requireParam('bucket', 'cloudinaryUploader'),
+          uploadPreset=getEnvVar('CLOUDINARY_UPLOAD_PRESET') || DEFAULT_UPLOAD_PRESET,
+          endpoint=getEnvVar('CLOUDINARY_ENDPOINT') || DEFAULT_ENDPOINT,
+          fileType=DEFAULT_FILE_TYPE,
+          requestOptions=DEFAULT_REQUEST_OPTIONS,
+        } = config
+        // Build request function using config
+        this.cloudinaryRequest = function (fileData, file) {
+          const publicId = createPublicId(file)
+          const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
+          const body = { file: fileData, folder: bucket, publicId, uploadPreset }
+          return api.post(url, body, requestOptions)
+        }
         this.upload = this.upload.bind(this)
         this.state = { uploadStatus: '' }
       }
       upload (fileData, file) {
         this.setState({ uploadStatus: CloudinaryUploadStatus.LOADING })
-        return uploadRequest(fileData, file)
+        return this.cloudinaryRequest(fileData, file)
           .then(res => {
             this.setState({ uploadStatus: CloudinaryUploadStatus.SUCCESS })
             return res

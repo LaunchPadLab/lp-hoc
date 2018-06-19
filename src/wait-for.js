@@ -10,6 +10,7 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  * * Array - An array of prop names to wait for. Each prop name will be evaluated using the `String` rules.
  * * Object - An object where the keys are prop names and the values are expected values. When the prop values are equal to the expected values, the component will render.
  *
+ * @name waitFor
  * @param {(String|Function|Object)} renderWhen - A rule indicating when the wrapped component may render.
  * @param {Function} [LoadingComponent = null] - A component to render during the loading state, will be passed the current props. If not provided, `<p>Loading...</p>` will be rendered.
  * @returns {Function} - Returns a higher order component (HOC) to handle conditional logic for loading states.

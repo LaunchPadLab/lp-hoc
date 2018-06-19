@@ -1,5 +1,5 @@
 import React from 'react'
-import { omit } from './utils'
+import { omit, wrapDisplayName } from './utils'
 
 /**
  * A function that returns a React HOC that omits some or all of a component's props.
@@ -27,9 +27,12 @@ import { omit } from './utils'
 **/
 
 export default function omitProps (options) {
-  return WrappedComponent =>
-    function OmitPropsWrapper (props) {
+  return WrappedComponent => {
+    function Wrapper (props) {
       const newProps = options ? omit(options, props) : {}
       return <WrappedComponent { ...newProps } />
     }
+    Wrapper.displayName = wrapDisplayName(WrappedComponent, 'omitProps')
+    return Wrapper
+  }
 }
