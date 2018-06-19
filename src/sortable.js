@@ -93,10 +93,13 @@ export default function sortable (options={}) {
        */
       static displayName = wrapDisplayName(WrappedComponent, 'sortable')
 
+      // Combine options with props
+      get config () {
+        return { ...options, ...this.props }
+      }
+
       constructor (props) {
         super(props)
-        // Set config object from options and props
-        this.config = { ...options, ...props }
         // Set initial state from config
         const {
           initialAscending=true,
