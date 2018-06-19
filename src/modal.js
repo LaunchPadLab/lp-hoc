@@ -2,6 +2,7 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import { connectModal, show, hide, destroy } from 'redux-modal'
 import classnames from 'classnames'
+import BodyClassName from 'react-body-classname'
 import { getDisplayName, noop } from './utils'
 
 /**
@@ -68,13 +69,15 @@ function modal ({
     /* eslint react/prop-types: 0 */
     function ModalWrapper (props) {
       return (
-        <div className={ classnames('modal', { 'modal-warning': warning, 'is-active': props.show })}>
-          <div className="modal-fade-screen" onClick={ disableOutsideClick ? noop : props.handleHide }>
-            <div className="modal-inner" onClick={ e => e.stopPropagation() }>
-              <WrappedComponent { ...props } /> 
+        <BodyClassName className={ classnames({ 'modal-open': props.show }) }>
+          <div className={ classnames('modal', { 'modal-warning': warning, 'is-active': props.show })}>
+            <div className="modal-fade-screen" onClick={ disableOutsideClick ? noop : props.handleHide }>
+              <div className="modal-inner" onClick={ e => e.stopPropagation() }>
+                <WrappedComponent { ...props } /> 
+              </div>
             </div>
           </div>
-        </div>
+        </BodyClassName>
       )
     }
 
