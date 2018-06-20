@@ -9,7 +9,7 @@ test('modal has correct displayName', () => {
 
 test('modal exposes the `show` function', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = modal()(Wrapped)
+  const Wrapper = modal({ name: 'TestModal' })(Wrapped)
   const spy = jest.spyOn(Wrapper, 'show')
   const showResponse = Wrapper.show()
   expect(spy).toHaveBeenCalled()
@@ -18,7 +18,7 @@ test('modal exposes the `show` function', () => {
 
 test('modal exposes the `hide` function', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = modal()(Wrapped)
+  const Wrapper = modal({ name: 'TestModal' })(Wrapped)
   const spy = jest.spyOn(Wrapper, 'hide')
   const hideResponse = Wrapper.hide()
   expect(spy).toHaveBeenCalled()
@@ -27,9 +27,14 @@ test('modal exposes the `hide` function', () => {
 
 test('modal exposes the `destroy` function', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = modal()(Wrapped)
+  const Wrapper = modal({ name: 'TestModal' })(Wrapped)
   const spy = jest.spyOn(Wrapper, 'destroy')
   const destroyResponse = Wrapper.destroy()
   expect(spy).toHaveBeenCalled()
   expect(destroyResponse.type).toEqual('@redux-modal/DESTROY')
+})
+
+test('modal throws an error when `name` prop is missing', () => {
+  const Wrapped = () => <h1>Hi</h1>
+  expect(() => modal()(Wrapped)).toThrow()
 })
