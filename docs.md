@@ -741,7 +741,7 @@ For the renderWhen param, the type can be one of the following:
 ### Parameters
 
 -   `renderWhen` **([String][56] \| [Function][59] \| [Object][58])** A rule indicating when the wrapped component may render.
--   `LoadingComponent` **[Function][59]** A component to render during the loading state, will be passed the current props. If not provided, <Spinner /> from `lp-components` will be rendered. To hide this component, pass in `false`. (optional, default `null`)
+-   `LoadingComponent` **[Function][59]?** A component to render during the loading state, will be passed the current props. If not provided, <Spinner /> from `lp-components` will be rendered. To hide this component, pass in `false`.
 
 ### Examples
 
