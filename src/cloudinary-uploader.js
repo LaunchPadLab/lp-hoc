@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import { api } from '@launchpadlab/lp-requests'
-import { getEnvVar, first, removeExtension, requireParam } from './utils'
+import { addExtension, getEnvVar, first, removeExtension, requireParam } from './utils'
 
 /**
  * A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
@@ -18,6 +18,7 @@ import { getEnvVar, first, removeExtension, requireParam } from './utils'
  * @param {string} [uploadPreset=default] - The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`.
  * @param {string} [endpoint=https://api.cloudinary.com/v1_1/] - The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`.
  * @param {string} [fileType=auto] - The type of file.
+ * @param {string} [cloudinaryPublicId] - The name of the file stored in Cloudinary.
  * @param {object} [requestOptions=DEFAULT_REQUEST_OPTIONS] - Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js].
  * @returns {Function} - A HOC that can be used to wrap a component.
  *
@@ -74,11 +75,13 @@ const DEFAULT_REQUEST_OPTIONS = {
 
 // Removes file extension from file name if asset is an image or pdf
 // Otherwise, Cloudinary will add an extra extension to the file name
-function createPublicId (file) {
+// Ensure extension is present on "raw" file types (e.g., .xls)
+function createPublicId (file, publicId) {
   const { type, name } = file
   const isImageType = first(type.split('/')) === 'image'
   const isPdfType = type === 'application/pdf'
-  return (isPdfType || isImageType) ? removeExtension(name) : name
+  const fileName = publicId || name
+  return (isPdfType || isImageType) ? removeExtension(fileName) : addExtension(fileName, file)
 }
 
 function cloudinaryUploader (options={}) {
@@ -95,12 +98,14 @@ function cloudinaryUploader (options={}) {
           endpoint=getEnvVar('CLOUDINARY_ENDPOINT') || DEFAULT_ENDPOINT,
           fileType=DEFAULT_FILE_TYPE,
           requestOptions=DEFAULT_REQUEST_OPTIONS,
+          cloudinaryPublicId,
         } = config
         // Build request function using config
         this.cloudinaryRequest = function (fileData, file) {
-          const publicId = createPublicId(file)
+          const publicId = createPublicId(file, cloudinaryPublicId)
+          const setPublicId = cloudinaryPublicId || fileType === DEFAULT_FILE_TYPE
           const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
-          const body = { file: fileData, folder: bucket, publicId, uploadPreset }
+          const body = { file: fileData, folder: bucket, uploadPreset, ...setPublicId && { publicId } }
           return api.post(url, body, requestOptions)
         }
         this.upload = this.upload.bind(this)
