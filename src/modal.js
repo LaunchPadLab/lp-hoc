@@ -84,6 +84,8 @@ function modal ({
       name,
       ...options,
     })(ModalWrapper)
+    // Rename the whole thing to the modal name so we can call actions on it
+    connectedModalWrapper.displayName = name
     // Attach action creators to component
     connectedModalWrapper.show = (props) => show(name, props)
     connectedModalWrapper.hide = () => hide(name)
