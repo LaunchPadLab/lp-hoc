@@ -3,7 +3,7 @@ import React from 'react'
 import { connectModal, show, hide, destroy } from 'redux-modal'
 import classnames from 'classnames'
 import BodyClassName from 'react-body-classname'
-import { getDisplayName, noop } from './utils'
+import { noop } from './utils'
 
 /**
  * A function that returns a React HOC for creating modals.
@@ -64,8 +64,7 @@ function modal ({
   ...options 
 } = {}) {
   return WrappedComponent => {
-    const modalName = name || getDisplayName(WrappedComponent)
-    if (!modalName) throw new Error('Must provide name option or wrap a named component')
+    if (!name) throw new Error('Must provide name option')
     /* eslint react/prop-types: 0 */
     function ModalWrapper (props) {
       return (
@@ -82,15 +81,13 @@ function modal ({
     }
 
     const connectedModalWrapper = connectModal({
-      name: modalName,
+      name,
       ...options,
     })(ModalWrapper)
-    // Rename the whole thing to the modal name so we can call actions on it`
-    connectedModalWrapper.displayName = modalName
     // Attach action creators to component
-    connectedModalWrapper.show = (props) => show(modalName, props)
-    connectedModalWrapper.hide = () => hide(modalName)
-    connectedModalWrapper.destroy = () => destroy(modalName)
+    connectedModalWrapper.show = (props) => show(name, props)
+    connectedModalWrapper.hide = () => hide(name)
+    connectedModalWrapper.destroy = () => destroy(name)
     return connectedModalWrapper
   }
 }
