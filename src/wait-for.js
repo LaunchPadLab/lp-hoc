@@ -1,4 +1,5 @@
 import React from 'react'
+import { LoadingSpinner } from '@launchpadlab/lp-components'
 import { get, stubTrue, every, wrapDisplayName } from './utils'
 
 /**
@@ -30,10 +31,10 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
 **/
 
 function DefaultLoadingComponent () {
-  return <p>Loading...</p>
+  return <LoadingSpinner />
 }
 
-export default function waitFor (renderWhen, LoadingComponent=DefaultLoadingComponent) {
+export default function waitFor (renderWhen, LoadingComponent) {
 
   const doRender = getRenderCondition(renderWhen)
 
@@ -52,9 +53,10 @@ export default function waitFor (renderWhen, LoadingComponent=DefaultLoadingComp
       static WrappedComponent = WrappedComponent
 
       render () {
+        if (LoadingComponent === false) return null
         return doRender(this.props)
-          ? <WrappedComponent { ...this.props }/>
-          : <LoadingComponent { ...this.props }/>
+          ? <WrappedComponent { ...this.props } />
+          : <DefaultLoadingComponent { ...this.props } />
       }
     }
 }
