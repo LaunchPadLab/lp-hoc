@@ -1,12 +1,6 @@
 import React from 'react'
 import { modal } from '../src/'
 
-test('modal has correct displayName', () => {
-  const Wrapped = () => <h1>Alert!</h1>
-  const Wrapper = modal({ name: 'AlertModal' })(Wrapped)
-  expect(Wrapper.displayName).toEqual('AlertModal')
-})
-
 test('modal exposes the `show` function', () => {
   const Wrapped = () => <h1>Hi</h1>
   const Wrapper = modal({ name: 'TestModal' })(Wrapped)
