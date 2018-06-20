@@ -13,7 +13,7 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  *
  * @name waitFor
  * @param {(String|Function|Object)} renderWhen - A rule indicating when the wrapped component may render.
- * @param {Function} [LoadingComponent = null] - A component to render during the loading state, will be passed the current props. If not provided, <LoadingSpinner /> from `lp-components` will be rendered. To hide this component, pass in `false`.
+ * @param {Function} [LoadingComponent = null] - A component to render during the loading state, will be passed the current props. If not provided, <Spinner /> from `lp-components` will be rendered. To hide this component, pass in `false`.
  * @returns {Function} - Returns a higher order component (HOC) to handle conditional logic for loading states.
  * @example
  *
@@ -27,7 +27,7 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  *
  *  waitFor(renderWhen, MyComponent)
  *  // When prop 'name' value evaluates to true, MyComponent will be rendered.
- *  // Otherwise, the <LoadingSpinner /> component from `lp-components` will be rendered.
+ *  // Otherwise, the <Spinner /> component from `lp-components` will be rendered.
 **/
 
 function DefaultLoadingComponent (props) {
