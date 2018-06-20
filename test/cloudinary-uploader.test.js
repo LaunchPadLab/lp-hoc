@@ -73,13 +73,26 @@ test('cloudinaryUploader sends the api request with the correct options', () => 
 
 test('cloudinaryUploader sets `publicId`', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const Wrapper = cloudinaryUploader({ ...props, cloudinaryPublicId: 'custom-file-name' })(Wrapped)
+  const Wrapper = cloudinaryUploader({ ...props, cloudinaryPublicId: 'custom-name' })(Wrapped)
   const component = shallow(<Wrapper />)
   const { upload } = component.props()
   return upload(fileData, file).then(response => {
     component.update()
     const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).toEqual('custom-file-name')
+    expect(responseJson.public_id).toEqual('custom-name')
+  })
+})
+
+test('cloudinaryUploader adds extension to `publicId` of raw files', () => {
+  const rawFile = { name: 'test.xls', type: 'application/xls' }
+  const Wrapped = () => <h1>Hi</h1>
+  const Wrapper = cloudinaryUploader({ ...props, cloudinaryPublicId: 'custom-name' })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  return upload(fileData, rawFile).then(response => {
+    component.update()
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('custom-name.xls')
   })
 })
 

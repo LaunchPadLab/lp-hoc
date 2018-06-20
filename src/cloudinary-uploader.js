@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import { api } from '@launchpadlab/lp-requests'
-import { getEnvVar, first, removeExtension, requireParam } from './utils'
+import { addExtension, getEnvVar, first, removeExtension, requireParam } from './utils'
 
 /**
  * A function that returns a React HOC for uploading files to (Cloudinary)[https://cloudinary.com].
@@ -75,11 +75,13 @@ const DEFAULT_REQUEST_OPTIONS = {
 
 // Removes file extension from file name if asset is an image or pdf
 // Otherwise, Cloudinary will add an extra extension to the file name
-function createPublicId (file) {
+// Ensure extension is present on "raw" file types (e.g., .xls)
+function createPublicId (file, publicId) {
   const { type, name } = file
   const isImageType = first(type.split('/')) === 'image'
   const isPdfType = type === 'application/pdf'
-  return (isPdfType || isImageType) ? removeExtension(name) : name
+  const fileName = publicId || name
+  return (isPdfType || isImageType) ? removeExtension(fileName) : addExtension(fileName, file)
 }
 
 function cloudinaryUploader (options={}) {
@@ -100,8 +102,7 @@ function cloudinaryUploader (options={}) {
         } = config
         // Build request function using config
         this.cloudinaryRequest = function (fileData, file) {
-          const publicId = cloudinaryPublicId || createPublicId(file)
-          // Override Cloudinary's `publicId` only if `cloudinaryPublicId` is present or `fileType` is `auto`
+          const publicId = createPublicId(file, cloudinaryPublicId)
           const setPublicId = cloudinaryPublicId || fileType === DEFAULT_FILE_TYPE
           const url = `${ endpoint }/${ cloudName }/${ fileType }/upload`
           const body = { file: fileData, folder: bucket, uploadPreset, ...setPublicId && { publicId } }
