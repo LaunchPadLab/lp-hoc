@@ -1,5 +1,5 @@
 import React from 'react'
-import { LoadingSpinner } from '@launchpadlab/lp-components'
+import { Spinner } from '@launchpadlab/lp-components'
 import { get, stubTrue, every, wrapDisplayName } from './utils'
 
 /**
@@ -13,7 +13,7 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  *
  * @name waitFor
  * @param {(String|Function|Object)} renderWhen - A rule indicating when the wrapped component may render.
- * @param {Function} [LoadingComponent = null] - A component to render during the loading state, will be passed the current props. If not provided, `<p>Loading...</p>` will be rendered.
+ * @param {Function} [LoadingComponent = null] - A component to render during the loading state, will be passed the current props. If not provided, <LoadingSpinner /> from `lp-components` will be rendered. To hide this component, pass in `false`.
  * @returns {Function} - Returns a higher order component (HOC) to handle conditional logic for loading states.
  * @example
  *
@@ -27,14 +27,14 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  *
  *  waitFor(renderWhen, MyComponent)
  *  // When prop 'name' value evaluates to true, MyComponent will be rendered.
- *  // Otherwise, <p>Loading...</p> will be rendered.
+ *  // Otherwise, the <LoadingSpinner /> component from `lp-components` will be rendered.
 **/
 
-function DefaultLoadingComponent () {
-  return <LoadingSpinner />
+function DefaultLoadingComponent (props) {
+  return <Spinner { ...props }/>
 }
 
-export default function waitFor (renderWhen, LoadingComponent) {
+export default function waitFor (renderWhen, LoadingComponent=DefaultLoadingComponent) {
 
   const doRender = getRenderCondition(renderWhen)
 
@@ -53,10 +53,11 @@ export default function waitFor (renderWhen, LoadingComponent) {
       static WrappedComponent = WrappedComponent
 
       render () {
+        if (doRender(this.props)) return <WrappedComponent { ...this.props }/>
         if (LoadingComponent === false) return null
-        return doRender(this.props)
-          ? <WrappedComponent { ...this.props } />
-          : <DefaultLoadingComponent { ...this.props } />
+        return LoadingComponent 
+          ? <LoadingComponent { ...this.props }/> 
+          : <DefaultLoadingComponent { ...this.props }/>
       }
     }
 }
