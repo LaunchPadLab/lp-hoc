@@ -50,7 +50,7 @@ import { camelize, isUndef, wrapDisplayName } from './utils'
  *
  * export default compose(
  *    getSet('currentTab', { 
- *      intialValues: { 
+ *      initialValues: { 
  *        currentTab: 1,
  *      },
  *    }),
