@@ -13,3 +13,5 @@ instead of the previous syntax:
 ```
 AlertModal.displayName = 'AlertModal'
 ```
+
+Additionally, the `waitFor` component now defaults to displaying the `LoadingSpinner` from `lp-components` instead of the `Loading...` message.
