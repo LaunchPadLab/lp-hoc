@@ -107,7 +107,7 @@ TabBar.propTypes = {
 
 export default compose(
    getSet('currentTab', { 
-     intialValues: { 
+     initialValues: { 
        currentTab: 1,
      },
    }),
