@@ -2,5 +2,5 @@
 
 export default function removeExtension (fileName) {
   const extensionIdx = fileName.lastIndexOf('.')
-  return fileName.slice(0, extensionIdx)
+  return extensionIdx > 0 ? fileName.slice(0, extensionIdx) : fileName
 }
