@@ -114,3 +114,24 @@ test('a custom loading component is used', () => {
   component.setProps({ doLoad: true })
   expect(component.find('label').exists()).toBe(false)
 })
+
+test('default loading component is used', () => {
+  const Wrapped = () => <h1>hi</h1>
+  const Wrapper = waitFor('doLoad')(Wrapped)
+  const component = mount(<Wrapper />)
+  expect(component.find('h1').exists()).toBe(false)
+  expect(component.find('#spinner').exists()).toBe(true)
+  component.setProps({ doLoad: true })
+  expect(component.find('h1').exists()).toBe(true)
+  expect(component.find('#spinner').exists()).toBe(false)
+})
+
+test('default loading component can be hidden', () => {
+  const Wrapped = () => <h1>hi</h1>
+  const Wrapper = waitFor('doLoad', false)(Wrapped)
+  const component = mount(<Wrapper />)
+  expect(component.find('h1').exists()).toBe(false)
+  expect(component.find('#spinner').exists()).toBe(false)
+  component.setProps({ doLoad: true })
+  expect(component.find('h1').exists()).toBe(true)
+})

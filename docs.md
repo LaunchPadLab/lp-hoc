@@ -107,7 +107,7 @@ TabBar.propTypes = {
 
 export default compose(
    getSet('currentTab', { 
-     intialValues: { 
+     initialValues: { 
        currentTab: 1,
      },
    }),
@@ -491,6 +491,7 @@ A function that returns a React HOC for uploading files to (Cloudinary)[https://
 -   `uploadPreset` **[string][56]** The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`. (optional, default `default`)
 -   `endpoint` **[string][56]** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
 -   `fileType` **[string][56]** The type of file. (optional, default `auto`)
+-   `cloudinaryPublicId` **[string][56]?** The name of the file stored in Cloudinary.
 -   `requestOptions` **[object][58]** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
 
 ### Examples
@@ -703,7 +704,7 @@ For the renderWhen param, the type can be one of the following:
 ### Parameters
 
 -   `renderWhen` **([String][56] \| [Function][59] \| [Object][58])** A rule indicating when the wrapped component may render.
--   `LoadingComponent` **[Function][59]** A component to render during the loading state, will be passed the current props. If not provided, `<p>Loading...</p>` will be rendered. (optional, default `null`)
+-   `LoadingComponent` **[Function][59]?** A component to render during the loading state, will be passed the current props. If not provided, <Spinner /> from `lp-components` will be rendered. To hide this component, pass in `false`.
 
 ### Examples
 
@@ -718,7 +719,7 @@ function MyComponent (name) {
 
  waitFor(renderWhen, MyComponent)
  // When prop 'name' value evaluates to true, MyComponent will be rendered.
- // Otherwise, <p>Loading...</p> will be rendered.
+ // Otherwise, the <Spinner /> component from `lp-components` will be rendered.
 *
 ```
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Spinner } from '@launchpadlab/lp-components'
 import { get, stubTrue, every, wrapDisplayName } from './utils'
 
 /**
@@ -12,7 +13,7 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  *
  * @name waitFor
  * @param {(String|Function|Object)} renderWhen - A rule indicating when the wrapped component may render.
- * @param {Function} [LoadingComponent = null] - A component to render during the loading state, will be passed the current props. If not provided, `<p>Loading...</p>` will be rendered.
+ * @param {Function} [LoadingComponent] - A component to render during the loading state, will be passed the current props. If not provided, <Spinner /> from `lp-components` will be rendered. To hide this component, pass in `false`.
  * @returns {Function} - Returns a higher order component (HOC) to handle conditional logic for loading states.
  * @example
  *
@@ -26,11 +27,11 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  *
  *  waitFor(renderWhen, MyComponent)
  *  // When prop 'name' value evaluates to true, MyComponent will be rendered.
- *  // Otherwise, <p>Loading...</p> will be rendered.
+ *  // Otherwise, the <Spinner /> component from `lp-components` will be rendered.
 **/
 
-function DefaultLoadingComponent () {
-  return <p>Loading...</p>
+function DefaultLoadingComponent (props) {
+  return <Spinner { ...props }/>
 }
 
 export default function waitFor (renderWhen, LoadingComponent=DefaultLoadingComponent) {
@@ -52,9 +53,11 @@ export default function waitFor (renderWhen, LoadingComponent=DefaultLoadingComp
       static WrappedComponent = WrappedComponent
 
       render () {
-        return doRender(this.props)
-          ? <WrappedComponent { ...this.props }/>
-          : <LoadingComponent { ...this.props }/>
+        if (doRender(this.props)) return <WrappedComponent { ...this.props }/>
+        if (LoadingComponent === false) return null
+        return LoadingComponent 
+          ? <LoadingComponent { ...this.props }/> 
+          : <DefaultLoadingComponent { ...this.props }/>
       }
     }
 }
