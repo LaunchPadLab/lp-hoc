@@ -30,28 +30,28 @@
     -   [Examples][26]
 -   [adaptToReduxForm][27]
     -   [Examples][28]
--   [addDefaultClass][29]
+-   [camelizeProps][29]
     -   [Parameters][30]
     -   [Examples][31]
--   [camelizeProps][32]
+-   [cloudinaryUploader][32]
     -   [Parameters][33]
     -   [Examples][34]
--   [cloudinaryUploader][35]
+-   [deprecate][35]
     -   [Parameters][36]
     -   [Examples][37]
--   [deprecate][38]
+-   [modal][38]
     -   [Parameters][39]
     -   [Examples][40]
--   [modal][41]
+-   [modifyProps][41]
     -   [Parameters][42]
     -   [Examples][43]
--   [modifyProps][44]
+-   [omitProps][44]
     -   [Parameters][45]
     -   [Examples][46]
--   [omitProps][47]
+-   [waitFor][47]
     -   [Parameters][48]
     -   [Examples][49]
--   [waitFor][50]
+-   [withClassName][50]
     -   [Parameters][51]
     -   [Examples][52]
 -   [waitForResponse][53]
@@ -443,44 +443,6 @@ function MyForm ({ handleSubmit }) {
 }
 ```
 
-## addDefaultClass
-
-A function that returns a React HOC that adds a default className to the wrapped React component.
-
-This className will be extended by any additional classNames given to the component.
-
-### Parameters
-
--   `defaultClass` **[String][56]** The default class to add to the component
-
-### Examples
-
-```javascript
-const Block = addDefaultClass('section-block')('section')
-const Header = addDefaultClass('section-header')('div')
-
-function Content () {
-  return (
-    <Block>
-      <Header className="highlighted">
-        This is some header text!
-      </Header>
-    </Block>
-  )
-}
-
-// This is equivalent to:
-// function Content () {
-//   return (
-//     <section className="section-block">
-//       <div className="section-header highlighted">
-//         This is some header text!
-//       </div>
-//     </section>
-//   )
-// }
-```
-
 ## camelizeProps
 
 A function that returns a React HOC that converts a component's props into camel-case.
@@ -762,10 +724,48 @@ function MyComponent (name) {
 
 Returns **[Function][59]** Returns a higher order component (HOC) to handle conditional logic for loading states.
 
+## withClassName
+
+A function that returns a React HOC that adds a default className to the wrapped React component.
+
+This className will be extended by any additional classNames given to the component.
+
+### Parameters
+
+-   `defaultClass` **[String][56]** The default class to add to the component
+
+### Examples
+
+```javascript
+const Block = withClassName('section-block')('section')
+const Header = withClassName('section-header')('div')
+
+function Content () {
+  return (
+    <Block>
+      <Header className="highlighted">
+        This is some header text!
+      </Header>
+    </Block>
+  )
+}
+
+// This is equivalent to:
+// function Content () {
+//   return (
+//     <section className="section-block">
+//       <div className="section-header highlighted">
+//         This is some header text!
+//       </div>
+//     </section>
+//   )
+// }
+```
+
 ## waitForResponse
 
 A function that returns an HOC to handle rendering that depends on an API response. 
-A combination of [waitFor][50] and selectors from [lp-redux-api][66].
+A combination of [waitFor][47] and selectors from [lp-redux-api][66].
 
 ### Parameters
 
@@ -852,49 +852,49 @@ Returns **[Function][59]** A higher order component (HOC).
 
 [28]: #examples-9
 
-[29]: #adddefaultclass
+[29]: #camelizeprops
 
 [30]: #parameters-8
 
 [31]: #examples-10
 
-[32]: #camelizeprops
+[32]: #cloudinaryuploader
 
 [33]: #parameters-9
 
 [34]: #examples-11
 
-[35]: #cloudinaryuploader
+[35]: #deprecate
 
 [36]: #parameters-10
 
 [37]: #examples-12
 
-[38]: #deprecate
+[38]: #modal
 
 [39]: #parameters-11
 
 [40]: #examples-13
 
-[41]: #modal
+[41]: #modifyprops
 
 [42]: #parameters-12
 
 [43]: #examples-14
 
-[44]: #modifyprops
+[44]: #omitprops
 
 [45]: #parameters-13
 
 [46]: #examples-15
 
-[47]: #omitprops
+[47]: #waitfor
 
 [48]: #parameters-14
 
 [49]: #examples-16
 
-[50]: #waitfor
+[50]: #withclassname
 
 [51]: #parameters-15
 
