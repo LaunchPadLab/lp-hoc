@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-hoc",
-  "version": "2.9.0",
+  "version": "3.0.0",
   "description": "React HOCs",
   "main": "lib/index.js",
   "repository": "launchpadlab/lp-hoc",
@@ -29,6 +29,7 @@
     "lib/"
   ],
   "dependencies": {
+    "@launchpadlab/lp-components": "^3.11.3",
     "@launchpadlab/lp-redux-api": "^5.0.2",
     "@launchpadlab/lp-requests": "^3.0.0",
     "classnames": "^2.2.5",
