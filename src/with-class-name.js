@@ -8,14 +8,14 @@ import { wrapDisplayName } from './utils'
  *
  * This className will be extended by any additional classNames given to the component.
  * 
- * @name addDefaultClass
+ * @name withClassName
  * @type Function
  * @param {String} defaultClass - The default class to add to the component
  *
  * @example
  *
- * const Block = addDefaultClass('section-block')('section')
- * const Header = addDefaultClass('section-header')('div')
+ * const Block = withClassName('section-block')('section')
+ * const Header = withClassName('section-header')('div')
  *
  * function Content () {
  *   return (
@@ -40,12 +40,12 @@ import { wrapDisplayName } from './utils'
  *
  */
 
-function componentWithClass (defaultClass) {
+function withClassName (defaultClass) {
   return Wrapped => {
     function Wrapper ({ className, ...rest }) {
       return <Wrapped className={ classnames(defaultClass, className) } { ...rest } />
     }
-    Wrapper.displayName = wrapDisplayName(Wrapped, 'addDefaultClass')
+    Wrapper.displayName = wrapDisplayName(Wrapped, 'withClassName')
     Wrapper.propTypes = {
       className: PropTypes.string,
     }
@@ -53,4 +53,4 @@ function componentWithClass (defaultClass) {
   }
 }
 
-export default componentWithClass
+export default withClassName
