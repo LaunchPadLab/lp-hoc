@@ -1,28 +1,28 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { addDefaultClass } from '../src/'
+import { withClassName } from '../src'
 
-test('addDefaultClass adds default class to functional components', () => {
+test('withClassName adds default class to functional components', () => {
   const Wrapped = () => <h1>hi</h1>
-  const Wrapper = addDefaultClass('foo')(Wrapped)
+  const Wrapper = withClassName('foo')(Wrapped)
   const component = mount(<Wrapper />)
   expect(component.find(Wrapped).props().className).toEqual('foo')
 })
 
-test('addDefaultClass adds default class to string tags', () => {
-  const Wrapper = addDefaultClass('foo')('div')
+test('withClassName adds default class to string tags', () => {
+  const Wrapper = withClassName('foo')('div')
   const component = mount(<Wrapper />)
   expect(component.find('div').props().className).toEqual('foo')
 })
 
-test('addDefaultClass extends className instead of overriding', () => {
-  const Wrapper = addDefaultClass('foo')('div')
+test('withClassName extends className instead of overriding', () => {
+  const Wrapper = withClassName('foo')('div')
   const component = mount(<Wrapper className="bar" />)
   expect(component.find('div').props().className).toEqual('foo bar')
 })
 
-test('addDefaultClass ignores empty argument', () => {
-  const Wrapper = addDefaultClass()('div')
+test('withClassName ignores empty argument', () => {
+  const Wrapper = withClassName()('div')
   const component = mount(<Wrapper className="bar" />)
   expect(component.find('div').props().className).toEqual('bar')
 })
