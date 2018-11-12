@@ -30,7 +30,6 @@
   ],
   "dependencies": {
     "@launchpadlab/lp-components": "^3.11.3",
-    "@launchpadlab/lp-redux-api": "^5.0.2",
     "@launchpadlab/lp-requests": "^3.0.0",
     "classnames": "^2.2.5",
     "humps": "^2.0.1",
