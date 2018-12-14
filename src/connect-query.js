@@ -1,12 +1,11 @@
 import React from 'react'
 import {
   camelizeKeys,
+  createMapperFunc,
   coerce,
-  isFunction,
   mapValues,
   noop,
   parse,
-  pick,
   wrapDisplayName,
 } from './utils'
 
@@ -47,14 +46,6 @@ import {
  * )(ResetPassword)
  * 
  */
-
-function createMapperFunc (mappingConfig) {
-  if (isFunction(mappingConfig)) return mappingConfig
-  
-  return function map (values) {
-    return pick(values, mappingConfig)
-  }
-}
 
 function connectQuery (mappingConfig = noop, { camelize = true } = {}) {
   function modify (props) {
