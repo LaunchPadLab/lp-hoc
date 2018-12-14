@@ -18,3 +18,4 @@ export {
 } from './lifecycle'
 export sortable, { sortablePropTypes } from './sortable'
 export toggle, { togglePropTypes } from './toggle'
+export connectQuery from './connect-query'
