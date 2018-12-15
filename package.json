@@ -38,13 +38,13 @@
     "query-string": "^5.1.1",
     "react-body-classname": "^1.2.0",
     "react-redux": "^5.0.6",
-    "react-router": "^3.2.1",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-modal": "^2.0.2"
   },
   "peerDependencies": {
-    "react": ">=15.5.4"
+    "react": ">=15.5.4",
+    "react-router": "^3.2.1 || ^4.3.1"
   },
   "devDependencies": {
     "@launchpadlab/babel-preset": "^1.0.0",
@@ -60,7 +60,10 @@
     "jest": "^23.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.5.4",
+    "react-router": "^3.2.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-v4": "npm:react-router@^4.3.1"
   },
   "greenkeeper": {
     "ignore": [
