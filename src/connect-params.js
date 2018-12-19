@@ -7,17 +7,16 @@ import {
   noop,
   wrapDisplayName,
 } from './utils'
-import { withRouter } from 'react-router-v4'
+import { withRouter } from 'react-router'
 
 /**
  * A function that returns a React HOC that converts a url's matched path parameters into props.
  * This does not require a component to be directly connected to React Router and can be further
  * nested in the component hierarchy.
  * 
- * Note: This will only work with React Router v^4.0.0. When composing together with other HOCs, 
- * make sure that this component is not blocked by another component that implements
- * shouldComponentUpdate. For example, when using with a Redux connected component, the following
- * sequence will *not* work.
+ * Note: When composing together with other HOCs, make sure that this component is not blocked by another 
+ * component that implements shouldComponentUpdate. For example, when using with a Redux connected 
+ * component, the following sequence will *not* work.
  * 
  * compose(
  *  connect(...),
@@ -67,7 +66,7 @@ import { withRouter } from 'react-router-v4'
  */
 
 function grabParams (props) {
-  const params = get('match.params', props)
+  const params = get('match.params', props) || get('params', props) // supports React Router v4 and v3, respectively
   return params ? mapValues(params, coerce) : {}
 }
 

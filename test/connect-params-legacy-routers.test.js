@@ -1,10 +1,11 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { connectParams } from '../src/'
-import { MemoryRouter } from 'react-router-dom'
-import { Route, Switch } from 'react-router-v4'
+import { Router, Route, createMemoryHistory } from 'react-router'
 
-describe('connectParams HOC for React Router v^4', () => {
+jest.unmock('react-router')
+
+describe('connectParams HOC for React Router < v4', () => {
   test('has the correct displayName', () => {
     const Wrapped = () => <h1>Hi</h1>
     const Wrapper = connectParams('test')(Wrapped)
@@ -16,13 +17,13 @@ describe('connectParams HOC for React Router v^4', () => {
     const Wrapped = ({ id }) => <h1>{ id }</h1>
     const Wrapper = connectParams('id')(Wrapped)
     
+    const browserHistory = createMemoryHistory('/students/2')
+    
     const app = mount(
-      <MemoryRouter initialEntries={["/students/2"]}>
-        <Switch>
-          <Route path="/students/:id" component={ Wrapper } />
-          <Route path="*" component={ () => <h1>hi</h1> } />
-        </Switch>
-      </MemoryRouter>
+      <Router history={ browserHistory }>
+        <Route path="/students/:id" component={ Wrapper } />
+        <Route path="*" component={ () => <h1>hi</h1> } />
+      </Router>
     )
     
     const component = app.find(Wrapped)
@@ -35,13 +36,13 @@ describe('connectParams HOC for React Router v^4', () => {
     const Wrapped = ({ id }) => <h1>{ id }</h1>
     const Wrapper = connectParams('student')(Wrapped)
     
+    const browserHistory = createMemoryHistory('/students/2')
+    
     const app = mount(
-      <MemoryRouter initialEntries={["/students/2"]}>
-        <Switch>
-          <Route path="/students/:id" component={ Wrapper } />
-          <Route path="*" component={ () => <h1>hi</h1> } />
-        </Switch>
-      </MemoryRouter>
+      <Router history={ browserHistory }>
+        <Route path="/students/:id" component={ Wrapper } />
+        <Route path="*" component={ () => <h1>hi</h1> } />
+      </Router>
     )
     
     const component = app.find(Wrapped)
@@ -54,13 +55,13 @@ describe('connectParams HOC for React Router v^4', () => {
     const Wrapped = ({ studentId }) => <h1>{ studentId }</h1>
     const Wrapper = connectParams(({ id }) => ({ studentId: id }))(Wrapped)
     
+    const browserHistory = createMemoryHistory('/students/2')
+    
     const app = mount(
-      <MemoryRouter initialEntries={["/students/2"]}>
-        <Switch>
-          <Route path="/students/:id" component={ Wrapper } />
-          <Route path="*" component={ () => <h1>hi</h1> } />
-        </Switch>
-      </MemoryRouter>
+      <Router history={ browserHistory }>
+        <Route path="/students/:id" component={ Wrapper } />
+        <Route path="*" component={ () => <h1>hi</h1> } />
+      </Router>
     )
     
     const component = app.find(Wrapped)
@@ -75,13 +76,13 @@ describe('connectParams HOC for React Router v^4', () => {
     const Wrapped = ({ first, last }) => <h1>{ `${first} ${last}` }</h1>
     const Wrapper = connectParams(['first', 'last'])(Wrapped)
     
+    const browserHistory = createMemoryHistory('/students/leon/bridges')
+    
     const app = mount(
-      <MemoryRouter initialEntries={["/students/leon/bridges"]}>
-        <Switch>
-          <Route path="/students/:first/:last" component={ Wrapper } />
-          <Route path="*" component={ () => <h1>hi</h1> } />
-        </Switch>
-      </MemoryRouter>
+      <Router history={ browserHistory }>
+        <Route path="/students/:first/:last" component={ Wrapper } />
+        <Route path="*" component={ () => <h1>hi</h1> } />
+      </Router>
     )
     
     const component = app.find(Wrapped)
@@ -92,18 +93,19 @@ describe('connectParams HOC for React Router v^4', () => {
   })
   
   test('works when not directly connected to a Route', () => {
+    // jest.unmock('react-router')
     //eslint-disable-next-line
     const Wrapped = ({ id }) => <h1>{ id }</h1>
     const Wrapper = connectParams('id')(Wrapped)
     const Parent = () => <div><Wrapper /></div>
     
+    const browserHistory = createMemoryHistory('/students/2')
+    
     const app = mount(
-      <MemoryRouter initialEntries={["/students/2"]}>
-        <Switch>
-          <Route path="/students/:id" component={ Parent } />
-          <Route path="*" component={ () => <h1>hi</h1> } />
-        </Switch>
-      </MemoryRouter>
+      <Router history={ browserHistory }>
+        <Route path="/students/:id" component={ Parent } />
+        <Route path="*" component={ () => <h1>hi</h1> } />
+      </Router>
     )
     
     const component = app.find(Wrapped)
