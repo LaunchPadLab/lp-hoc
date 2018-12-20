@@ -826,11 +826,14 @@ For more information: [https://reacttraining.com/react-router/web/api/withRouter
 ### Parameters
 
 -   `mappingConfig` **([Function][62] \| [String][59] \| [Array][60])** A function, string, or array of strings. String
-    arguments are interpreted as the names of props to pull from matched params.
+    arguments are interpreted as the names of props to pull from matched params. A function argument
+    will accept params and map them to props based on the object returned by this function 
+    (see second example below).
 
 ### Examples
 
 ```javascript
+// Example 1 - String argument
 function StudentShow ({ student }) {
  if (!student) return <p>Loading...</p>
 
@@ -857,6 +860,37 @@ function onComponentDidMount ({ id, fetchStudent }) {
 
 export default compose(
  connectParams('id'),
+ connect(mapStateToProps, mapDispatchToProps),
+ onMount(onComponentDidMount),
+)(StudentShow)
+
+// Example 2 - Function argument
+function StudentShow ({ student }) {
+ if (!student) return <p>Loading...</p>
+
+ return (
+   <div>
+     <h1>{ student.name }</h1>
+   </div>
+ )
+}
+
+function mapStateToProps (state) {
+ return {
+   student: selectors.student(state),
+ }
+}
+
+const mapDispatchToProps = {
+ fetchStudent: apiActions.fetchStudent,
+}
+
+function onComponentDidMount ({ id, fetchStudent }) {
+ return fetchStudent(id)
+}
+
+export default compose(
+ connectParams(({ studentId }) => ({ id: studentId })),
  connect(mapStateToProps, mapDispatchToProps),
  onMount(onComponentDidMount),
 )(StudentShow)

@@ -28,11 +28,14 @@ import { withRouter } from 'react-router'
  * @name connectParams
  * @type Function
  * @param {Function|String|Array} mappingConfig - A function, string, or array of strings. String
- * arguments are interpreted as the names of props to pull from matched params.
+ * arguments are interpreted as the names of props to pull from matched params. A function argument
+ * will accept params and map them to props based on the object returned by this function 
+ * (see second example below).
  * @returns {Function} - A HOC that can be used to wrap a component.
  * 
  * @example
  * 
+ * // Example 1 - String argument
  * function StudentShow ({ student }) {
  *  if (!student) return <p>Loading...</p>
  * 
@@ -63,6 +66,36 @@ import { withRouter } from 'react-router'
  *  onMount(onComponentDidMount),
  * )(StudentShow)
  * 
+ * // Example 2 - Function argument
+  * function StudentShow ({ student }) {
+  *  if (!student) return <p>Loading...</p>
+  * 
+  *  return (
+  *    <div>
+  *      <h1>{ student.name }</h1>
+  *    </div>
+  *  )
+  * }
+  * 
+  * function mapStateToProps (state) {
+  *  return {
+  *    student: selectors.student(state),
+  *  }
+  * }
+  * 
+  * const mapDispatchToProps = {
+  *  fetchStudent: apiActions.fetchStudent,
+  * }
+  * 
+  * function onComponentDidMount ({ id, fetchStudent }) {
+  *  return fetchStudent(id)
+  * }
+  * 
+  * export default compose(
+  *  connectParams(({ studentId }) => ({ id: studentId })),
+  *  connect(mapStateToProps, mapDispatchToProps),
+  *  onMount(onComponentDidMount),
+  * )(StudentShow)
  */
 
 function grabParams (props) {

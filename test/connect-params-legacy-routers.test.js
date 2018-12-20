@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import { connectParams } from '../src/'
 import { Router, Route, createMemoryHistory } from 'react-router'
 
+// By default the library's test suite will mock react-router as v^4.3.1. This will now use v^3.2.1 instead
 jest.unmock('react-router')
 
 describe('connectParams HOC for React Router < v4', () => {
