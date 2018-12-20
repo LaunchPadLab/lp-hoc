@@ -811,16 +811,29 @@ Returns **[Function][62]** A HOC that can be used to wrap a component.
 A function that returns a React HOC that converts a url's matched path parameters into props.
 This does not require a component to be directly connected to React Router and can be further
 nested in the component hierarchy.
-Note: This will only work with React Router v^4.0.0
+
+Note: When composing together with other HOCs, make sure that this component is not blocked by another 
+component that implements shouldComponentUpdate. For example, when using with a Redux connected 
+component, the following sequence will _not_ work.
+
+compose(
+ connect(...),
+ connectParams,
+)
+
+For more information: [https://reacttraining.com/react-router/web/api/withRouter][69]
 
 ### Parameters
 
 -   `mappingConfig` **([Function][62] \| [String][59] \| [Array][60])** A function, string, or array of strings. String
-    arguments are interpreted as the names of props to pull from matched params.
+    arguments are interpreted as the names of props to pull from matched params. A function argument
+    will accept params and map them to props based on the object returned by this function 
+    (see second example below).
 
 ### Examples
 
 ```javascript
+// Example 1 - String argument
 function StudentShow ({ student }) {
  if (!student) return <p>Loading...</p>
 
@@ -847,6 +860,37 @@ function onComponentDidMount ({ id, fetchStudent }) {
 
 export default compose(
  connectParams('id'),
+ connect(mapStateToProps, mapDispatchToProps),
+ onMount(onComponentDidMount),
+)(StudentShow)
+
+// Example 2 - Function argument
+function StudentShow ({ student }) {
+ if (!student) return <p>Loading...</p>
+
+ return (
+   <div>
+     <h1>{ student.name }</h1>
+   </div>
+ )
+}
+
+function mapStateToProps (state) {
+ return {
+   student: selectors.student(state),
+ }
+}
+
+const mapDispatchToProps = {
+ fetchStudent: apiActions.fetchStudent,
+}
+
+function onComponentDidMount ({ id, fetchStudent }) {
+ return fetchStudent(id)
+}
+
+export default compose(
+ connectParams(({ studentId }) => ({ id: studentId })),
  connect(mapStateToProps, mapDispatchToProps),
  onMount(onComponentDidMount),
 )(StudentShow)
@@ -989,3 +1033,5 @@ Returns **[Function][62]** A HOC that can be used to wrap a component.
 [67]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
 [68]: https://lodash.com/docs/4.17.4#omit
+
+[69]: https://reacttraining.com/react-router/web/api/withRouter
