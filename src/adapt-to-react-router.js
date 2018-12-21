@@ -1,4 +1,4 @@
-import { createRoutesFromReactChildren } from 'react-router/lib//RouteUtils'
+import { createRoutesFromReactChildren } from './utils'
 
 /**
  * This HOC allows the creation of custom `react-router` route components.
