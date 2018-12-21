@@ -2,56 +2,56 @@
 
 ### Table of Contents
 
--   [getSet][1]
-    -   [Parameters][2]
-    -   [Examples][3]
--   [onError][4]
-    -   [Parameters][5]
-    -   [Examples][6]
--   [onMount][7]
-    -   [Parameters][8]
-    -   [Examples][9]
--   [onOutsideClick][10]
-    -   [Parameters][11]
-    -   [Examples][12]
--   [onUnmount][13]
-    -   [Parameters][14]
-    -   [Examples][15]
--   [onUpdate][16]
-    -   [Parameters][17]
-    -   [Examples][18]
--   [sortable][19]
-    -   [Parameters][20]
-    -   [Examples][21]
--   [toggle][22]
-    -   [Parameters][23]
-    -   [Examples][24]
--   [adaptToReactRouter][25]
-    -   [Examples][26]
--   [adaptToReduxForm][27]
+-   [adaptToReactRouter][1]
+    -   [Examples][2]
+-   [adaptToReduxForm][3]
+    -   [Examples][4]
+-   [camelizeProps][5]
+    -   [Parameters][6]
+    -   [Examples][7]
+-   [cloudinaryUploader][8]
+    -   [Parameters][9]
+    -   [Examples][10]
+-   [deprecate][11]
+    -   [Parameters][12]
+    -   [Examples][13]
+-   [getSet][14]
+    -   [Parameters][15]
+    -   [Examples][16]
+-   [modal][17]
+    -   [Parameters][18]
+    -   [Examples][19]
+-   [modifyProps][20]
+    -   [Parameters][21]
+    -   [Examples][22]
+-   [omitProps][23]
+    -   [Parameters][24]
+    -   [Examples][25]
+-   [waitFor][26]
+    -   [Parameters][27]
     -   [Examples][28]
--   [camelizeProps][29]
+-   [withClassName][29]
     -   [Parameters][30]
     -   [Examples][31]
--   [cloudinaryUploader][32]
+-   [onError][32]
     -   [Parameters][33]
     -   [Examples][34]
--   [deprecate][35]
+-   [onMount][35]
     -   [Parameters][36]
     -   [Examples][37]
--   [modal][38]
+-   [onOutsideClick][38]
     -   [Parameters][39]
     -   [Examples][40]
--   [modifyProps][41]
+-   [onUnmount][41]
     -   [Parameters][42]
     -   [Examples][43]
--   [omitProps][44]
+-   [onUpdate][44]
     -   [Parameters][45]
     -   [Examples][46]
--   [waitFor][47]
+-   [sortable][47]
     -   [Parameters][48]
     -   [Examples][49]
--   [withClassName][50]
+-   [toggle][50]
     -   [Parameters][51]
     -   [Examples][52]
 -   [connectQuery][53]
@@ -61,346 +61,13 @@
     -   [Parameters][57]
     -   [Examples][58]
 
-## getSet
-
-A function that returns a React HOC that provides values and corresponding setter functions to the wrapped component.
-For each variable name given, the wrapped component will receive the following props:
-
--   `<variableName>`: the value, default = `null`.
--   `set<variableName>`: a function that will set the value to a given value.
-
-`getSet` also exposes a `getSetPropTypes` function to automatically generate PropTypes for these props.
-
-**Options**
-
-`getSet` may be passed an options object containing the following keys:
-
--   `initialValues`: An object containing initial values for the variables
-
-These options can also be passed in as props to the wrapped component.
-
-### Parameters
-
--   `varNames` **([string][59] \| [Array][60])** A variable name or array of variable names
--   `options` **[object][61]** Options for the HOC as specified above.
-
-### Examples
-
-```javascript
-function TabBar ({ currentTab, setCurrentTab, tabs ... }) {
-  return (
-    <div>
-      { 
-        tabs.map(tab => 
-           <Tab 
-             key={ tab } 
-             isActive={ tab === currentTab }
-             onClick={ () => setCurrentTab(tab) }
-           />
-        )
-      }
-    </div>
-  )
-}
-
-TabBar.propTypes = {
-  ...getSetPropTypes('currentTab'),
-  tabs: PropTypes.arrayOf(PropTypes.number),
-}
-
-export default compose(
-   getSet('currentTab', { 
-     initialValues: { 
-       currentTab: 1,
-     },
-   }),
-)(TabBar)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
-## onError
-
-A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
-NOTE: This HOC is only supported by React 16 or higher.
-
-See also: [onMount][7], [onUnmount][13], [onUpdate][16]
-
-### Parameters
-
--   `onComponentDidCatch` **([Function][62] \| [String][59])** A function or a string reference to a function that will be executed with the component's props.
-
-### Examples
-
-```javascript
-function MyComponent () {
-   return (
-     ...
-   )
- }
-
- function onComponentDidCatch (props, error, info) {
-   logErrorToMyService(error, info)
- }
-
- export default onError(onComponentDidCatch)(MyComponent)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
-## onMount
-
-A function that returns a React HOC to handle logic to be run during the `componentDidMount` lifecycle event.
-
-See also: [onError][4], [onUnmount][13], [onUpdate][16]
-
-### Parameters
-
--   `onComponentDidMount` **([Function][62] \| [String][59])** A function or a string reference to a function that will be executed with the component's props.
-
-### Examples
-
-```javascript
-function MyComponent () {
-   return (
-     ...
-   )
- }
-
- function componentDidMount (props) {
-   console.log('Our current props: ', props)
- }
-
- export default onMount(componentDidMount)(MyComponent)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
-## onOutsideClick
-
-A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
-
-### Parameters
-
--   `handler` **([Function][62] \| [String][59])** A function or a string reference to a function that will be executed with the component's props and the click event.
-
-### Examples
-
-```javascript
-function MyComponent () {
-   return (
-     ...
-   )
- }
-
- function handleOutsideClick (props, e) {
-   console.log('A click event occured!', e)
- }
-
- export default onOutsideClick(handleOutsideClick)(MyComponent)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
-## onUnmount
-
-A function that returns a React HOC to handle logic to be run during the `componentWillUnmount` lifecycle event.
-
-See also: [onError][4], [onMount][7], [onUpdate][16]
-
-### Parameters
-
--   `onComponentWillUnmount` **([Function][62] \| [String][59])** A function or a string reference to a function that will be executed with the component's props.
-
-### Examples
-
-```javascript
-function MyComponent () {
-   return (
-     ...
-   )
- }
-
- function componentWillUnmount (props) {
-   console.log('Our current props: ', props)
- }
-
- export default onUnmount(componentWillUnmount)(MyComponent)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
-## onUpdate
-
-A function that returns a React HOC to handle logic to be run during the `componentDidUpdate` lifecycle event.
-
-See also: [onError][4], [onMount][7], [onUnmount][13]
-
-### Parameters
-
--   `onComponentDidUpdate` **([Function][62] \| [String][59])** A function or a string reference to a function that will be passed the current props and the previous props.
-
-### Examples
-
-```javascript
-function MyComponent () {
-   return (
-     ...
-   )
- }
-
- function componentDidUpdate (currentProps, previousProps) {
-   console.log('Props updated!', currentProps, previousProps)
- }
-
- export default onUpdate(componentDidUpdate)(MyComponent)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
-## sortable
-
-A function that returns a React HOC that provides a sort function the wrapped component.
-Given a `sortPath`, this function will compare the values of two objects at that path.
-The wrapped component will receive the following props:
-
--   `ascending`: a boolean indicating whether the sort is ascending or not
--   `descending`: a boolean indicating whether the sort is descending or not
--   `sortPath`: a string indicating the current sort comparison path in dot notation
--   `sort`: a function that can be used to sort an array of objects
--   `setAscending`: a function for setting `ascending`
--   `setDescending`: a function for setting `descending`
--   `setSortPath`: a function for setting `sortPath`
--   `setSortFunc`: a function for setting a custom [comparison function][63] that will be used in `sort`
-
-`sortable` also exposes a `sortablePropTypes` object for these props.
-
-_Note: `setSortPath()` will automatically reset `ascending` to `true` when the current path is changed.
-Additionally, it will toggle `ascending` if the same path is selected twice in a row, 
-unless `false` is passed as the second parameter._
-
-**Options**
-
-`getSet` may be passed an options object containing the following keys:
-
--   `initialAscending`: Whether the sort is initially ascending (default=`true`)
--   `initialSortPath`: The initial `sortPath`
--   `initialSortFunc`: The initial `sortFunc`
--   `onChange`: A callback that will be fired whenever the sorting state is updated
--   `disableReverse`: disables the automatic reversing of sorted items when the sort is descending
-
-The wrapped component may also receive these options as props.
-
-### Parameters
-
--   `options` **[object][61]** Options for the HOC as specified above.
-
-### Examples
-
-```javascript
-function SortedPeopleList ({ people, sort, ascending, setAscending }) {
-  return (
-    <div>
-      <ol>
-        { 
-          sort(people).map(person => 
-            <li>`${ person.name } - ${ person.age }`</li>
-          )
-        }
-      </ol>
-      <button onClick={ () => setAscending(!ascending) }>
-        Reverse order
-      </button>
-    </div>
-  )
-}
-
-SortedPeopleList.propTypes = {
-  ...sortablePropTypes,
-  people: PropTypes.arrayOf(PropTypes.shape({
-   name: PropTypes.string.isRequired,
-   age: PropTypes.string.isRequired,
-  })),
-}
-
-export default compose(
-   sortable({ 
-     sortPath: 'age',
-   }),
-)(SortedPeopleList)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
-## toggle
-
-A function that returns a React HOC that provides a toggle value and toggle function to the wrapped component.
-For each toggle name given, the wrapped component will receive the following props:
-
-`<toggleName>`: a boolean with the current state of the toggle value, default = false.
-
-`set<ToggleName>`: a function that will set the toggle value to a given boolean value.
-
-`toggle<ToggleName>`: a function that will toggle the toggle value.
-
-Toggle also exposes a `togglePropTypes` function to automatically generate PropTypes for these props.
-
-### Parameters
-
--   `toggleNames` **([String][59] \| [Array][60])** One or more toggle names. (optional, default `[]`)
-
-### Examples
-
-```javascript
-function ComponentWithTooltip ({ message, tooltipShown, toggleTooltipShown }) {
-  return (
-    <div>
-      <button onClick={ toggleTooltipShown }>Click Me</button>
-      { 
-        tooltipShown &&
-        <div className="tooltip">
-          { message }
-        </div>
-      }
-    </div>
-  )
-}
-
-ComponentWithTooltip.propTypes = {
-  ...togglePropTypes('tooltipShown'),
-  message: PropTypes.string.isRequired,
-}
-
-export default compose(
-  toggle('tooltopShown')
-)(ComponentWithTooltip)
-
-*
-```
-
-Returns **[Function][62]** A HOC that can be used to wrap a component.
-
 ## adaptToReactRouter
 
 This HOC allows the creation of custom `react-router` route components.
 It can be used to wrap any component that returns a `<Route />` tag, and will allow that component to be used interchangeably with `<Route />`.
 Note: only compatible with `react-router` v3.
 
-This rationale for this HOC can be found [here][64].
+This rationale for this HOC can be found [here][59].
 
 ### Examples
 
@@ -449,11 +116,11 @@ function MyForm ({ handleSubmit }) {
 ## camelizeProps
 
 A function that returns a React HOC that converts a component's props into camel-case.
-This HOC is particularly useful in conjunction with [react_on_rails][65].
+This HOC is particularly useful in conjunction with [react_on_rails][60].
 
 ### Parameters
 
--   `propName` **([String][59] \| [Array][60])** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
+-   `propName` **([String][61] \| [Array][62])** The name(s) of the prop(s) to camelize. If no argument is provided, all props will be camelized.
 
 ### Examples
 
@@ -476,7 +143,7 @@ export default compose(
 *
 ```
 
-Returns **[Function][62]** A HOC that can be used to wrap a component.
+Returns **[Function][63]** A HOC that can be used to wrap a component.
 
 ## cloudinaryUploader
 
@@ -489,13 +156,13 @@ A function that returns a React HOC for uploading files to (Cloudinary)[https://
 
 ### Parameters
 
--   `cloudName` **[string][59]** The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
--   `bucket` **[string][59]** The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
--   `uploadPreset` **[string][59]** The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`. (optional, default `default`)
--   `endpoint` **[string][59]** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
--   `fileType` **[string][59]** The type of file. (optional, default `auto`)
--   `cloudinaryPublicId` **[string][59]?** The name of the file stored in Cloudinary.
--   `requestOptions` **[object][61]** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
+-   `cloudName` **[string][61]** The name of the Cloudinary cloud to upload to. Can also be set via `CLOUDINARY_CLOUD_NAME` in `process.env`.
+-   `bucket` **[string][61]** The name of the Cloudinary bucket to upload to. Can also be set via `CLOUDINARY_BUCKET` in `process.env`.
+-   `uploadPreset` **[string][61]** The name of the Cloudinary upload preset. Can also be set via `CLOUDINARY_UPLOAD_PRESET` in `process.env`. (optional, default `default`)
+-   `endpoint` **[string][61]** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
+-   `fileType` **[string][61]** The type of file. (optional, default `auto`)
+-   `cloudinaryPublicId` **[string][61]?** The name of the file stored in Cloudinary.
+-   `requestOptions` **[object][64]** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
 
 ### Examples
 
@@ -529,7 +196,7 @@ export default compose(
 *
 ```
 
-Returns **[Function][62]** A HOC that can be used to wrap a component.
+Returns **[Function][63]** A HOC that can be used to wrap a component.
 
 ## deprecate
 
@@ -541,8 +208,8 @@ If no message is provided, the default deprecation message is:
 
 ### Parameters
 
--   `message` **[String][59]?** A custom message to display
--   `log` **[Function][62]** A function for logging the message (optional, default `console.warn`)
+-   `message` **[String][61]?** A custom message to display
+-   `log` **[Function][63]** A function for logging the message (optional, default `console.warn`)
 
 ### Examples
 
@@ -553,23 +220,83 @@ export default deprecate('Do not use this component')(MyComponent)
 // When component is mounted, console will show warning: 'DEPRECATED: Do not use this component'
 ```
 
+## getSet
+
+A function that returns a React HOC that provides values and corresponding setter functions to the wrapped component.
+For each variable name given, the wrapped component will receive the following props:
+
+-   `<variableName>`: the value, default = `null`.
+-   `set<variableName>`: a function that will set the value to a given value.
+
+`getSet` also exposes a `getSetPropTypes` function to automatically generate PropTypes for these props.
+
+**Options**
+
+`getSet` may be passed an options object containing the following keys:
+
+-   `initialValues`: An object containing initial values for the variables
+
+These options can also be passed in as props to the wrapped component.
+
+### Parameters
+
+-   `varNames` **([string][61] \| [Array][62])** A variable name or array of variable names
+-   `options` **[object][64]** Options for the HOC as specified above.
+
+### Examples
+
+```javascript
+function TabBar ({ currentTab, setCurrentTab, tabs ... }) {
+  return (
+    <div>
+      { 
+        tabs.map(tab => 
+           <Tab 
+             key={ tab } 
+             isActive={ tab === currentTab }
+             onClick={ () => setCurrentTab(tab) }
+           />
+        )
+      }
+    </div>
+  )
+}
+
+TabBar.propTypes = {
+  ...getSetPropTypes('currentTab'),
+  tabs: PropTypes.arrayOf(PropTypes.number),
+}
+
+export default compose(
+   getSet('currentTab', { 
+     initialValues: { 
+       currentTab: 1,
+     },
+   }),
+)(TabBar)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
 ## modal
 
 A function that returns a React HOC for creating modals.
-This HOC is dependent on the [`redux-modal`][66] library.
+This HOC is dependent on the [`redux-modal`][65] library.
 
 The following functions are available as static properties on the wrapped component:
 
--   `show`: Shows the modal.
+-   `show`: Shows the modal. Can be passed an object with props to be passed to the modal component. An event argument will be interpreted as an empty object.
 -   `hide`: Hides the modal.
 -   `destroy`: Destroys the modal state and unmounts the modal component.
 
 ### Parameters
 
--   `name` **[String][59]** The name of the modal.
--   `warning` **[Boolean][67]** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
--   `destroyOnHide` **[Boolean][67]** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
--   `disableOutsideClick` **[Boolean][67]** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
+-   `name` **[String][61]** The name of the modal.
+-   `warning` **[Boolean][66]** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
+-   `destroyOnHide` **[Boolean][66]** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
+-   `disableOutsideClick` **[Boolean][66]** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
 
 ### Examples
 
@@ -608,7 +335,7 @@ export default compose(
 *
 ```
 
-Returns **[Function][62]** A HOC that can be used to wrap a component.
+Returns **[Function][63]** A HOC that can be used to wrap a component.
 
 ## modifyProps
 
@@ -619,7 +346,7 @@ and should return an object that will be merged with those props.
 
 ### Parameters
 
--   `modFunction` **[Function][62]** A function that modifies the component's props.
+-   `modFunction` **[Function][63]** A function that modifies the component's props.
 
 ### Examples
 
@@ -662,16 +389,16 @@ export default compose(
 *
 ```
 
-Returns **[Function][62]** A HOC that can be used to wrap a component.
+Returns **[Function][63]** A HOC that can be used to wrap a component.
 
 ## omitProps
 
 A function that returns a React HOC that omits some or all of a component's props.
-Uses the lodash [omit][68] function under the hood.
+Uses the lodash [omit][67] function under the hood.
 
 ### Parameters
 
--   `propName` **([String][59] \| [Array][60])** The name(s) of the prop(s) to be omitted. If none are provided, all of the props will be omitted.
+-   `propName` **([String][61] \| [Array][62])** The name(s) of the prop(s) to be omitted. If none are provided, all of the props will be omitted.
 
 ### Examples
 
@@ -691,7 +418,7 @@ function Parent () {
 *
 ```
 
-Returns **[Function][62]** A HOC that can be used to wrap a component.
+Returns **[Function][63]** A HOC that can be used to wrap a component.
 
 ## waitFor
 
@@ -706,8 +433,8 @@ For the renderWhen param, the type can be one of the following:
 
 ### Parameters
 
--   `renderWhen` **([String][59] \| [Function][62] \| [Object][61])** A rule indicating when the wrapped component may render.
--   `LoadingComponent` **[Function][62]?** A component to render during the loading state, will be passed the current props. If not provided, <Spinner /> from `lp-components` will be rendered. To hide this component, pass in `false` or `null`.
+-   `renderWhen` **([String][61] \| [Function][63] \| [Object][64])** A rule indicating when the wrapped component may render.
+-   `LoadingComponent` **[Function][63]?** A component to render during the loading state, will be passed the current props. If not provided, <Spinner /> from `lp-components` will be rendered. To hide this component, pass in `false` or `null`.
 
 ### Examples
 
@@ -726,7 +453,7 @@ function MyComponent (name) {
 *
 ```
 
-Returns **[Function][62]** Returns a higher order component (HOC) to handle conditional logic for loading states.
+Returns **[Function][63]** Returns a higher order component (HOC) to handle conditional logic for loading states.
 
 ## withClassName
 
@@ -736,7 +463,7 @@ This className will be extended by any additional classNames given to the compon
 
 ### Parameters
 
--   `defaultClass` **[String][59]** The default class to add to the component
+-   `defaultClass` **[String][61]** The default class to add to the component
 
 ### Examples
 
@@ -766,6 +493,279 @@ function Content () {
 // }
 ```
 
+## onError
+
+A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
+NOTE: This HOC is only supported by React 16 or higher.
+
+See also: [onMount][35], [onUnmount][41], [onUpdate][44]
+
+### Parameters
+
+-   `onComponentDidCatch` **([Function][63] \| [String][61])** A function or a string reference to a function that will be executed with the component's props.
+
+### Examples
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function onComponentDidCatch (props, error, info) {
+   logErrorToMyService(error, info)
+ }
+
+ export default onError(onComponentDidCatch)(MyComponent)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
+## onMount
+
+A function that returns a React HOC to handle logic to be run during the `componentDidMount` lifecycle event.
+
+See also: [onError][32], [onUnmount][41], [onUpdate][44]
+
+### Parameters
+
+-   `onComponentDidMount` **([Function][63] \| [String][61])** A function or a string reference to a function that will be executed with the component's props.
+
+### Examples
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function componentDidMount (props) {
+   console.log('Our current props: ', props)
+ }
+
+ export default onMount(componentDidMount)(MyComponent)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
+## onOutsideClick
+
+A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
+
+### Parameters
+
+-   `handler` **([Function][63] \| [String][61])** A function or a string reference to a function that will be executed with the component's props and the click event.
+
+### Examples
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function handleOutsideClick (props, e) {
+   console.log('A click event occured!', e)
+ }
+
+ export default onOutsideClick(handleOutsideClick)(MyComponent)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
+## onUnmount
+
+A function that returns a React HOC to handle logic to be run during the `componentWillUnmount` lifecycle event.
+
+See also: [onError][32], [onMount][35], [onUpdate][44]
+
+### Parameters
+
+-   `onComponentWillUnmount` **([Function][63] \| [String][61])** A function or a string reference to a function that will be executed with the component's props.
+
+### Examples
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function componentWillUnmount (props) {
+   console.log('Our current props: ', props)
+ }
+
+ export default onUnmount(componentWillUnmount)(MyComponent)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
+## onUpdate
+
+A function that returns a React HOC to handle logic to be run during the `componentDidUpdate` lifecycle event.
+
+See also: [onError][32], [onMount][35], [onUnmount][41]
+
+### Parameters
+
+-   `onComponentDidUpdate` **([Function][63] \| [String][61])** A function or a string reference to a function that will be passed the current props and the previous props.
+
+### Examples
+
+```javascript
+function MyComponent () {
+   return (
+     ...
+   )
+ }
+
+ function componentDidUpdate (currentProps, previousProps) {
+   console.log('Props updated!', currentProps, previousProps)
+ }
+
+ export default onUpdate(componentDidUpdate)(MyComponent)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
+## sortable
+
+A function that returns a React HOC that provides a sort function the wrapped component.
+Given a `sortPath`, this function will compare the values of two objects at that path.
+The wrapped component will receive the following props:
+
+-   `ascending`: a boolean indicating whether the sort is ascending or not
+-   `descending`: a boolean indicating whether the sort is descending or not
+-   `sortPath`: a string indicating the current sort comparison path in dot notation
+-   `sort`: a function that can be used to sort an array of objects
+-   `setAscending`: a function for setting `ascending`
+-   `setDescending`: a function for setting `descending`
+-   `setSortPath`: a function for setting `sortPath`
+-   `setSortFunc`: a function for setting a custom [comparison function][68] that will be used in `sort`
+
+`sortable` also exposes a `sortablePropTypes` object for these props.
+
+_Note: `setSortPath()` will automatically reset `ascending` to `true` when the current path is changed.
+Additionally, it will toggle `ascending` if the same path is selected twice in a row, 
+unless `false` is passed as the second parameter._
+
+**Options**
+
+`getSet` may be passed an options object containing the following keys:
+
+-   `initialAscending`: Whether the sort is initially ascending (default=`true`)
+-   `initialSortPath`: The initial `sortPath`
+-   `initialSortFunc`: The initial `sortFunc`
+-   `onChange`: A callback that will be fired whenever the sorting state is updated
+-   `disableReverse`: disables the automatic reversing of sorted items when the sort is descending
+
+The wrapped component may also receive these options as props.
+
+### Parameters
+
+-   `options` **[object][64]** Options for the HOC as specified above.
+
+### Examples
+
+```javascript
+function SortedPeopleList ({ people, sort, ascending, setAscending }) {
+  return (
+    <div>
+      <ol>
+        { 
+          sort(people).map(person => 
+            <li>`${ person.name } - ${ person.age }`</li>
+          )
+        }
+      </ol>
+      <button onClick={ () => setAscending(!ascending) }>
+        Reverse order
+      </button>
+    </div>
+  )
+}
+
+SortedPeopleList.propTypes = {
+  ...sortablePropTypes,
+  people: PropTypes.arrayOf(PropTypes.shape({
+   name: PropTypes.string.isRequired,
+   age: PropTypes.string.isRequired,
+  })),
+}
+
+export default compose(
+   sortable({ 
+     sortPath: 'age',
+   }),
+)(SortedPeopleList)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
+## toggle
+
+A function that returns a React HOC that provides a toggle value and toggle function to the wrapped component.
+For each toggle name given, the wrapped component will receive the following props:
+
+`<toggleName>`: a boolean with the current state of the toggle value, default = false.
+
+`set<ToggleName>`: a function that will set the toggle value to a given boolean value.
+
+`toggle<ToggleName>`: a function that will toggle the toggle value.
+
+Toggle also exposes a `togglePropTypes` function to automatically generate PropTypes for these props.
+
+### Parameters
+
+-   `toggleNames` **([String][61] \| [Array][62])** One or more toggle names. (optional, default `[]`)
+
+### Examples
+
+```javascript
+function ComponentWithTooltip ({ message, tooltipShown, toggleTooltipShown }) {
+  return (
+    <div>
+      <button onClick={ toggleTooltipShown }>Click Me</button>
+      { 
+        tooltipShown &&
+        <div className="tooltip">
+          { message }
+        </div>
+      }
+    </div>
+  )
+}
+
+ComponentWithTooltip.propTypes = {
+  ...togglePropTypes('tooltipShown'),
+  message: PropTypes.string.isRequired,
+}
+
+export default compose(
+  toggle('tooltopShown')
+)(ComponentWithTooltip)
+
+*
+```
+
+Returns **[Function][63]** A HOC that can be used to wrap a component.
+
 ## connectQuery
 
 A function that returns a React HOC that converts a url's query parameters into props. This is
@@ -774,11 +774,11 @@ parameter parsing OOTB.
 
 ### Parameters
 
--   `mappingConfig` **([Function][62] \| [String][59] \| [Array][60])** A function, string, or array of strings. String
+-   `mappingConfig` **([Function][63] \| [String][61] \| [Array][62])** A function, string, or array of strings. String
     arguments are interpreted as the names of props to pull from query params (note: if the camelized
     option is true, then the strings should be camelized accordingly).
--   `options` **[Object][61]?** Options for the HOC
-    -   `options.camelize` **[Boolean][67]** Option to camelize query parameter keys. This is true by default (optional, default `true`)
+-   `options` **[Object][64]?** Options for the HOC
+    -   `options.camelize` **[Boolean][66]** Option to camelize query parameter keys. This is true by default (optional, default `true`)
 
 ### Examples
 
@@ -804,7 +804,7 @@ export default compose(
 )(ResetPassword)
 ```
 
-Returns **[Function][62]** A HOC that can be used to wrap a component.
+Returns **[Function][63]** A HOC that can be used to wrap a component.
 
 ## connectParams
 
@@ -825,7 +825,7 @@ For more information: [https://reacttraining.com/react-router/web/api/withRouter
 
 ### Parameters
 
--   `mappingConfig` **([Function][62] \| [String][59] \| [Array][60])** A function, string, or array of strings. String
+-   `mappingConfig` **([Function][63] \| [String][61] \| [Array][62])** A function, string, or array of strings. String
     arguments are interpreted as the names of props to pull from matched params. A function argument
     will accept params and map them to props based on the object returned by this function 
     (see second example below).
@@ -896,107 +896,107 @@ export default compose(
 )(StudentShow)
 ```
 
-Returns **[Function][62]** A HOC that can be used to wrap a component.
+Returns **[Function][63]** A HOC that can be used to wrap a component.
 
-[1]: #getset
+[1]: #adapttoreactrouter
 
-[2]: #parameters
+[2]: #examples
 
-[3]: #examples
+[3]: #adapttoreduxform
 
-[4]: #onerror
+[4]: #examples-1
 
-[5]: #parameters-1
+[5]: #camelizeprops
 
-[6]: #examples-1
+[6]: #parameters
 
-[7]: #onmount
+[7]: #examples-2
 
-[8]: #parameters-2
+[8]: #cloudinaryuploader
 
-[9]: #examples-2
+[9]: #parameters-1
 
-[10]: #onoutsideclick
+[10]: #examples-3
 
-[11]: #parameters-3
+[11]: #deprecate
 
-[12]: #examples-3
+[12]: #parameters-2
 
-[13]: #onunmount
+[13]: #examples-4
 
-[14]: #parameters-4
+[14]: #getset
 
-[15]: #examples-4
+[15]: #parameters-3
 
-[16]: #onupdate
+[16]: #examples-5
 
-[17]: #parameters-5
+[17]: #modal
 
-[18]: #examples-5
+[18]: #parameters-4
 
-[19]: #sortable
+[19]: #examples-6
 
-[20]: #parameters-6
+[20]: #modifyprops
 
-[21]: #examples-6
+[21]: #parameters-5
 
-[22]: #toggle
+[22]: #examples-7
 
-[23]: #parameters-7
+[23]: #omitprops
 
-[24]: #examples-7
+[24]: #parameters-6
 
-[25]: #adapttoreactrouter
+[25]: #examples-8
 
-[26]: #examples-8
+[26]: #waitfor
 
-[27]: #adapttoreduxform
+[27]: #parameters-7
 
 [28]: #examples-9
 
-[29]: #camelizeprops
+[29]: #withclassname
 
 [30]: #parameters-8
 
 [31]: #examples-10
 
-[32]: #cloudinaryuploader
+[32]: #onerror
 
 [33]: #parameters-9
 
 [34]: #examples-11
 
-[35]: #deprecate
+[35]: #onmount
 
 [36]: #parameters-10
 
 [37]: #examples-12
 
-[38]: #modal
+[38]: #onoutsideclick
 
 [39]: #parameters-11
 
 [40]: #examples-13
 
-[41]: #modifyprops
+[41]: #onunmount
 
 [42]: #parameters-12
 
 [43]: #examples-14
 
-[44]: #omitprops
+[44]: #onupdate
 
 [45]: #parameters-13
 
 [46]: #examples-15
 
-[47]: #waitfor
+[47]: #sortable
 
 [48]: #parameters-14
 
 [49]: #examples-16
 
-[50]: #withclassname
+[50]: #toggle
 
 [51]: #parameters-15
 
@@ -1014,24 +1014,24 @@ Returns **[Function][62]** A HOC that can be used to wrap a component.
 
 [58]: #examples-19
 
-[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[59]: https://marmelab.com/blog/2016/09/20/custom-react-router-component.html
 
-[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[60]: https://github.com/shakacode/react_on_rails
 
-[61]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[61]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[62]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[62]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[63]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description
+[63]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[64]: https://marmelab.com/blog/2016/09/20/custom-react-router-component.html
+[64]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[65]: https://github.com/shakacode/react_on_rails
+[65]: https://github.com/yesmeck/redux-modal
 
-[66]: https://github.com/yesmeck/redux-modal
+[66]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[67]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[67]: https://lodash.com/docs/4.17.4#omit
 
-[68]: https://lodash.com/docs/4.17.4#omit
+[68]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description
 
 [69]: https://reacttraining.com/react-router/web/api/withRouter

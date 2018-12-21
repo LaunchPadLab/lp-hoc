@@ -3,14 +3,14 @@ import React from 'react'
 import { connectModal, show, hide, destroy } from 'redux-modal'
 import classnames from 'classnames'
 import BodyClassName from 'react-body-classname'
-import { noop } from './utils'
+import { noop, isEvent } from './utils'
 
 /**
  * A function that returns a React HOC for creating modals.
  * This HOC is dependent on the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
  * 
  * The following functions are available as static properties on the wrapped component:
- * - `show`: Shows the modal.
+ * - `show`: Shows the modal. Can be passed an object with props to be passed to the modal component. An event argument will be interpreted as an empty object.
  * - `hide`: Hides the modal.
  * - `destroy`: Destroys the modal state and unmounts the modal component.
  * 
@@ -85,7 +85,11 @@ function modal ({
       ...options,
     })(ModalWrapper)
     // Attach action creators to component
-    connectedModalWrapper.show = (props) => show(name, props)
+    connectedModalWrapper.show = (arg) => {
+      // Ignore event arguments
+      const props = isEvent(arg) ? {} : arg
+      return show(name, props)
+    } 
     connectedModalWrapper.hide = () => hide(name)
     connectedModalWrapper.destroy = () => destroy(name)
     return connectedModalWrapper

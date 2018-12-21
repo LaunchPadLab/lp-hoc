@@ -5,9 +5,21 @@ test('modal exposes the `show` function', () => {
   const Wrapped = () => <h1>Hi</h1>
   const Wrapper = modal({ name: 'TestModal' })(Wrapped)
   const spy = jest.spyOn(Wrapper, 'show')
-  const showResponse = Wrapper.show()
+  const props = { foo: true }
+  const showResponse = Wrapper.show(props)
   expect(spy).toHaveBeenCalled()
   expect(showResponse.type).toEqual('@redux-modal/SHOW')
+  expect(showResponse.payload.props).toEqual(props)
+})
+
+test('wrapped `show` function ignores event arguments', () => {
+  const Wrapped = () => <h1>Hi</h1>
+  const Wrapper = modal({ name: 'TestModal' })(Wrapped)
+  const spy = jest.spyOn(Wrapper, 'show')
+  const showResponse = Wrapper.show(new Event('click'))
+  expect(spy).toHaveBeenCalled()
+  expect(showResponse.type).toEqual('@redux-modal/SHOW')
+  expect(showResponse.payload.props).toEqual({})
 })
 
 test('modal exposes the `hide` function', () => {
