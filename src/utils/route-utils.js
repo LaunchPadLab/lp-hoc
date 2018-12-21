@@ -1,4 +1,5 @@
 // Extract from React Router v3 to enable backwards compatability for adaptToReactRouter
+// The original location of this file was node_modules/react-router/lib/RouteUtils
 
 'use strict';
 
