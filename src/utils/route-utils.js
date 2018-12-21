@@ -44,7 +44,7 @@ function createRouteFromReactElement(element) {
   return route;
 }
 
-/**
+/*
  * Creates and returns a routes object from the given ReactChildren. JSX
  * provides a convenient way to visualize how routes in the hierarchy are
  * nested.
@@ -80,7 +80,7 @@ function createRoutesFromReactChildren(children, parentRoute) {
   return routes;
 }
 
-/**
+/*
  * Creates and returns an array of routes from the given object which
  * may be a JSX route, a plain object route, or an array of either.
  */
