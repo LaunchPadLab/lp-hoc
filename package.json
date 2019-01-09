@@ -29,7 +29,6 @@
     "lib/"
   ],
   "dependencies": {
-    "@launchpadlab/lp-components": "^3.11.3",
     "@launchpadlab/lp-requests": "^3.5.1",
     "classnames": "^2.2.5",
     "humps": "^2.0.1",
