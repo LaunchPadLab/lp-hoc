@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 
 import { once, getDisplayName } from './utils'
-import { onMount } from './lifecycle'
+import onMount from './onMount'
 
 /**
  * A function that returns a React HOC that displays a deprecation warning when a component is mounted.

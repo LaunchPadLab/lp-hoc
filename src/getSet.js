@@ -56,7 +56,7 @@ import { camelize, isUndef, wrapDisplayName } from './utils'
  *    }),
  * )(TabBar)
  *
-**/
+*/
 
 function getSet (names=[], options={}) {
 

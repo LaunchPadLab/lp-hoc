@@ -1,5 +1,5 @@
 import React from 'react'
-import { callWithProps, wrapDisplayName } from '../utils'
+import { callWithProps, wrapDisplayName } from './utils'
 
 /**
  * A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
@@ -21,7 +21,7 @@ import { callWithProps, wrapDisplayName } from '../utils'
  *
  *  export default onOutsideClick(handleOutsideClick)(MyComponent)
  *
-**/
+*/
 
 export default function onOutsideClick (handler) {
 

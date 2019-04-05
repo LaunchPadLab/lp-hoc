@@ -1,5 +1,5 @@
 import React from 'react'
-import { callWithProps, wrapDisplayName } from '../utils'
+import { callWithProps, wrapDisplayName } from './utils'
 
 /**
  * A function that returns a React HOC to handle logic to be run during the `componentDidUpdate` lifecycle event.
@@ -22,7 +22,7 @@ import { callWithProps, wrapDisplayName } from '../utils'
  *
  *  export default onUpdate(componentDidUpdate)(MyComponent)
  *
-**/
+*/
 
 export default function onUpdate (onComponentDidUpdate) {
 

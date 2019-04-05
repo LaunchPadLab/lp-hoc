@@ -27,7 +27,7 @@ import { get, stubTrue, every, wrapDisplayName } from './utils'
  *  waitFor(renderWhen, MyComponent)
  *  // When prop 'name' value evaluates to true, MyComponent will be rendered.
  *  // Otherwise, the <Spinner /> component from `lp-components` will be rendered.
-**/
+*/
 
 function DefaultLoadingComponent () {
   return <div id="spinner" />

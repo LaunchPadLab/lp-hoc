@@ -51,7 +51,7 @@ import { addExtension, getEnvVar, first, removeExtension, requireParam } from '.
  *    }),
  * )(CloudinaryFileInput)
  *
-**/
+*/
 
 // Status enum
 export const CloudinaryUploadStatus = {

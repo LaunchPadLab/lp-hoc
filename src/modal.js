@@ -55,7 +55,7 @@ import { noop, isEvent } from './utils'
  * export default compose(
  *    connect(null, mapDispatchToProps),
  * )(Layout)
-**/
+*/
 
 function modal ({ 
   name,
