@@ -17,3 +17,8 @@ Documentation and usage info can be found in [docs.md](docs.md).
 
 ## Contribution
 This package follows the Opex [NPM package guidelines](https://github.com/LaunchPadLab/opex/blob/master/gists/npm-package-guidelines.md). Please refer to the linked document for information on contributing, testing and versioning.
+
+## Additional info
+
+#### Size Limit
+This library uses [size-limit](https://github.com/ai/size-limit) to prevent size bloat. The `yarn size` script is run in CI to check that the package size is under the limit specified in [.size-limit.js](.size-limit.js). For a visualization of this package's relative dependency sizes, you can run `yarn size --why`.
