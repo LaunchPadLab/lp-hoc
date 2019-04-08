@@ -20,6 +20,7 @@
     "precommit": "yarn run docs && git add docs.md",
     "prepublish": "npm run clean && npm run build",
     "test": "jest",
+    "size": "yarn build && size-limit",
     "test:coverage": "jest --coverage",
     "report-coverage": "codeclimate-test-reporter < coverage/lcov.info"
   },

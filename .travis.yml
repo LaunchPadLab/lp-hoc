@@ -3,6 +3,9 @@ node_js:
 - '8'
 notifications:
   email: false
+before_script:
+  - 'yarn lint'
+  - 'yarn size'
 deploy:
   provider: npm
   email: dev@launchpadlab.com
