@@ -78,7 +78,7 @@ import {
  *    }),
  * )(SortedPeopleList)
  *
-**/
+*/
 
 const omitUndefined = obj => omitBy(obj, isUndef)
 

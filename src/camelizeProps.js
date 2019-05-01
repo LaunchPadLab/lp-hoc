@@ -27,7 +27,7 @@ import { camelize, camelizeKeys, map } from './utils'
  *
  * // Now we can pass props { full_name, profile_pic } to the above component.
  *
-**/
+*/
 
 // Camelizes specified keys in an object
 function camelizeSomeKeys (obj, keysToCamelize=[]) {

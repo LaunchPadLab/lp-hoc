@@ -1,5 +1,5 @@
 import React from 'react'
-import { callWithProps, wrapDisplayName } from '../utils'
+import { callWithProps, wrapDisplayName } from './utils'
 
 /**
  * A function that returns a React HOC to handle logic to be run during the `componentDidCatch` lifecycle event.
@@ -24,7 +24,7 @@ import { callWithProps, wrapDisplayName } from '../utils'
  *
  *  export default onError(onComponentDidCatch)(MyComponent)
  *
-**/
+*/
 
 const SUPPORTED_REACT_VERSION = 16
 const CURRENT_REACT_VERSION = Number(React.version)

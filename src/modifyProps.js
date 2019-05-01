@@ -49,7 +49,7 @@ import { wrapDisplayName } from './utils'
  *    modifyProps(modify),
  * )(SaveableProfile)
  *
-**/
+*/
 
 // Check whether modFunction exists and is a function
 const isValid = modFunction => !!modFunction && typeof modFunction === 'function'

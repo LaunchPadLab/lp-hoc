@@ -43,7 +43,7 @@ import { camelize, wrapDisplayName } from './utils'
  *   toggle('tooltopShown')
  * )(ComponentWithTooltip)
  * 
-**/
+*/
 
 export default function toggle (toggleNames=[]) {
 
