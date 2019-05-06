@@ -24,7 +24,7 @@ import { omit, wrapDisplayName } from './utils'
  * 
  * // When parent is rendered, the <h1> will be empty.
  *
-**/
+*/
 
 export default function omitProps (options) {
   return WrappedComponent => {
