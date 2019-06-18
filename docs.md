@@ -168,6 +168,7 @@ A function that returns a React HOC for uploading files to (Cloudinary)[https://
 -   `endpoint` **[string][69]** The endpoint for the upload request. Can also be set via `CLOUDINARY_ENDPOINT` in `process.env`. (optional, default `https://api.cloudinary.com/v1_1/`)
 -   `fileType` **[string][69]** The type of file. (optional, default `auto`)
 -   `cloudinaryPublicId` **[string][69]?** The name of the file stored in Cloudinary.
+-   `createPublicId` **[string][69]?** A function to generate a custom public id for the uploaded file. This function is passed the file object and is expected to return a string. Overridden by the `cloudinaryPublicId` prop.
 -   `requestOptions` **[object][72]** Options for the request, as specified by (`lp-requests`)[https://github.com/LaunchPadLab/lp-requests/blob/master/src/http/http.js]. (optional, default `DEFAULT_REQUEST_OPTIONS`)
 
 ### Examples
