@@ -96,6 +96,19 @@ test('cloudinaryUploader allows custom `publicId` creator', () => {
   })
 })
 
+test('cloudinaryUploader overrides custom `publicId` creator with `cloudinaryPublicId`', () => {
+  const Wrapped = () => <h1>Hi</h1>
+  const createPublicId = file => 'foo-' + file.name
+  const Wrapper = cloudinaryUploader({ ...props, createPublicId, cloudinaryPublicId: 'custom-name' })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  return upload(fileData, file).then(response => {
+    component.update()
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('custom-name')
+  })
+})
+
 test('cloudinaryUploader adds extension to `publicId` of raw files', () => {
   const rawFile = { name: 'test.xls', type: 'application/xls' }
   const Wrapped = () => <h1>Hi</h1>
