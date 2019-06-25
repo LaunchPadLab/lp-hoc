@@ -21,7 +21,7 @@ This package follows the Opex [NPM package guidelines](https://github.com/Launch
 ## Additional info
 
 #### Cherry-picking imports
-This library supports cherry-picked imports from the `lib` folder to reduce bundle sizes:
+Along with ES module support, this library supports cherry-picked imports from the `lib` folder to reduce bundle sizes:
 ```js
 import onUpdate from '@launchpadlab/lp-hoc/lib/onUpdate'
 import onMount from '@launchpadlab/lp-hoc/lib/onMount'

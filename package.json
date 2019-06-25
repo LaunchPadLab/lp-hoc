@@ -3,6 +3,8 @@
   "version": "4.2.0",
   "description": "React HOCs",
   "main": "lib/index.js",
+  "module": "esm/index.js",
+  "sideEffects": false,
   "repository": "launchpadlab/lp-hoc",
   "homepage": "https://github.com/launchpadlab/lp-hoc",
   "author": {
@@ -12,8 +14,10 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn run build:development",
-    "build": "mkdir -p lib && babel src --out-dir lib --no-comments --minified",
-    "build:development": "mkdir -p lib && babel src --watch --out-dir lib",
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "babel src --out-dir lib",
+    "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
+    "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "clean": "rimraf lib",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src --max-warnings=0",
@@ -27,7 +31,8 @@
   "files": [
     "README.md",
     "LICENSE.md",
-    "lib/"
+    "lib/",
+    "src/"
   ],
   "dependencies": {
     "@launchpadlab/lp-requests": "^3.5.1",
@@ -47,11 +52,12 @@
     "redux-modal": "^2.0.2 || ^3.0.1"
   },
   "devDependencies": {
-    "@launchpadlab/babel-preset": "^1.0.0",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@launchpadlab/babel-preset": "^2.1.0",
     "@launchpadlab/eslint-config": "^2.2.3",
-    "babel-cli": "^6.22.2",
     "codeclimate-test-reporter": "^0.5.0",
-    "documentation": "^9.1.1",
+    "documentation": "^11.0.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^4.12.1",
