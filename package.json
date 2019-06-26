@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-hoc",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "React HOCs",
   "main": "lib/index.js",
   "module": "esm/index.js",
