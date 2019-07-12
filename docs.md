@@ -309,21 +309,19 @@ Returns **[Object][72]** An object of corresponding propTypes.
 
 ## modal
 
-A function that returns a React HOC for creating modals.
-This HOC is dependent on the [`redux-modal`][73] library.
+A function that returns a React HOC for creating modals. 
+Default styling for these modals can be pulled from the `modal.css` file included in this library:
 
-The following functions are available as static properties on the wrapped component:
-
--   `show`: Shows the modal. Can be passed an object with props to be passed to the modal component. An event argument will be interpreted as an empty object.
--   `hide`: Hides the modal.
--   `destroy`: Destroys the modal state and unmounts the modal component.
+```scss
+// in application.scss:
+```
 
 ### Parameters
 
 -   `name` **[String][69]** The name of the modal.
--   `warning` **[Boolean][74]** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
--   `destroyOnHide` **[Boolean][74]** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
--   `disableOutsideClick` **[Boolean][74]** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
+-   `warning` **[Boolean][73]** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
+-   `destroyOnHide` **[Boolean][73]** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
+-   `disableOutsideClick` **[Boolean][73]** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
 
 ### Examples
 
@@ -418,7 +416,7 @@ Returns **[Function][71]** A HOC that can be used to wrap a component.
 ## omitProps
 
 A function that returns a React HOC that omits some or all of a component's props.
-Uses the lodash [omit][75] function under the hood.
+Uses the lodash [omit][74] function under the hood.
 
 ### Parameters
 
@@ -632,7 +630,7 @@ The wrapped component will receive the following props:
 -   `setAscending`: a function for setting `ascending`
 -   `setDescending`: a function for setting `descending`
 -   `setSortPath`: a function for setting `sortPath`
--   `setSortFunc`: a function for setting a custom [comparison function][76] that will be used in `sort`
+-   `setSortFunc`: a function for setting a custom [comparison function][75] that will be used in `sort`
 
 `sortable` also exposes a `sortablePropTypes` object for these props.
 
@@ -824,7 +822,7 @@ parameter parsing OOTB.
     arguments are interpreted as the names of props to pull from query params (note: if the camelized
     option is true, then the strings should be camelized accordingly).
 -   `options` **[Object][72]?** Options for the HOC
-    -   `options.camelize` **[Boolean][74]** Option to camelize query parameter keys. This is true by default (optional, default `true`)
+    -   `options.camelize` **[Boolean][73]** Option to camelize query parameter keys. This is true by default (optional, default `true`)
 
 ### Examples
 
@@ -867,7 +865,7 @@ compose(
  connectParams,
 )
 
-For more information: [https://reacttraining.com/react-router/web/api/withRouter][77]
+For more information: [https://reacttraining.com/react-router/web/api/withRouter][76]
 
 ### Parameters
 
@@ -1088,12 +1086,10 @@ Returns **[Function][71]** A HOC that can be used to wrap a component.
 
 [72]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[73]: https://github.com/yesmeck/redux-modal
+[73]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[74]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[74]: https://lodash.com/docs/4.17.4#omit
 
-[75]: https://lodash.com/docs/4.17.4#omit
+[75]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description
 
-[76]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description
-
-[77]: https://reacttraining.com/react-router/web/api/withRouter
+[76]: https://reacttraining.com/react-router/web/api/withRouter
