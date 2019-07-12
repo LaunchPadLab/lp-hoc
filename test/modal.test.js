@@ -1,5 +1,5 @@
 import React from 'react'
-import { modal } from '../src/'
+import { modal, modalReducer } from '../src/'
 
 test('modal exposes the `show` function', () => {
   const Wrapped = () => <h1>Hi</h1>
@@ -43,4 +43,8 @@ test('modal exposes the `destroy` function', () => {
 test('modal throws an error when `name` prop is missing', () => {
   const Wrapped = () => <h1>Hi</h1>
   expect(() => modal()(Wrapped)).toThrow()
+})
+
+test('modalReducer is exported as top-level export', () => {
+  expect(modalReducer).toBe(require('redux-modal').reducer)
 })
