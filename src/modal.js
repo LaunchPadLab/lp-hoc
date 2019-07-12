@@ -7,14 +7,8 @@ import { noop, isEvent } from './utils'
 
 /**
  * A function that returns a React HOC for creating modals. 
- * Default styling for these modals can be pulled from the `modal.css` file included in this library:
- * 
- * ```scss
- * // in application.scss:
- * 
- * @include "~@launchpadlab/lp-hoc/lib/styles/modal.css";
- * 
- * ```
+ * Default styling for these modals can be pulled from the `modal.css` file included in this library via your scss:
+ * `@include "~@launchpadlab/lp-hoc/lib/styles/modal.css";`
  * 
  * Note: this HOC uses [`redux-modal`](https://github.com/yesmeck/redux-modal) under the hood. The reducer from `redux-modal` is exported for convenience as `modalReducer`.
  * 
