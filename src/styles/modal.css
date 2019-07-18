@@ -32,10 +32,6 @@ body.modal-open {
 	left: 0;
 }
 
-.modal h2 {
-	color: #444444;
-}
-
 .modal .modal-close {
 	color: #444444;
 	border: none;
@@ -48,15 +44,6 @@ body.modal-open {
 	line-height: 0;
 	background-color: transparent;
 	line-height: 25px;
-}
-
-.modal.modal-warning h2 {
-	border-bottom: 1px solid #FF7C87;
-	color: #FF7C87;
-}
-
-.modal.modal-warning .modal-close {
-	color: #A9A9A9;
 }
 
 .modal .modal-inner {
@@ -111,14 +98,12 @@ body.modal-open {
 
 @media screen and (min-width: 45em) {
 	.modal .modal-inner a {
-		margin-right: 15px;
 		margin-right: 1.0714285714rem;
 		width: inherit;
 	}
 }
 
 .modal .modal-inner a:last-child {
-	margin-top: 15px;
 	margin-top: 1.0714285714rem;
 }
 
