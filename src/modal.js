@@ -6,8 +6,11 @@ import BodyClassName from 'react-body-classname'
 import { noop, isEvent } from './utils'
 
 /**
- * A function that returns a React HOC for creating modals.
- * This HOC is dependent on the [`redux-modal`](https://github.com/yesmeck/redux-modal) library.
+ * A function that returns a React HOC for creating modals. 
+ * Default styling for these modals can be pulled from the `modal.css` file included in this library via your scss:
+ * `@include "~@launchpadlab/lp-hoc/lib/styles/modal.css";`
+ * 
+ * Note: this HOC uses [`redux-modal`](https://github.com/yesmeck/redux-modal) under the hood. The reducer from `redux-modal` is exported for convenience as `modalReducer`.
  * 
  * The following functions are available as static properties on the wrapped component:
  * - `show`: Shows the modal. Can be passed an object with props to be passed to the modal component. An event argument will be interpreted as an empty object.

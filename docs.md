@@ -309,8 +309,11 @@ Returns **[Object][72]** An object of corresponding propTypes.
 
 ## modal
 
-A function that returns a React HOC for creating modals.
-This HOC is dependent on the [`redux-modal`][73] library.
+A function that returns a React HOC for creating modals. 
+Default styling for these modals can be pulled from the `modal.css` file included in this library via your scss:
+`@include "~@launchpadlab/lp-hoc/lib/styles/modal.css";`
+
+Note: this HOC uses [`redux-modal`][73] under the hood. The reducer from `redux-modal` is exported for convenience as `modalReducer`.
 
 The following functions are available as static properties on the wrapped component:
 
