@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-hoc",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "description": "React HOCs",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -14,10 +14,11 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn run build:development",
-    "build": "yarn build:cjs && yarn build:esm",
+    "build": "yarn build:cjs && yarn build:esm && yarn build:styles",
     "build:cjs": "babel src --out-dir lib",
     "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
+    "build:styles": "cp -r src/styles lib/styles",
     "clean": "rimraf lib",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src --max-warnings=0",
