@@ -7,7 +7,7 @@ import { noop, isEvent } from './utils'
 
 /**
  * A function that returns a React HOC for creating modals. 
- * Default styling for these modals can be pulled from the `modal.css` file included in this library via your scss:
+ * Styling for the default wrapper modal can be pulled from the `modal.css` file included in this library via your scss:
  * `@import "~@launchpadlab/lp-hoc/lib/styles/modal.css";`
  * 
  * Note: this HOC uses [`redux-modal`](https://github.com/yesmeck/redux-modal) under the hood. The reducer from `redux-modal` is exported for convenience as `modalReducer`.
@@ -20,6 +20,7 @@ import { noop, isEvent } from './utils'
  * @name modal
  * @type Function
  * @param {String} name - The name of the modal.
+ * @param {Function|Object} [component] - A custom modal component to use to wrap your component. This wrapper is passed the following props: `{ warning, disableOutsideClick, show, handleHide, children }`. If `null` is provided, no wrapper will be used.
  * @param {Boolean} [warning=false] - A boolean representing whether to add the `modal-warning` class to the surrounding `div`.
  * @param {Boolean} [destroyOnHide=true] - A boolean representing whether to destroy the modal state and unmount the modal after hide.
  * @param {Boolean} [disableOutsideClick=false] - A boolean representing whether clicking outside the modal div should hide the modal.
@@ -60,29 +61,39 @@ import { noop, isEvent } from './utils'
  * )(Layout)
 */
 
+// Default modal wrapper.
+// eslint-disable-next-line react/prop-types
+function DefaultModalComponent ({ warning, disableOutsideClick, show, handleHide, children }) {
+  return (
+    <BodyClassName className={ classnames({ 'modal-open': show }) }>
+      <div className={ classnames('modal', { 'modal-warning': warning, 'is-active': show })}>
+        <div className="modal-fade-screen" onClick={ disableOutsideClick ? noop : handleHide }>
+          <div className="modal-inner" onClick={ e => e.stopPropagation() }>
+            { children }
+          </div>
+        </div>
+      </div>
+    </BodyClassName>
+  )
+}
+
 function modal ({ 
   name,
   warning=false,
   disableOutsideClick=false,
+  component:ModalComponent=DefaultModalComponent,
   ...options 
 } = {}) {
   return WrappedComponent => {
     if (!name) throw new Error('Must provide name option')
-    /* eslint react/prop-types: 0 */
     function ModalWrapper (props) {
+      if (ModalComponent === null) return <WrappedComponent { ...props } />
       return (
-        <BodyClassName className={ classnames({ 'modal-open': props.show }) }>
-          <div className={ classnames('modal', { 'modal-warning': warning, 'is-active': props.show })}>
-            <div className="modal-fade-screen" onClick={ disableOutsideClick ? noop : props.handleHide }>
-              <div className="modal-inner" onClick={ e => e.stopPropagation() }>
-                <WrappedComponent { ...props } /> 
-              </div>
-            </div>
-          </div>
-        </BodyClassName>
+        <ModalComponent {...{ warning, disableOutsideClick, ...props }}>
+          <WrappedComponent { ...props } /> 
+        </ModalComponent>
       )
     }
-
     const connectedModalWrapper = connectModal({
       name,
       ...options,
