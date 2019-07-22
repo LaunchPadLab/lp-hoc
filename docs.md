@@ -310,7 +310,7 @@ Returns **[Object][72]** An object of corresponding propTypes.
 ## modal
 
 A function that returns a React HOC for creating modals. 
-Default styling for these modals can be pulled from the `modal.css` file included in this library via your scss:
+Styling for the default wrapper modal can be pulled from the `modal.css` file included in this library via your scss:
 `@import "~@launchpadlab/lp-hoc/lib/styles/modal.css";`
 
 Note: this HOC uses [`redux-modal`][73] under the hood. The reducer from `redux-modal` is exported for convenience as `modalReducer`.
@@ -324,6 +324,7 @@ The following functions are available as static properties on the wrapped compon
 ### Parameters
 
 -   `name` **[String][69]** The name of the modal.
+-   `component` **([Function][71] \| [Object][72])?** A custom modal component to use to wrap your component. This wrapper is passed the following props: `{ warning, disableOutsideClick, show, handleHide, children }`. If `null` is provided, no wrapper will be used.
 -   `warning` **[Boolean][74]** A boolean representing whether to add the `modal-warning` class to the surrounding `div`. (optional, default `false`)
 -   `destroyOnHide` **[Boolean][74]** A boolean representing whether to destroy the modal state and unmount the modal after hide. (optional, default `true`)
 -   `disableOutsideClick` **[Boolean][74]** A boolean representing whether clicking outside the modal div should hide the modal. (optional, default `false`)
