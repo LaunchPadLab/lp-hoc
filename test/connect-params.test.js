@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { connectParams } from '../src/'
 import { MemoryRouter } from 'react-router-dom'
-import { Route, Switch } from 'react-router-v4'
+import { Route, Switch } from 'react-router'
 
 describe('connectParams HOC for React Router v^4', () => {
   test('has the correct displayName', () => {
