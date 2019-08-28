@@ -33,7 +33,7 @@
     "README.md",
     "LICENSE.md",
     "lib/",
-    "src/"
+    "esm/"
   ],
   "dependencies": {
     "@launchpadlab/lp-requests": "^3.5.1",
