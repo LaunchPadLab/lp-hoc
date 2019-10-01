@@ -74,9 +74,10 @@ const DEFAULT_REQUEST_OPTIONS = {
   mode: 'cors',
 }
 
-// The default public id creator just returns the name of the file.
+// The default public id creator returns the sanitized name of the file via html escaping.
+// Source: https://support.cloudinary.com/hc/en-us/articles/115001317409--Legal-naming-conventions
 function defaultCreatePublicId (file) {
-  return file.name
+  return encodeURIComponent(file.name)
 }
 
 // Removes file extension from file name if asset is an image or pdf
