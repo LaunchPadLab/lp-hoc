@@ -122,6 +122,22 @@ test('cloudinaryUploader adds extension to `publicId` of raw files', () => {
   })
 })
 
+test('cloudinaryUploader adds html escaping to the default `publicId`', () => {
+  const illegallyNamedFile = { name: 'Final \\ Master Schedule? #S1&S2 <100%>.pdf', type: 'application/pdf' }
+  const forbiddenPattern = /[?&#\\<>]/
+  
+  const Wrapped = () => <h1>Howdy</h1>
+  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  
+  return upload(fileData, illegallyNamedFile).then(response => {
+    component.update()
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).not.toMatch(forbiddenPattern)
+  })
+})
+
 test('cloudinaryUploader throws an error if request fails', () => {
   const Wrapped = () => <h1>Hi</h1>
   const Wrapper = cloudinaryUploader({ ...props, endpoint: '/failure' })(Wrapped)
