@@ -74,10 +74,47 @@ const DEFAULT_REQUEST_OPTIONS = {
   mode: 'cors',
 }
 
-// The default public id creator returns the sanitized name of the file via html escaping.
-// Source: https://support.cloudinary.com/hc/en-us/articles/115001317409--Legal-naming-conventions
+// Test for all forbidden characters (defined by Cloudinary) and spaces
+const FILE_NAME_PATTERN = /[\s?&#\\%<>]/gi
+
+/**
+ * The default public id creator returns the sanitized name of the file by
+ * replacing invalid characters (incl. those that may be html escaped).
+ * Cloudinary does _not_ handle html escaping well via the API our their
+ * dashboard so it's best to avoid it entirely.
+ * 
+ * Source: https://support.cloudinary.com/hc/en-us/articles/115001317409--Legal-naming-conventions
+ */
 function defaultCreatePublicId (file) {
-  return encodeURIComponent(file.name)
+  const fileName = getFileName(file)
+  const decodedFileName = decodeFileName(fileName)
+  return sanitizeFileName(decodedFileName)
+}
+
+function getFileName (file) {
+  if (file.name) return file.name
+  return 'file_upload_' + Date.now()
+}
+
+// Attempts to decode html escaped characters. If this fails, attempts to strip
+// percentages not acting as valid html escaping and tries again. If all else
+// fails, returns the original name.
+function decodeFileName (name) {
+  try {
+    try {
+      return decodeURIComponent(name)
+    } catch (e) {
+      return decodeURIComponent(name.replace(/%(?=\D+)/gi, ''))
+    }
+  } catch (e) {
+    return name
+  }
+}
+
+// Replaces forbidden characters with '_' and removes duplicate underscores
+function sanitizeFileName (name) {
+  const validFileName = name.trim().replace(FILE_NAME_PATTERN, '_')
+  return validFileName.replace(/_+/gi, '_')
 }
 
 // Removes file extension from file name if asset is an image or pdf

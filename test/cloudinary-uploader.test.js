@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { cloudinaryUploader } from '../src/'
+import cloudinaryUploader from '../src/cloudinaryUploader'
 
 const props = {
   bucket: 'test-bucket',
@@ -122,10 +122,9 @@ test('cloudinaryUploader adds extension to `publicId` of raw files', () => {
   })
 })
 
-test('cloudinaryUploader adds html escaping to the default `publicId`', () => {
-  const illegallyNamedFile = { name: 'Final \\ Master Schedule? #S1&S2 <100%>.pdf', type: 'application/pdf' }
-  const forbiddenPattern = /[?&#\\<>]/
-  
+test('cloudinaryUploader removes invalid characters from the default `publicId`', () => {
+  const FORBIDDEN_PATTERN = /[\s?&#\\%<>]/gi
+  const illegallyNamedFile = { name: 'Final \\ Master %20 Schedule? #S1&S2 <100%> & finished.pdf', type: 'application/pdf' }
   const Wrapped = () => <h1>Howdy</h1>
   const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
   const component = shallow(<Wrapper />)
@@ -134,7 +133,68 @@ test('cloudinaryUploader adds html escaping to the default `publicId`', () => {
   return upload(fileData, illegallyNamedFile).then(response => {
     component.update()
     const responseJson = JSON.parse(response.body)
-    expect(responseJson.public_id).not.toMatch(forbiddenPattern)
+    expect(responseJson.public_id).not.toMatch(FORBIDDEN_PATTERN)
+  })
+})
+
+test('cloudinaryUploader removes html escaped characters from the default `publicId`', () => {
+  const illegallyNamedFile = { name: 'SY%20S1%26S2.pdf', type: 'application/pdf' }
+  const Wrapped = () => <h1>Howdy</h1>
+  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  
+  return upload(fileData, illegallyNamedFile).then(response => {
+    component.update()
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('SY_S1_S2')
+  })
+})
+
+test('cloudinaryUploader replaces spaces and removes superfluous underscores from the default `publicId`', () => {
+  const illegallyNamedFile = { name: '     SY     S1___S2.pdf', type: 'application/pdf' }
+  const Wrapped = () => <h1>Howdy</h1>
+  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  
+  return upload(fileData, illegallyNamedFile).then(response => {
+    component.update()
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('SY_S1_S2')
+  })
+})
+
+test('cloudinaryUploader trims spaces from the start of the default `publicId`', () => {
+  const illegallyNamedFile = { name: '     Example.pdf', type: 'application/pdf' }
+  const Wrapped = () => <h1>Howdy</h1>
+  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  
+  return upload(fileData, illegallyNamedFile).then(response => {
+    component.update()
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toEqual('Example')
+  })
+})
+
+test('cloudinaryUploader defaults file name if not provided when creating the default `publicId`', () => {
+  const fileWithNoName = { name: '', type: 'application/pdf' }
+  const Wrapped = () => <h1>Howdy</h1>
+  const Wrapper = cloudinaryUploader({ ...props })(Wrapped)
+  const component = shallow(<Wrapper />)
+  const { upload } = component.props()
+  
+  const spy = jest.spyOn(global.Date, 'now')
+  
+  return upload(fileData, fileWithNoName).then(response => {
+    component.update()
+    const responseJson = JSON.parse(response.body)
+    expect(responseJson.public_id).toContain('file_upload')
+    expect(spy).toHaveBeenCalled()
+    
+    spy.mockRestore()
   })
 })
 
