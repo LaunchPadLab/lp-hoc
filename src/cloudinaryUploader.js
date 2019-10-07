@@ -77,7 +77,7 @@ const DEFAULT_REQUEST_OPTIONS = {
 // Test for all forbidden characters (defined by Cloudinary) and spaces
 const FILE_NAME_PATTERN = /[\s?&#\\%<>]/gi
 
-/**
+/*
  * The default public id creator returns the sanitized name of the file by
  * replacing invalid characters (incl. those that may be html escaped).
  * Cloudinary does _not_ handle html escaping well via the API our their
