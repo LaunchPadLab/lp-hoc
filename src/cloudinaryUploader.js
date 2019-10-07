@@ -86,8 +86,14 @@ const FILE_NAME_PATTERN = /[\s?&#\\%<>]/gi
  * Source: https://support.cloudinary.com/hc/en-us/articles/115001317409--Legal-naming-conventions
  */
 function defaultCreatePublicId (file) {
-  const decodedFileName = decodeFileName(file.name || 'file_upload_' + Date.now())
+  const fileName = getFileName(file)
+  const decodedFileName = decodeFileName(fileName)
   return sanitizeFileName(decodedFileName)
+}
+
+function getFileName (file) {
+  if (file.name) return file.name
+  return 'file_upload_' + Date.now()
 }
 
 // Attempts to decode html escaped characters. If this fails, attempts to strip
