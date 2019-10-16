@@ -4,7 +4,7 @@ import { modal, modalReducer } from '../src/'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
-function createModalStore () {
+function createModalStore() {
   const reducer = combineReducers({ modal: modalReducer })
   return createStore(reducer)
 }
@@ -62,18 +62,26 @@ test('modal uses default modal component if none is specified', () => {
   const Wrapper = modal({ name: 'TestModal' })(Wrapped)
   const store = createModalStore()
   store.dispatch(Wrapper.show())
-  const modalComponent = mount(<Provider store={ store }><Wrapper /></Provider>)
+  const modalComponent = mount(
+    <Provider store={store}>
+      <Wrapper />
+    </Provider>
+  )
   expect(modalComponent.find('.modal').exists()).toBe(true)
   expect(modalComponent.find(Wrapped).exists()).toBe(true)
 })
 
 test('modal uses custom modal component if one is specified', () => {
   const Wrapped = () => <h1>Hi</h1>
-  const CustomModal = ({ children }) => <marquee>{ children }</marquee> // eslint-disable-line
+  const CustomModal = ({ children }) => <marquee>{children}</marquee> // eslint-disable-line
   const Wrapper = modal({ name: 'TestModal', component: CustomModal })(Wrapped)
   const store = createModalStore()
   store.dispatch(Wrapper.show())
-  const modalComponent = mount(<Provider store={ store }><Wrapper /></Provider>)
+  const modalComponent = mount(
+    <Provider store={store}>
+      <Wrapper />
+    </Provider>
+  )
   expect(modalComponent.find('.modal').exists()).toBe(false)
   expect(modalComponent.find(CustomModal).exists()).toBe(true)
   expect(modalComponent.find(Wrapped).exists()).toBe(true)
@@ -84,7 +92,11 @@ test('modal uses no wrapper if component argument is null', () => {
   const Wrapper = modal({ name: 'TestModal', component: null })(Wrapped)
   const store = createModalStore()
   store.dispatch(Wrapper.show())
-  const modalComponent = mount(<Provider store={ store }><Wrapper /></Provider>)
+  const modalComponent = mount(
+    <Provider store={store}>
+      <Wrapper />
+    </Provider>
+  )
   expect(modalComponent.find('.modal').exists()).toBe(false)
   expect(modalComponent.find(Wrapped).exists()).toBe(true)
 })
