@@ -56,6 +56,7 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
+    "@babel/polyfill": "^7.7.0",
     "@launchpadlab/babel-preset": "^2.1.0",
     "@launchpadlab/eslint-config": "^2.7.0",
     "@size-limit/preset-small-lib": "^2.1.6",

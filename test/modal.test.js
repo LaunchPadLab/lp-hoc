@@ -67,7 +67,7 @@ test('modal uses default modal component if none is specified', () => {
       <Wrapper />
     </Provider>
   )
-  expect(modalComponent.find('.modal').exists()).toBe(true)
+  expect(modalComponent.find('.modal-inner').exists()).toBe(true)
   expect(modalComponent.find(Wrapped).exists()).toBe(true)
 })
 
