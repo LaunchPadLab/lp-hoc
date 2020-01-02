@@ -1,7 +1,7 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
 import { connectModal, show, hide, destroy } from 'redux-modal'
-import { isEvent } from './utils'
+import { isEvent, isServer } from './utils'
 import Modal from 'react-modal'
 
 /**
@@ -60,6 +60,12 @@ import Modal from 'react-modal'
  * )(Layout)
  */
 
+function getRootElement () {
+  if (isServer()) return
+  // eslint-disable-next-line no-undef
+  return document.querySelector('#root')
+}
+
 // Default modal wrapper.
 function DefaultModalComponent({ show, handleHide, ...rest }) {
   return (
@@ -70,7 +76,7 @@ function DefaultModalComponent({ show, handleHide, ...rest }) {
       className="modal-inner"
       overlayClassName="modal-fade-screen"
       bodyOpenClassName="modal-open"
-      appElement={document.querySelector('#root')}
+      appElement={ getRootElement() }
       {...rest}
     />
   )

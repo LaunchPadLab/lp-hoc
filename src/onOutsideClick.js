@@ -1,5 +1,5 @@
 import React from 'react'
-import { callWithProps, wrapDisplayName } from './utils'
+import { callWithProps, wrapDisplayName, isServer } from './utils'
 
 /**
  * A function that returns a React HOC to handle logic to be run when a click occurs outside of a component.
@@ -51,6 +51,8 @@ export default function onOutsideClick (handler) {
        * Bind click handler to document on mount
        */
       componentDidMount () {
+        if (isServer()) return
+        // eslint-disable-next-line no-undef
         document.addEventListener('click', this.handleClickOutside)
       }
 
@@ -58,6 +60,8 @@ export default function onOutsideClick (handler) {
        * Unbind click handler from document on unmount
        */
       componentWillUnmount () {
+        if (isServer()) return
+        // eslint-disable-next-line no-undef
         document.removeEventListener('click', this.handleClickOutside)
       }
 
