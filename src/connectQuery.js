@@ -7,6 +7,7 @@ import {
   noop,
   parse,
   wrapDisplayName,
+  isServer,
 } from './utils'
 
 /**
@@ -49,6 +50,8 @@ import {
 
 function connectQuery (mappingConfig = noop, { camelize = true } = {}) {
   function modify (props) {
+    if (isServer()) return
+    // eslint-disable-next-line no-undef
     const query = parse(window.location.search)
     const casedQuery = camelize ? camelizeKeys(query) : query
     const primitiveQuery = mapValues(casedQuery, coerce)
