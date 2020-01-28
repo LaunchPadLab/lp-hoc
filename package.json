@@ -19,7 +19,7 @@
     "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
     "build:development": "BABEL_ENV=esm babel src --watch --out-dir esm",
     "build:styles": "cp -r src/styles lib/styles",
-    "clean": "rm -rf lib",
+    "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src --max-warnings=0",
     "precommit": "yarn run docs && git add docs.md",
