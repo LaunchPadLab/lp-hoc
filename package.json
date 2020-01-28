@@ -22,7 +22,6 @@
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src --max-warnings=0",
-    "precommit": "yarn run docs && git add docs.md",
     "prepublish": "npm run clean && npm run build",
     "test": "jest",
     "size": "yarn build && size-limit",
@@ -77,9 +76,9 @@
     "redux-modal": "^3.0.2",
     "size-limit": "^3.0.0"
   },
-  "greenkeeper": {
-    "ignore": [
-      "react-router"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run docs && git add docs.md"
+    }
   }
 }
