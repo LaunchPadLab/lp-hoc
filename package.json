@@ -1,6 +1,6 @@
 {
   "name": "@launchpadlab/lp-hoc",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "React HOCs",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -22,7 +22,6 @@
     "clean": "rm -rf lib esm",
     "docs": "documentation build src/index.js -f md -o docs.md",
     "lint": "eslint src --max-warnings=0",
-    "precommit": "yarn run docs && git add docs.md",
     "prepublish": "npm run clean && npm run build",
     "test": "jest",
     "size": "yarn build && size-limit",
@@ -59,15 +58,15 @@
     "@babel/polyfill": "^7.7.0",
     "@launchpadlab/babel-preset": "^2.1.0",
     "@launchpadlab/eslint-config": "^2.7.0",
-    "@size-limit/preset-small-lib": "^2.1.6",
+    "@size-limit/preset-small-lib": "^3.0.0",
     "codeclimate-test-reporter": "^0.5.0",
-    "documentation": "^12.1.1",
+    "documentation": "^12.1.4",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^6.1.0",
-    "husky": "^3.0.3",
+    "husky": "^4.2.1",
     "isomorphic-fetch": "^2.2.1",
-    "jest": "^24.8.0",
+    "jest": "^25.1.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^7.1.1",
@@ -75,11 +74,11 @@
     "react-router-dom": "^5.0.0",
     "react-router-v3": "npm:react-router@^3.0.0",
     "redux-modal": "^3.0.2",
-    "size-limit": "^2.1.6"
+    "size-limit": "^3.0.0"
   },
-  "greenkeeper": {
-    "ignore": [
-      "react-router"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run docs && git add docs.md"
+    }
   }
 }
