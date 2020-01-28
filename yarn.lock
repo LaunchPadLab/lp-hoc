@@ -9446,10 +9446,10 @@ recompose@^0.26.0:
     hoist-non-react-statics "^2.3.1"
     symbol-observable "^1.0.4"
 
-redux-modal@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/redux-modal/-/redux-modal-3.0.2.tgz#2eed8487890bc78231e1ca993ebb32fd7afd4efc"
-  integrity sha512-H4kuUvS4k/UDnI3doxHYsYSlkoGdovKXQ9RXVOBihTzZ3jgk2mTrReAwAJuHLeKooug5ybD1ruiz7EWPuvHYyw==
+redux-modal@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/redux-modal/-/redux-modal-4.0.0.tgz#27c9e50dfd5921c7e4541f11df7c68d31b4e03b0"
+  integrity sha512-N1JxjZbpkP3GyOBqEPnMP5Ik/VBEakDvdrXc3iu6+qPwsJ+Tj9uF0MvdA+Oxg43ZPHz1B1hGCZgCtvFUabFlRA==
   dependencies:
     hoist-non-react-statics "^3.0.0"
     prop-types "^15.5.10"
