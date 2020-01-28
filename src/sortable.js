@@ -120,7 +120,7 @@ export default function sortable (options={}) {
       }
 
       // Pass relevant props through to child
-      componentWillReceiveProps ({ ascending, sortPath, sortFunc }) {
+      UNSAFE_componentWillReceiveProps ({ ascending, sortPath, sortFunc }) {
         this.setState(omitUndefined({ ascending, sortPath, sortFunc }))
       }
 
