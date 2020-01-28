@@ -118,14 +118,14 @@ export default function sortable (options={}) {
         this.setSortFunc = this.setSortFunc.bind(this)
         this.setSortPath = this.setSortPath.bind(this)
       }
-
-      // Pass relevant props through to child
-      UNSAFE_componentWillReceiveProps ({ ascending, sortPath, sortFunc }) {
-        this.setState(omitUndefined({ ascending, sortPath, sortFunc }))
-      }
-
-      // Call onChange when sort state changes
+      
       componentDidUpdate (oldProps, oldState) {
+        // Pass relevant props through to child
+        if (!isEqual(oldProps, this.props)) {
+          const { ascending, sortPath, sortFunc } = this.props
+          return this.setState(omitUndefined({ ascending, sortPath, sortFunc }))
+        }
+        // Call onChange when sort state changes
         if (isEqual(oldState, this.state)) return 
         const { onChange } = this.config
         if (onChange) return onChange(this.state)
