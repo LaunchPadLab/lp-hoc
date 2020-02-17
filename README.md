@@ -20,9 +20,7 @@ function myMountFunction(props) {
 export default onMount(myMountFunction)(MyComponent)
 ```
 
-HOCs allow you to replicate the functionality of class-based components using functional components.
-
-The HOCs in this library can be combined with [recompose](https://github.com/acdlite/recompose/blob/master/docs/API.md) HOCs- in fact, you can think of this library as an extension to that one.
+HOCs allow you to replicate the functionality of class-based components using functional components. The HOCs in this library can be combined with those from [recompose](https://github.com/acdlite/recompose/blob/master/docs/API.md)- in fact, you can think of this library as an extension to that one.
 
 A list of all available HOCs can be found in the [documentation](#documentaiton).
 
