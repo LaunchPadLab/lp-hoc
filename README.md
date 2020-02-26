@@ -6,7 +6,7 @@ A set of React higher order components (HOCs).
 
 Higher order components _wrap_ components to give them extra functionality. For instance, defining a callback to be triggered when a component mounts:
 
-```js
+```jsx
 import { onMount } from '@launchpadlab/lp-hoc'
 
 function MyComponent() {
