@@ -7,12 +7,14 @@ const statuses = {
 }
 
 export default jest.fn(function(url, options) {
+  const payload = { ...options, url }
   const response = {
     // Response echoes back passed options
     headers: {
       get: () => {},
     },
-    json: () => Promise.resolve({ ...options, url }),
+    text: () => Promise.resolve(JSON.stringify(payload)),
+    json: () => Promise.resolve(payload),
     ok: !url.includes(failureUrl),
     status: statuses[url],
   }
