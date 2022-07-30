@@ -58,7 +58,7 @@
     "@babel/polyfill": "^7.7.0",
     "@launchpadlab/babel-preset": "^2.1.0",
     "@launchpadlab/eslint-config": "^2.7.0",
-    "@size-limit/preset-small-lib": "^3.0.0",
+    "@size-limit/preset-small-lib": "^8.0.0",
     "codeclimate-test-reporter": "^0.5.0",
     "documentation": "^12.1.4",
     "enzyme": "^3.2.0",
